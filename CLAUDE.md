@@ -1,0 +1,40 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev       # Start Remotion Studio (live preview at localhost)
+npm run build     # Bundle the video
+npm run lint      # Run ESLint + TypeScript type-check (eslint src && tsc)
+npx remotion render                              # Render default composition
+npx remotion render HelloWorld out/video.mp4    # Render specific composition
+```
+
+## Architecture
+
+This is a [Remotion](https://www.remotion.dev) project — videos are React components rendered frame-by-frame.
+
+**Entry point:** `src/index.ts` calls `registerRoot(RemotionRoot)`.
+
+**Compositions** are registered in `src/Root.tsx`. Each `<Composition>` defines a renderable video with an `id`, React component, `durationInFrames`, `fps`, dimensions, and optional zod `schema` for typed props.
+
+**Current compositions:**
+- `HelloWorld` — full composition (1920×1080, 150 frames @ 30fps) using `src/HelloWorld.tsx`
+- `OnlyLogo` — isolated logo component using `src/HelloWorld/Logo.tsx`
+
+**Key Remotion APIs used:**
+- `useCurrentFrame()` — returns current frame number
+- `useVideoConfig()` — returns `{ fps, durationInFrames, width, height }`
+- `spring()` / `interpolate()` — animation primitives
+- `<Sequence from={N}>` — delays child rendering by N frames
+- `<AbsoluteFill>` — shorthand for absolutely positioned full-size div
+
+**Prop validation:** Component props are typed via zod schemas using `z.object()` and `@remotion/zod-types` (e.g., `zColor()` for color values). Schemas are passed to `<Composition schema={...}>`.
+
+**Static assets** live in `public/` and are accessible at runtime via `staticFile()` from remotion.
+
+**Config** (`remotion.config.ts`): output format set to `jpeg`, overwrite output enabled.
+
+**Shared constants** (colors, fonts) live in `src/HelloWorld/constants.ts`.
