@@ -12,6 +12,10 @@ npx remotion render                              # Render default composition
 npx remotion render HelloWorld out/video.mp4    # Render specific composition
 ```
 
+## Core Requirements
+
+- **Always use 60fps** for VideoFactory compositions. This is a hard requirement — never change it.
+
 ## Architecture
 
 This is a [Remotion](https://www.remotion.dev) project — videos are React components rendered frame-by-frame.
@@ -21,8 +25,17 @@ This is a [Remotion](https://www.remotion.dev) project — videos are React comp
 **Compositions** are registered in `src/Root.tsx`. Each `<Composition>` defines a renderable video with an `id`, React component, `durationInFrames`, `fps`, dimensions, and optional zod `schema` for typed props.
 
 **Current compositions:**
-- `HelloWorld` — full composition (1920×1080, 150 frames @ 30fps) using `src/HelloWorld.tsx`
-- `OnlyLogo` — isolated logo component using `src/HelloWorld/Logo.tsx`
+- `HelloWorld` — original template composition (1920×1080, 150 frames @ 30fps)
+- `OnlyLogo` — isolated logo component from the template
+- `VideoFactory` — dynamic JSON-driven composition (1920×1080, 60fps); duration and props are computed at render time via `calculateMetadata` by fetching `public/config.json`
+
+**VideoFactory architecture (`src/VideoFactory/`):**
+- `types.ts` — `SceneConfig` and `VideoConfig` TypeScript types
+- `Scene.tsx` — renders a single scene from a `SceneConfig` (background color, etc.)
+- `VideoFactory.tsx` — sequences all scenes using `<Sequence>`, computing frame offsets from `durationInFrames`
+- `public/config.json` — scene definitions loaded at runtime via `staticFile("config.json")`
+
+`calculateMetadata` in `Root.tsx` fetches `config.json`, sums all scene `durationInFrames` for the total composition length, and passes the full config as props to `VideoFactory`.
 
 **Key Remotion APIs used:**
 - `useCurrentFrame()` — returns current frame number

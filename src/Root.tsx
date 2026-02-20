@@ -1,23 +1,19 @@
-import { Composition } from "remotion";
+import { Composition, staticFile } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
-
-// Each <Composition> is an entry in the sidebar!
+import { VideoFactory } from "./VideoFactory/VideoFactory";
+import { VideoConfig } from "./VideoFactory/types";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        // You can take the "id" to render a video:
-        // npx remotion render HelloWorld
         id="HelloWorld"
         component={HelloWorld}
         durationInFrames={150}
         fps={30}
         width={1920}
         height={1080}
-        // You can override these props for each render:
-        // https://www.remotion.dev/docs/parametrized-rendering
         schema={myCompSchema}
         defaultProps={{
           titleText: "Welcome to Remotion",
@@ -27,7 +23,6 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
 
-      {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
       <Composition
         id="OnlyLogo"
         component={Logo}
@@ -39,6 +34,30 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           logoColor1: "#91dAE2" as const,
           logoColor2: "#86A8E7" as const,
+        }}
+      />
+
+      <Composition
+        id="VideoFactory"
+        component={VideoFactory}
+        fps={60}
+        width={1920}
+        height={1080}
+        durationInFrames={1}
+        defaultProps={{ scenes: [] } as VideoConfig}
+        calculateMetadata={async ({ abortSignal }) => {
+          const response = await fetch(staticFile("config.json"), {
+            signal: abortSignal,
+          });
+          const config: VideoConfig = await response.json();
+          const totalFrames = config.scenes.reduce(
+            (sum, scene) => sum + scene.durationInFrames,
+            0,
+          );
+          return {
+            durationInFrames: totalFrames,
+            props: config,
+          };
         }}
       />
     </>

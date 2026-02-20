@@ -1,0 +1,8 @@
+{
+  "scenes": [
+    { "id": "scene-1", "backgroundColor": "#D3D3D3", "durationInFrames": 300 },
+    { "id": "scene-2", "backgroundColor": "#878787", "durationInFrames": 300 },
+    { "id": "scene-3", "backgroundColor": "#5E5E5E", "durationInFrames": 300 },
+    { "id": "scene-4", "backgroundColor": "#363636", "durationInFrames": 300 }
+  ]
+}
