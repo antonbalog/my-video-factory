@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="400"
+     height="400"
+     viewBox="0 0 124 124"
+     fill="none">
+
+  <defs>
+    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCC" />
+      <stop offset="100%" stop-color="#FF8DA1" />
+    </linearGradient>
+  </defs>
+
+  <g stroke="#222"
+     stroke-width="2"
+     fill="url(#brainGradient)"
+     stroke-linejoin="round"
+     stroke-linecap="round"
+     transform="translate(2 -8)"
+    >
+    <!-- Brain body -->
+    <path d="
+      M50 50
+      L75 50
+      L75 55
+      L85 55
+      L85 60
+      L90 60
+      L90 70
+      L80 70
+      L80 75
+      L70 75
+      L70 80
+      L60 80
+      L60 85
+      L50 85
+      L50 90
+      L45 90
+      L45 85
+      L40 85
+      L40 80
+      L35 80
+      L35 75
+      L30 75
+      L30 60
+      L35 60
+      L35 55
+      L40 55
+      L45 55
+      L45 50
+      Z
+    " />
+    <!-- Left eye -->
+    <rect x="45" y="55" width="20" height="20" fill="#FFF" />
+    <!-- Right eye -->
+    <rect x="70" y="60" width="10" height="10" fill="#FFF" />
+    <!-- Left eye pupil -->
+    <rect x="60" y="65" width="2" height="2" fill="#222" />
+    <!-- Right eye pupil -->
+    <rect x="73" y="65" width="2" height="2" fill="#222" />
+    <!-- Mouth -->
+    <rect x="60" y="75" width="15" height="5" fill="#780606" />
+  </g>
+</svg>

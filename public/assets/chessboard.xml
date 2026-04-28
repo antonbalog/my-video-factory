@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 20 20" fill="none">
+  <defs>
+    <!-- 10px squares -> 20px repeating tile -->
+    <pattern id="chessboard" patternUnits="userSpaceOnUse" width="20" height="20">
+      <!-- base color -->
+      <rect width="20" height="20" fill="#141414"/>
+      <!-- alternating squares -->
+      <rect x="0" y="0" width="10" height="10" fill="#1F1F1F"/>
+      <rect x="10" y="10" width="10" height="10" fill="#1F1F1F"/>
+    </pattern>
+  </defs>
+
+  <!-- fill the whole SVG with the pattern -->
+  <rect width="100%" height="100%" fill="url(#chessboard)"/>
+</svg>

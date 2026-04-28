@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Projects\\remotion\\my-video-factory\\public\\audio\\scene-4-dirtbag-6.wav",
+    "duration": 2.90
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.16, "value": "X" },
+    { "start": 0.16, "end": 0.29, "value": "D" },
+    { "start": 0.29, "end": 0.43, "value": "B" },
+    { "start": 0.43, "end": 0.64, "value": "F" },
+    { "start": 0.64, "end": 0.78, "value": "C" },
+    { "start": 0.78, "end": 0.85, "value": "E" },
+    { "start": 0.85, "end": 0.92, "value": "C" },
+    { "start": 0.92, "end": 0.99, "value": "B" },
+    { "start": 0.99, "end": 1.07, "value": "A" },
+    { "start": 1.07, "end": 1.18, "value": "B" },
+    { "start": 1.18, "end": 1.25, "value": "C" },
+    { "start": 1.25, "end": 1.32, "value": "B" },
+    { "start": 1.32, "end": 1.39, "value": "F" },
+    { "start": 1.39, "end": 1.60, "value": "B" },
+    { "start": 1.60, "end": 1.90, "value": "A" },
+    { "start": 1.90, "end": 2.00, "value": "B" },
+    { "start": 2.00, "end": 2.07, "value": "C" },
+    { "start": 2.07, "end": 2.14, "value": "B" },
+    { "start": 2.14, "end": 2.90, "value": "X" }
+  ]
+}

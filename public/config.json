@@ -1,8 +1,390 @@
-{
-  "scenes": [
-    { "id": "scene-1", "backgroundColor": "#D3D3D3", "durationInFrames": 300 },
-    { "id": "scene-2", "backgroundColor": "#878787", "durationInFrames": 300 },
-    { "id": "scene-3", "backgroundColor": "#5E5E5E", "durationInFrames": 300 },
-    { "id": "scene-4", "backgroundColor": "#363636", "durationInFrames": 300 }
-  ]
+﻿{
+    "music":  {
+                  "src":  "assets/beat.mp3",
+                  "volume":  0.3
+              },
+    "defaultBackground":  {
+                              "type":  "chessboard",
+                              "tileSize":  80,
+                              "color1":  "#141414",
+                              "color2":  "#1F1F1F"
+                          },
+    "defaultCharacters":  [
+
+                          ],
+    "scenes":  [
+                   {
+                       "id":  "intro",
+                       "durationInFrames":  120,
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2,
+                                              "nameTag":  {
+                                                              "label":  "dirtbag",
+                                                              "color":  "#F3E5AB"
+                                                          }
+                                          }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "dirtbag",
+                                              "type":  "wave-intro",
+                                              "atMs":  0
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-1",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-1-dirtbag-1.mp3",
+                                         "subtitles":  "audio/scene-1-dirtbag-1.vtt",
+                                         "mouthCues":  "audio/scene-1-dirtbag-1-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2,
+                                              "nameTag":  {
+                                                              "label":  "dirtbag",
+                                                              "color":  "#F3E5AB"
+                                                          }
+                                          },
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.25,
+                                              "y":  0.5,
+                                              "size":  2,
+                                              "nameTag":  {
+                                                              "label":  " bryan",
+                                                              "color":  "#FF8DA1",
+                                                              "strikePrefix":  "brain"
+                                                          }
+                                          }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "bryan",
+                                              "type":  "glitch-in",
+                                              "atMs":  0
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-2",
+                       "tileSize":  200,
+                       "transition":  "zoom-in",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-2-bryan-1.mp3",
+                                         "subtitles":  "audio/scene-2-bryan-1.vtt",
+                                         "mouthCues":  "audio/scene-2-bryan-1-mouth.json",
+                                         "characterId":  "bryan"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.5,
+                                              "y":  0.5,
+                                              "size":  5
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-3",
+                       "tileSize":  200,
+                       "transition":  "zoom-in",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-3-dirtbag-1.mp3",
+                                         "subtitles":  "audio/scene-3-dirtbag-1.vtt",
+                                         "mouthCues":  "audio/scene-3-dirtbag-1-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.5,
+                                              "y":  0.5,
+                                              "size":  5
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-4",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-4-bryan-1.mp3",
+                                         "subtitles":  "audio/scene-4-bryan-1.vtt",
+                                         "mouthCues":  "audio/scene-4-bryan-1-mouth.json",
+                                         "characterId":  "bryan"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-dirtbag-2.mp3",
+                                         "subtitles":  "audio/scene-4-dirtbag-2.vtt",
+                                         "mouthCues":  "audio/scene-4-dirtbag-2-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-bryan-3.mp3",
+                                         "subtitles":  "audio/scene-4-bryan-3.vtt",
+                                         "mouthCues":  "audio/scene-4-bryan-3-mouth.json",
+                                         "characterId":  "bryan",
+                                         "censoredWords":  [
+                                                               "shit"
+                                                           ],
+                                         "bleeps":  [
+                                                        {
+                                                            "startMs":  1048,
+                                                            "endMs":  1848
+                                                        }
+                                                    ]
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-dirtbag-4.mp3",
+                                         "subtitles":  "audio/scene-4-dirtbag-4.vtt",
+                                         "mouthCues":  "audio/scene-4-dirtbag-4-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-bryan-5.mp3",
+                                         "subtitles":  "audio/scene-4-bryan-5.vtt",
+                                         "mouthCues":  "audio/scene-4-bryan-5-mouth.json",
+                                         "characterId":  "bryan"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-dirtbag-6.mp3",
+                                         "subtitles":  "audio/scene-4-dirtbag-6.vtt",
+                                         "mouthCues":  "audio/scene-4-dirtbag-6-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-bryan-7.mp3",
+                                         "subtitles":  "audio/scene-4-bryan-7.vtt",
+                                         "mouthCues":  "audio/scene-4-bryan-7-mouth.json",
+                                         "characterId":  "bryan"
+                                     },
+                                     {
+                                         "src":  "audio/scene-4-dirtbag-8.mp3",
+                                         "subtitles":  "audio/scene-4-dirtbag-8.vtt",
+                                         "mouthCues":  "audio/scene-4-dirtbag-8-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.25,
+                                              "y":  0.5,
+                                              "size":  2
+                                          },
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2
+                                          }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "dirtbag",
+                                              "type":  "fortnite-dance",
+                                              "atMs":  3000,
+                                              "params":  {
+                                                             "cycles":  4
+                                                         }
+                                          },
+                                          {
+                                              "characterId":  "bryan",
+                                              "type":  "tv-glitch",
+                                              "atMs":  3000
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-5",
+                       "tileSize":  200,
+                       "transition":  "zoom-in",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-5-bryan-1.mp3",
+                                         "subtitles":  "audio/scene-5-bryan-1.vtt",
+                                         "mouthCues":  "audio/scene-5-bryan-1-mouth.json",
+                                         "characterId":  "bryan",
+                                         "censoredWords":  [
+                                                               "bullshit"
+                                                           ],
+                                         "bleeps":  [
+                                                        {
+                                                            "startMs":  1413,
+                                                            "endMs":  2213
+                                                        }
+                                                    ]
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.5,
+                                              "y":  0.5,
+                                              "size":  5
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-6",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-6-dirtbag-1.mp3",
+                                         "subtitles":  "audio/scene-6-dirtbag-1.vtt",
+                                         "mouthCues":  "audio/scene-6-dirtbag-1-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     },
+                                     {
+                                         "src":  "audio/scene-6-bryan-2.mp3",
+                                         "subtitles":  "audio/scene-6-bryan-2.vtt",
+                                         "mouthCues":  "audio/scene-6-bryan-2-mouth.json",
+                                         "characterId":  "bryan"
+                                     },
+                                     {
+                                         "src":  "audio/scene-6-bryan-3.mp3",
+                                         "subtitles":  "audio/scene-6-bryan-3.vtt",
+                                         "mouthCues":  "audio/scene-6-bryan-3-mouth.json",
+                                         "characterId":  "bryan"
+                                     },
+                                     {
+                                         "src":  "audio/scene-6-dirtbag-4.mp3",
+                                         "subtitles":  "audio/scene-6-dirtbag-4.vtt",
+                                         "mouthCues":  "audio/scene-6-dirtbag-4-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     },
+                                     {
+                                         "src":  "audio/scene-6-bryan-5.mp3",
+                                         "subtitles":  "audio/scene-6-bryan-5.vtt",
+                                         "mouthCues":  "audio/scene-6-bryan-5-mouth.json",
+                                         "characterId":  "bryan"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2
+                                          },
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.25,
+                                              "y":  0.5,
+                                              "size":  2
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-7",
+                       "tileSize":  200,
+                       "transition":  "zoom-in",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-7-bryan-1.mp3",
+                                         "subtitles":  "audio/scene-7-bryan-1.vtt",
+                                         "mouthCues":  "audio/scene-7-bryan-1-mouth.json",
+                                         "characterId":  "bryan"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.5,
+                                              "y":  0.5,
+                                              "size":  5
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-8",
+                       "tileSize":  200,
+                       "transition":  "zoom-out",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-8-dirtbag-1.mp3",
+                                         "subtitles":  "audio/scene-8-dirtbag-1.vtt",
+                                         "mouthCues":  "audio/scene-8-dirtbag-1-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.5,
+                                              "y":  0.5,
+                                              "size":  5
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "scene-9",
+                       "audio":  [
+                                     {
+                                         "src":  "audio/scene-9-dirtbag-1.mp3",
+                                         "subtitles":  "audio/scene-9-dirtbag-1.vtt",
+                                         "mouthCues":  "audio/scene-9-dirtbag-1-mouth.json",
+                                         "characterId":  "dirtbag"
+                                     }
+                                 ],
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2
+                                          },
+                                          {
+                                              "id":  "bryan",
+                                              "x":  0.25,
+                                              "y":  0.5,
+                                              "size":  2
+                                          }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "bryan",
+                                              "type":  "glitch-out",
+                                              "atMs":  0
+                                          }
+                                      ]
+                   },
+                   {
+                       "id":  "outro",
+                       "durationInFrames":  120,
+                       "characters":  [
+                                          {
+                                              "id":  "dirtbag",
+                                              "x":  0.75,
+                                              "y":  0.5,
+                                              "size":  2,
+                                              "nameTag":  {
+                                                              "label":  "dirtbag",
+                                                              "color":  "#F3E5AB"
+                                                          }
+                                          }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "dirtbag",
+                                              "type":  "wave-outro",
+                                              "atMs":  0
+                                          }
+                                      ]
+                   }
+               ]
 }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="400"
+     height="400"
+     viewBox="0 0 124 124"
+     fill="none">
+
+  <rect x="2.5" y="2.5" width="119" height="119" fill="none" stroke="#222" stroke-width="5" >
+    <!-- colors from pallete (https://www.figma.com/colors/snow/) Neutrals, Snow -->
+    <animate attributeName="fill"
+      values="#FFFAFA; #FAFFFA; #FAF2FA; #FFFAFA"
+      dur="2s"
+      repeatCount="indefinite"/>
+  </rect>
+</svg>

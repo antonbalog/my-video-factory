@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Projects\\remotion\\my-video-factory\\public\\audio\\scene-6-bryan-3.wav",
+    "duration": 1.60
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.11, "value": "X" },
+    { "start": 0.11, "end": 0.52, "value": "B" },
+    { "start": 0.52, "end": 0.60, "value": "A" },
+    { "start": 0.60, "end": 0.85, "value": "B" },
+    { "start": 0.85, "end": 1.60, "value": "X" }
+  ]
+}
