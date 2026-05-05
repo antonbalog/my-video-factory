@@ -81,6 +81,7 @@ if I was you
 
 
 === scene-12 ===
+@animate: dirtbag thumb-up at=0s
 [dirtbag]
 And hey! Subscribe! 
 Don't let my mom be my only subscriber

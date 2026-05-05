@@ -394,6 +394,13 @@
                                               "y":  0.5,
                                               "size":  2
                                           }
+                                      ],
+                       "animations":  [
+                                          {
+                                              "characterId":  "dirtbag",
+                                              "type":  "thumb-up",
+                                              "atMs":  0
+                                          }
                                       ]
                    },
                    {
@@ -495,5 +502,3 @@
                    }
                ]
 }
-
-

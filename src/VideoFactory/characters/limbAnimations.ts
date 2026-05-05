@@ -1,10 +1,12 @@
-import { interpolate } from "remotion";
+import { Easing, interpolate } from "remotion";
 
 export type LimbState = {
   right: { x: number; y: number } | null;
   left: { x: number; y: number };
   rightBehind: boolean;
   leftBehind: boolean;
+  thumb?: { x: number; y: number } | null;
+  thumbBehind?: boolean;
 };
 
 type AnimDef = {
@@ -96,6 +98,78 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
           leftBehind: false,
         };
       }
+    },
+  },
+
+  "thumb-up": {
+    duration: () => 180,
+    evaluate: (lf) => {
+      const easing = Easing.inOut(Easing.quad);
+      const HAND_REST_X = 65, HAND_REST_Y = 100;
+      const HAND_TARGET_X = 45, HAND_TARGET_Y = 90;
+      const THUMB_DX = 5, THUMB_DY = 2.5;
+      const THUMB_OUT_Y = 85;
+
+      let handX: number, handY: number, thumbX: number, thumbY: number;
+      if (lf < 30) {
+        handX = interpolate(lf, [0, 29], [HAND_REST_X, HAND_TARGET_X], { extrapolateRight: "clamp", easing });
+        handY = interpolate(lf, [0, 29], [HAND_REST_Y, HAND_TARGET_Y], { extrapolateRight: "clamp", easing });
+        thumbX = handX + THUMB_DX;
+        thumbY = handY + THUMB_DY;
+      } else if (lf < 60) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX;
+        thumbY = interpolate(lf, [30, 59], [HAND_TARGET_Y + THUMB_DY, THUMB_OUT_Y], { extrapolateRight: "clamp", easing });
+      } else if (lf < 120) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX; thumbY = THUMB_OUT_Y;
+      } else if (lf < 150) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX;
+        thumbY = interpolate(lf, [120, 149], [THUMB_OUT_Y, HAND_TARGET_Y + THUMB_DY], { extrapolateRight: "clamp", easing });
+      } else {
+        handX = interpolate(lf, [150, 179], [HAND_TARGET_X, HAND_REST_X], { extrapolateRight: "clamp", easing });
+        handY = interpolate(lf, [150, 179], [HAND_TARGET_Y, HAND_REST_Y], { extrapolateRight: "clamp", easing });
+        thumbX = handX + THUMB_DX;
+        thumbY = handY + THUMB_DY;
+      }
+      return { ...DEFAULT, right: { x: handX, y: handY }, rightBehind: true, thumb: { x: thumbX, y: thumbY }, thumbBehind: true };
+    },
+  },
+
+  "thumb-down": {
+    duration: () => 180,
+    evaluate: (lf) => {
+      const easing = Easing.inOut(Easing.quad);
+      const HAND_REST_X = 65, HAND_REST_Y = 100;
+      const HAND_TARGET_X = 45, HAND_TARGET_Y = 90;
+      const THUMB_DX = 5, THUMB_DY = 2.5;
+      const THUMB_OUT_Y = 100;
+
+      let handX: number, handY: number, thumbX: number, thumbY: number;
+      if (lf < 30) {
+        handX = interpolate(lf, [0, 29], [HAND_REST_X, HAND_TARGET_X], { extrapolateRight: "clamp", easing });
+        handY = interpolate(lf, [0, 29], [HAND_REST_Y, HAND_TARGET_Y], { extrapolateRight: "clamp", easing });
+        thumbX = handX + THUMB_DX;
+        thumbY = handY + THUMB_DY;
+      } else if (lf < 60) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX;
+        thumbY = interpolate(lf, [30, 59], [HAND_TARGET_Y + THUMB_DY, THUMB_OUT_Y], { extrapolateRight: "clamp", easing });
+      } else if (lf < 120) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX; thumbY = THUMB_OUT_Y;
+      } else if (lf < 150) {
+        handX = HAND_TARGET_X; handY = HAND_TARGET_Y;
+        thumbX = HAND_TARGET_X + THUMB_DX;
+        thumbY = interpolate(lf, [120, 149], [THUMB_OUT_Y, HAND_TARGET_Y + THUMB_DY], { extrapolateRight: "clamp", easing });
+      } else {
+        handX = interpolate(lf, [150, 179], [HAND_TARGET_X, HAND_REST_X], { extrapolateRight: "clamp", easing });
+        handY = interpolate(lf, [150, 179], [HAND_TARGET_Y, HAND_REST_Y], { extrapolateRight: "clamp", easing });
+        thumbX = handX + THUMB_DX;
+        thumbY = handY + THUMB_DY;
+      }
+      return { ...DEFAULT, right: { x: handX, y: handY }, rightBehind: true, thumb: { x: thumbX, y: thumbY }, thumbBehind: true };
     },
   },
 

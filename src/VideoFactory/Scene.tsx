@@ -81,7 +81,8 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
     return 0;
   };
   return (
-    <AbsoluteFill style={{ transform: `scale(${scale})` }}>
+    <AbsoluteFill>
+      <AbsoluteFill style={{ transform: `scale(${scale})` }}>
       {renderBackground(bg)}
       {(config.audio ?? []).map((clip) => (
         <Sequence key={clip.src} from={clip.startFrame ?? 0} durationInFrames={clip.durationInFrames}>
@@ -117,14 +118,6 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
           <Audio src={staticFile(sfx.src)} volume={() => sfx.volume ?? 1} />
         </Sequence>
       ))}
-      {config.captions && config.captions.length > 0 && (
-        <SubtitleOverlay
-          captions={config.captions}
-          audio={config.audio}
-          charColors={charColors}
-          censoredWords={(config.audio ?? []).flatMap((c) => c.censoredWords ?? [])}
-        />
-      )}
       {characters.map((char) => {
         const CharComponent = characterRegistry[char.id];
         if (!CharComponent) return null;
@@ -164,6 +157,15 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
           </React.Fragment>
         );
       })}
+      </AbsoluteFill>
+      {config.captions && config.captions.length > 0 && (
+        <SubtitleOverlay
+          captions={config.captions}
+          audio={config.audio}
+          charColors={charColors}
+          censoredWords={(config.audio ?? []).flatMap((c) => c.censoredWords ?? [])}
+        />
+      )}
     </AbsoluteFill>
   );
 };
