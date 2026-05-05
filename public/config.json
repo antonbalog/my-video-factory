@@ -199,8 +199,8 @@
                                                            ],
                                          "bleeps":  [
                                                         {
-                                                            "startMs":  1048,
-                                                            "endMs":  1848
+                                                            "startMs":  1472,
+                                                            "endMs":  2272
                                                         }
                                                     ]
                                      },
@@ -399,7 +399,7 @@
                                           {
                                               "characterId":  "dirtbag",
                                               "type":  "thumb-up",
-                                              "atMs":  0
+                                              "atMs":  1000
                                           }
                                       ]
                    },

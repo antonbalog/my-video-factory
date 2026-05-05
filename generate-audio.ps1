@@ -401,7 +401,9 @@ foreach ($clip in $clips) {
     Write-Host "  done."
 }
 
-$config | ConvertTo-Json -Depth 10 | Set-Content -Path $configFile -Encoding UTF8
+$tmpConfig = $configFile + ".tmp"
+$config | ConvertTo-Json -Depth 10 | Set-Content -Path $tmpConfig -Encoding UTF8
+Move-Item -Path $tmpConfig -Destination $configFile -Force
 Write-Host "config.json written - $($scenesJson.Count) scenes"
 
 Write-Host "All done."

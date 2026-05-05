@@ -1,5 +1,5 @@
 === intro durationInFrames=120 ===
-[dirtbag nametag wave=intro]
+[dirtbag nametag wave=intro]    
 
 === scene-1 ===
 @animate: bryan glitch-in at=0s
@@ -12,7 +12,7 @@ Hello! This is my very first video!
 @tileSize: 200
 @transition: zoom-in
 [bryan size=5 x=0.5]
-Oh my gosh!
+And hopefully the last
 
 === scene-3 ===
 @tileSize: 200
@@ -24,7 +24,7 @@ I hope it doesn't [suck]
 @tileSize: 200
 @transition: zoom-in
 [bryan size=5 x=0.5]
-It does
+It already does
 
 === scene-5 ===
 [dirtbag]
@@ -41,13 +41,13 @@ He's addicted and needs help
 And I want to make stuff people actually enjoy watching
 
 [bryan]
-He's lazy piece of [shit]!
+He wants to be lazy piece of [shit]!
 
 [dirtbag]
 I don't know exactly where this will go yet
 
 [bryan]
-Nowhere, like always
+Nowhere
 
 [dirtbag]
 but I do know I'm going to keep it real
@@ -72,16 +72,15 @@ Please don't support this [bullshit]!
 you might want to stick around
 
 [bryan]
-I would rather watch Bonnie Blue or Lily Phillips
+I would rather watch ads
 
 === scene-11 ===
 [bryan size=5 x=0.5]
 @transition: zoom-in
 if I was you
 
-
 === scene-12 ===
-@animate: dirtbag thumb-up at=0s
+@animate: dirtbag thumb-up at=1s
 [dirtbag]
 And hey! Subscribe! 
 Don't let my mom be my only subscriber
