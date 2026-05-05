@@ -24,7 +24,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#F3E5AB"
+                                                              "color":  "#FFFFFF"
                                                           }
                                           }
                                       ],
@@ -54,7 +54,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#F3E5AB"
+                                                              "color":  "#FFFFFF"
                                                           }
                                           },
                                           {
@@ -481,7 +481,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#F3E5AB"
+                                                              "color":  "#FFFFFF"
                                                           }
                                           }
                                       ],
@@ -495,3 +495,5 @@
                    }
                ]
 }
+
+

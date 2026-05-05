@@ -49,7 +49,7 @@ $charDefaults = @{
 }
 
 $charNameTags = @{
-    "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#F3E5AB" }
+    "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#FFFFFF" }
     "bryan"   = [ordered]@{ label = " bryan"; color = "#FF8DA1"; strikePrefix = "brain" }
 }
 
