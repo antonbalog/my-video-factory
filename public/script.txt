@@ -2,8 +2,8 @@
 [dirtbag nametag wave=intro]
 
 === scene-1 ===
+@animate: bryan glitch-in at=0s
 [dirtbag nametag]
-@animate: bryan glitch-in at=0s  
 Hello! This is my very first video!
 
 [bryan nametag]
@@ -16,13 +16,24 @@ Oh my gosh!
 
 === scene-3 ===
 @tileSize: 200
-@transition: zoom-in
+@transition: zoom-out
 [dirtbag size=5 x=0.5]
-I love the internet way too much
+I hope it doesn't [suck]
 
 === scene-4 ===
+@tileSize: 200
+@transition: zoom-in
+[bryan size=5 x=0.5]
+It does
+
+=== scene-5 ===
+[dirtbag]
+I love the internet way too much
+
+[bryan]
+
+=== scene-6 ===
 @animate: dirtbag fortnite-dance at=3s cycles=4
-@animate: bryan tv-glitch at=3s
 [bryan]
 He's addicted and needs help
 
@@ -36,55 +47,62 @@ He's lazy piece of [shit]!
 I don't know exactly where this will go yet
 
 [bryan]
-Nowhere
+Nowhere, like always
 
 [dirtbag]
 but I do know I'm going to keep it real
 
 [bryan]
-He should be job seeking, for real
+He needs to get a job
 
+=== scene-8 ===
+[bryan size=5 x=0.5]
+@transition: zoom-in
+For real
+
+=== scene-9 ===
 [dirtbag]
 So if you like honest, slightly chaotic content
 
-=== scene-5 ===
-@tileSize: 200
-@transition: zoom-in
-[bryan size=5 x=0.5]
+[bryan]
 Please don't support this [bullshit]!
 
-=== scene-6 ===
+=== scene-10 ===
 [dirtbag]
 you might want to stick around
 
 [bryan]
 I would rather watch Bonnie Blue or Lily Phillips
-[bryan]
+
+=== scene-11 ===
+[bryan size=5 x=0.5]
+@transition: zoom-in
 if I was you
 
-[dirtbag]
-And hey! Subscribe! Don't let my mom be my only subscriber
 
+=== scene-12 ===
+[dirtbag]
+And hey! Subscribe! 
+Don't let my mom be my only subscriber
 
 [bryan]
 His mom doesn't know about this
 
-=== scene-7 ===
+=== scene-13 ===
 @tileSize: 200
 @transition: zoom-in
-
 [bryan size=5 x=0.5]
 You know you don't have to do it
 
-=== scene-8 ===
+=== scene-14 ===
 @tileSize: 200
 @transition: zoom-out
 [dirtbag size=5 x=0.5]
 Please!
 
-=== scene-9 ===
+=== scene-15 ===
+@animate: bryan glitch-out at=0s
 [dirtbag]
-@animate: bryan glitch-out at=0s  
 I would love to have a friend!
 
 [bryan]
