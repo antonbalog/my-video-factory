@@ -101,6 +101,7 @@ You know you don't have to do it
 Please!
 
 === scene-15 ===
+@animate: dirtbag cry at=0s
 @animate: bryan glitch-out at=0s
 [dirtbag]
 I would love to have a friend!

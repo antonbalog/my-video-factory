@@ -1,7 +1,8 @@
 ﻿{
     "music":  {
-                  "src":  "assets/beat.mp3",
-                  "volume":  0.3
+                  "intro":  { "src": "assets/intro.wav", "volume": 1.0 },
+                  "loop":   { "src": "assets/loop.wav",  "volume": 0.3 },
+                  "outro":  { "src": "assets/outro.wav", "volume": 1.0 }
               },
     "defaultBackground":  {
                               "type":  "chessboard",
@@ -470,6 +471,11 @@
                                           }
                                       ],
                        "animations":  [
+                                          {
+                                              "characterId":  "dirtbag",
+                                              "type":  "cry",
+                                              "atMs":  0
+                                          },
                                           {
                                               "characterId":  "bryan",
                                               "type":  "glitch-out",

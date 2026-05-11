@@ -24,6 +24,11 @@
      stroke-linecap="round"
      transform="translate(-13 -8)"
     >
+    <!-- Right Hand -->
+    <rect x="65" y="100" width="10" height="10" fill="url(#headGradient)" />
+    <!-- Right Thumb -->
+    <rect x="70" y="102.5" width="5" height="5" fill="url(#headGradient)" />
+    
     <!-- Body -->
     <path d="
       M60 80
@@ -37,7 +42,7 @@
       L65 80
       Z
     " />
-
+    
     <!-- Head -->
     <rect x="55" y="40" width="40" height="40" fill="url(#headGradient)" />
     <!-- Left eye -->
@@ -50,5 +55,13 @@
     <rect x="73" y="65" width="2" height="2" fill="#222" />
     <!-- Mouth -->
     <rect x="60" y="75" width="15" height="5" fill="#780606" />
+
+    <!-- Left Hand -->
+    <rect x="75" y="100" width="10" height="10" fill="url(#headGradient)" />
+    
+    <!-- Tear -->
+    <rect x="85" y="70" width="5" height="5" fill="#00FFF0" />
+    <!-- <rect x="85" y="115" width="5" height="5" fill="#00FFF0" /> -->
+    
   </g>
 </svg>

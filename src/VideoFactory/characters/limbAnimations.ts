@@ -1,4 +1,5 @@
 import { Easing, interpolate } from "remotion";
+import { DB } from "./dirtbag-anatomy";
 
 export type LimbState = {
   right: { x: number; y: number } | null;
@@ -7,6 +8,7 @@ export type LimbState = {
   leftBehind: boolean;
   thumb?: { x: number; y: number } | null;
   thumbBehind?: boolean;
+  tear?: { y: number; opacity: number; height: number } | null;
 };
 
 type AnimDef = {
@@ -16,16 +18,16 @@ type AnimDef = {
 
 const DEFAULT: LimbState = {
   right: null,
-  left: { x: 75, y: 100 },
+  left: { x: DB.L_ARM_X, y: DB.L_ARM_Y },
   rightBehind: true,
   leftBehind: false,
 };
 
 const WAVE_FRAMES = 100;
 const TRANS_FRAMES = 20;
-const REST_X = 65;
-const REST_Y = 100;
-const WAVE_Y = 60;
+const REST_X = DB.R_ARM_X;
+const REST_Y = DB.R_ARM_Y;
+const WAVE_Y = DB.WAVE_Y;
 
 const FORTNITE_RIGHT_X      = [85, 45, 85, 45, 85, 45];
 const FORTNITE_LEFT_X       = [95, 55, 95, 55, 95, 55];
@@ -105,10 +107,10 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
     duration: () => 180,
     evaluate: (lf) => {
       const easing = Easing.inOut(Easing.quad);
-      const HAND_REST_X = 65, HAND_REST_Y = 100;
-      const HAND_TARGET_X = 45, HAND_TARGET_Y = 90;
-      const THUMB_DX = 5, THUMB_DY = 2.5;
-      const THUMB_OUT_Y = 85;
+      const HAND_REST_X = DB.R_ARM_X,  HAND_REST_Y = DB.R_ARM_Y;
+      const HAND_TARGET_X = DB.GESTURE_X, HAND_TARGET_Y = DB.GESTURE_Y;
+      const THUMB_DX = DB.THUMB_DX, THUMB_DY = DB.THUMB_DY;
+      const THUMB_OUT_Y = DB.THUMB_UP_Y;
 
       let handX: number, handY: number, thumbX: number, thumbY: number;
       if (lf < 30) {
@@ -141,10 +143,10 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
     duration: () => 180,
     evaluate: (lf) => {
       const easing = Easing.inOut(Easing.quad);
-      const HAND_REST_X = 65, HAND_REST_Y = 100;
-      const HAND_TARGET_X = 45, HAND_TARGET_Y = 90;
-      const THUMB_DX = 5, THUMB_DY = 2.5;
-      const THUMB_OUT_Y = 100;
+      const HAND_REST_X = DB.R_ARM_X,  HAND_REST_Y = DB.R_ARM_Y;
+      const HAND_TARGET_X = DB.GESTURE_X, HAND_TARGET_Y = DB.GESTURE_Y;
+      const THUMB_DX = DB.THUMB_DX, THUMB_DY = DB.THUMB_DY;
+      const THUMB_OUT_Y = DB.THUMB_DOWN_Y;
 
       let handX: number, handY: number, thumbX: number, thumbY: number;
       if (lf < 30) {
@@ -170,6 +172,21 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
         thumbY = handY + THUMB_DY;
       }
       return { ...DEFAULT, right: { x: handX, y: handY }, rightBehind: true, thumb: { x: thumbX, y: thumbY }, thumbBehind: true };
+    },
+  },
+
+  "cry": {
+    duration: () => 180,
+    evaluate: (lf) => {
+      const fallEasing = Easing.in(Easing.cubic);
+      const opacity =
+        lf < 30  ? interpolate(lf, [0, 29],   [0, 1], { extrapolateRight: "clamp" })
+        : lf > 149 ? interpolate(lf, [149, 179], [1, 0], { extrapolateRight: "clamp" })
+        : 1;
+      const t      = lf < 30 ? 0 : interpolate(lf, [30, 149], [0, 1], { extrapolateRight: "clamp", easing: fallEasing });
+      const y      = interpolate(t, [0, 1], [DB.TEAR_START_Y, DB.TEAR_END_Y]);
+      const height = interpolate(t, [0, 1], [DB.TEAR_H_START, DB.TEAR_H_END]);
+      return { ...DEFAULT, tear: { y, opacity, height } };
     },
   },
 

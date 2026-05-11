@@ -95,6 +95,32 @@ const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
     }
   }
 
+  // Pad the last pre-outro scene so middle content ends on a loop boundary
+  if (config.music?.loop) {
+    let loopSeconds = 4;
+    try {
+      const { durationInSeconds } = await parseMedia({
+        src: staticFile(config.music.loop.src),
+        fields: { durationInSeconds: true },
+        acknowledgeRemotionLicense: true,
+      });
+      loopSeconds = durationInSeconds ?? 4;
+    } catch {
+      console.warn("Could not parse loop music duration, assuming 4s");
+    }
+    const loopFrames = Math.round(loopSeconds * fps);
+    const middleScenes = config.scenes.filter(s => s.id !== "intro" && s.id !== "outro");
+    if (middleScenes.length > 0) {
+      const middleTotal = middleScenes.reduce((s, sc) => s + (sc.durationInFrames ?? 0), 0);
+      const remainder = middleTotal % loopFrames;
+      if (remainder !== 0) {
+        const pad = loopFrames - remainder;
+        const last = middleScenes[middleScenes.length - 1];
+        last.durationInFrames = (last.durationInFrames ?? 0) + pad;
+      }
+    }
+  }
+
   const totalFrames = config.scenes.reduce(
     (sum, scene) => sum + (scene.durationInFrames ?? 0),
     0,

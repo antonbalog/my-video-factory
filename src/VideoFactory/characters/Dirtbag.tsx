@@ -2,6 +2,7 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { getBlinkProgress } from "../utils/blink";
 import { evaluateLimbs } from "./limbAnimations";
+import { DB } from "./dirtbag-anatomy";
 
 type Props = {
   colors?: {
@@ -27,7 +28,7 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
   const blink = getBlinkProgress(frame, 1);
   const bobY = Math.sqrt(mouthHeight) * 0.67;
 
-  const { right: rightPos, left: leftPos, rightBehind, leftBehind, thumb, thumbBehind } = evaluateLimbs(animation);
+  const { right: rightPos, left: leftPos, rightBehind, leftBehind, thumb, thumbBehind, tear } = evaluateLimbs(animation);
 
   return (
     <svg
@@ -55,13 +56,13 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
         strokeLinecap="round"
         transform="translate(-13 -8)"
       >
-        {thumb && thumbBehind     && <rect x={thumb.x}    y={thumb.y}    width="5"  height="5"  fill="url(#dirtbag-head-gradient)" />}
-        {rightPos && rightBehind  && <rect x={rightPos.x} y={rightPos.y} width="10" height="10" fill="url(#dirtbag-head-gradient)" />}
-        {leftBehind               && <rect x={leftPos.x}  y={leftPos.y}  width="10" height="10" fill="url(#dirtbag-head-gradient)" />}
+        {thumb && thumbBehind     && <rect x={thumb.x}    y={thumb.y}    width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
+        {rightPos && rightBehind  && <rect x={rightPos.x} y={rightPos.y} width={DB.R_ARM_W} height={DB.R_ARM_H} fill="url(#dirtbag-head-gradient)" />}
+        {leftBehind               && <rect x={leftPos.x}  y={leftPos.y}  width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
         <path d="M60 80 L85 80 L85 120 L75 120 L75 110 L70 110 L70 120 L65 120 L65 80 Z" />
-        {rightPos && !rightBehind && <rect x={rightPos.x} y={rightPos.y} width="10" height="10" fill="url(#dirtbag-head-gradient)" />}
-        {thumb && !thumbBehind    && <rect x={thumb.x}    y={thumb.y}    width="5"  height="5"  fill="url(#dirtbag-head-gradient)" />}
-        {!leftBehind              && <rect x={leftPos.x}  y={leftPos.y}  width="10" height="10" fill="url(#dirtbag-head-gradient)" />}
+        {rightPos && !rightBehind && <rect x={rightPos.x} y={rightPos.y} width={DB.R_ARM_W} height={DB.R_ARM_H} fill="url(#dirtbag-head-gradient)" />}
+        {thumb && !thumbBehind    && <rect x={thumb.x}    y={thumb.y}    width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
+        {!leftBehind              && <rect x={leftPos.x}  y={leftPos.y}  width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
         <g transform={`translate(0, ${bobY})`}>
           <rect x="55" y="40" width="40" height="40" fill="url(#dirtbag-head-gradient)" />
           <rect x="55" y="60" width="10" height="10" fill="#FFF" />
@@ -79,6 +80,9 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
               <rect x="60" y="75" width="15" height={mouthHeight} fill={mouth} />
               <rect x="60" y="76" width="15" height={Math.max(0, Math.min(mouthHeight - 6, 4))} fill="#FFF" />
             </>
+          )}
+          {tear && (
+            <rect x={DB.TEAR_X} y={tear.y} width={DB.TEAR_W} height={tear.height} fill={DB.TEAR_COLOR} opacity={tear.opacity} />
           )}
         </g>
       </g>

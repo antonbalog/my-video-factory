@@ -69,9 +69,14 @@ export type SceneConfig = {
   animations?: AnimationEvent[];
 };
 
+export type MusicTrack = { src: string; volume?: number };
+
 export type MusicConfig = {
-  src: string;
+  src?: string;
   volume?: number;
+  intro?: MusicTrack;
+  loop?: MusicTrack;
+  outro?: MusicTrack;
 };
 
 export type VideoConfig = {
