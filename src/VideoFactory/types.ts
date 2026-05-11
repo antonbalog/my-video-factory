@@ -77,6 +77,7 @@ export type MusicConfig = {
   intro?: MusicTrack;
   loop?: MusicTrack;
   outro?: MusicTrack;
+  muted?: boolean;
 };
 
 export type VideoConfig = {

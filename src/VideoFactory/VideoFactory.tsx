@@ -25,19 +25,19 @@ export const VideoFactory: React.FC<VideoConfig> = ({ scenes, defaultBackground,
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       {/* Legacy single-track music */}
-      {music?.src && !music.loop && <Audio src={staticFile(music.src)} volume={() => music.volume ?? 1} loop />}
+      {!music?.muted && music?.src && !music.loop && <Audio src={staticFile(music.src)} volume={() => music.volume ?? 1} loop />}
       {/* Structured intro / loop / outro music */}
-      {music?.intro && introFrames > 0 && (
+      {!music?.muted && music?.intro && introFrames > 0 && (
         <Sequence durationInFrames={introFrames}>
           <Audio src={staticFile(music.intro.src)} volume={() => music.intro!.volume ?? 1} />
         </Sequence>
       )}
-      {music?.loop && middleFrames > 0 && (
+      {!music?.muted && music?.loop && middleFrames > 0 && (
         <Sequence from={introFrames} durationInFrames={middleFrames}>
           <Audio src={staticFile(music.loop.src)} volume={() => music.loop!.volume ?? 1} loop />
         </Sequence>
       )}
-      {music?.outro && outroFrames > 0 && (
+      {!music?.muted && music?.outro && outroFrames > 0 && (
         <Sequence from={totalFrames - outroFrames} durationInFrames={outroFrames}>
           <Audio src={staticFile(music.outro.src)} volume={() => music.outro!.volume ?? 1} />
         </Sequence>

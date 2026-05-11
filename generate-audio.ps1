@@ -318,7 +318,11 @@ foreach ($scene in $scenes) {
     $scenesJson.Add($obj)
 }
 
-$music = [ordered]@{ src = "assets/beat.mp3"; volume = 0.3 }
+$music = [ordered]@{
+    intro = [ordered]@{ src = "assets/intro.wav"; volume = 0.3 }
+    loop  = [ordered]@{ src = "assets/loop.wav";  volume = 0.3 }
+    outro = [ordered]@{ src = "assets/outro.wav"; volume = 0.3 }
+}
 
 $config = [ordered]@{
     music             = $music
