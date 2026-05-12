@@ -9,6 +9,7 @@ export type LimbState = {
   thumb?: { x: number; y: number } | null;
   thumbBehind?: boolean;
   tear?: { y: number; opacity: number; height: number } | null;
+  position?: { x: number; y: number };
 };
 
 type AnimDef = {
@@ -203,6 +204,24 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
   "glitch-out": {
     duration: (params) => (params?.durationFrames as number | undefined) ?? 40,
     evaluate: () => DEFAULT,
+  },
+
+  "ufo-fly": {
+    duration: () => 50,
+    evaluate: (lf) => {
+      let x: number, y: number;
+      if (lf < 30) {
+        x = interpolate(lf, [0, 30], [1.2, 0.5], { extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
+        y = 1 / 4;
+      } else if (lf < 40) {
+        x = 0.5;
+        y = 1 / 4;
+      } else {
+        x = interpolate(lf, [40, 50], [0.5, -0.2], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
+        y = interpolate(lf, [40, 50], [1 / 4, -0.1], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
+      }
+      return { ...DEFAULT, position: { x, y } };
+    },
   },
 };
 

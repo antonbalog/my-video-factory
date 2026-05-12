@@ -21,8 +21,8 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
   const frame = useCurrentFrame();
   const bodyStart = colors.bodyStart ?? "#F3E5AB";
   const bodyEnd = colors.bodyEnd ?? "#222";
-  const headStart = colors.headStart ?? "#FFF";
-  const headEnd = colors.headEnd ?? "#777";
+  const headStart = colors.headStart ?? "#FAEBD7";
+  const headEnd = colors.headEnd ?? "#666";
   const mouth = colors.mouth ?? "#780606";
 
   const blink = getBlinkProgress(frame, 1);
@@ -56,13 +56,13 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
         strokeLinecap="round"
         transform="translate(-13 -8)"
       >
-        {thumb && thumbBehind     && <rect x={thumb.x}    y={thumb.y}    width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
-        {rightPos && rightBehind  && <rect x={rightPos.x} y={rightPos.y} width={DB.R_ARM_W} height={DB.R_ARM_H} fill="url(#dirtbag-head-gradient)" />}
-        {leftBehind               && <rect x={leftPos.x}  y={leftPos.y}  width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
+        {thumb && thumbBehind && <rect x={thumb.x} y={thumb.y} width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
+        {rightPos && rightBehind && <rect x={rightPos.x} y={rightPos.y} width={DB.R_ARM_W} height={DB.R_ARM_H} fill="url(#dirtbag-head-gradient)" />}
+        {leftBehind && <rect x={leftPos.x} y={leftPos.y} width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
         <path d="M60 80 L85 80 L85 120 L75 120 L75 110 L70 110 L70 120 L65 120 L65 80 Z" />
         {rightPos && !rightBehind && <rect x={rightPos.x} y={rightPos.y} width={DB.R_ARM_W} height={DB.R_ARM_H} fill="url(#dirtbag-head-gradient)" />}
-        {thumb && !thumbBehind    && <rect x={thumb.x}    y={thumb.y}    width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
-        {!leftBehind              && <rect x={leftPos.x}  y={leftPos.y}  width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
+        {thumb && !thumbBehind && <rect x={thumb.x} y={thumb.y} width={DB.THUMB_W} height={DB.THUMB_H} fill="url(#dirtbag-head-gradient)" />}
+        {!leftBehind && <rect x={leftPos.x} y={leftPos.y} width={DB.L_ARM_W} height={DB.L_ARM_H} fill="url(#dirtbag-head-gradient)" />}
         <g transform={`translate(0, ${bobY})`}>
           <rect x="55" y="40" width="40" height="40" fill="url(#dirtbag-head-gradient)" />
           <rect x="55" y="60" width="10" height="10" fill="#FFF" />

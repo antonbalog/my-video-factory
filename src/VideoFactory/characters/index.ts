@@ -2,6 +2,7 @@ import React from "react";
 import { Lacey } from "./Lacey";
 import { Bryan } from "./Bryan";
 import { Dirtbag } from "./Dirtbag";
+import { Ufo } from "./Ufo";
 
 export type CharacterProps = {
   colors?: Record<string, string>;
@@ -14,4 +15,5 @@ export const characterRegistry: Record<string, React.FC<CharacterProps>> = {
   lacey: Lacey as React.FC<CharacterProps>,
   bryan: Bryan as React.FC<CharacterProps>,
   dirtbag: Dirtbag as React.FC<CharacterProps>,
+  ufo: Ufo as React.FC<CharacterProps>,
 };

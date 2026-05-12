@@ -2,7 +2,7 @@ import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
 import { Scene } from "./Scene";
 import { VideoConfig } from "./types";
 
-export const VideoFactory: React.FC<VideoConfig> = ({ scenes, defaultBackground, defaultCharacters = [], music }) => {
+export const VideoFactory: React.FC<VideoConfig> = ({ scenes, defaultBackground, defaultCharacters = [], music, overlay }) => {
   const sceneOffsets = scenes.map((_, i) =>
     scenes.slice(0, i).reduce((s, sc) => s + (sc.durationInFrames ?? 300), 0)
   );
@@ -50,7 +50,7 @@ export const VideoFactory: React.FC<VideoConfig> = ({ scenes, defaultBackground,
             from={sceneOffsets[i]}
             durationInFrames={duration}
           >
-            <Scene config={scene} defaultBackground={defaultBackground} defaultCharacters={defaultCharacters} charColors={charColors} />
+            <Scene config={scene} defaultBackground={defaultBackground} defaultCharacters={defaultCharacters} charColors={charColors} overlay={overlay} />
           </Sequence>
         );
       })}

@@ -2,18 +2,20 @@ import React from "react";
 import { AbsoluteFill, Audio, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { BackgroundConfig, CharacterConfig, SceneConfig } from "./types";
 import { renderBackground } from "./backgrounds";
+import { GradientOverlay } from "./GradientOverlay";
 import { characterRegistry } from "./characters";
 import { SubtitleOverlay } from "./SubtitleOverlay";
 import { getMouthHeight } from "./utils/getMouthShape";
 import { NameTag } from "./NameTag";
-import { LIMB_ANIMATIONS } from "./characters/limbAnimations";
+import { LIMB_ANIMATIONS, evaluateLimbs } from "./characters/limbAnimations";
 import { sr } from "./utils/seededRand";
 
-export const Scene: React.FC<{ config: SceneConfig; defaultBackground: BackgroundConfig; defaultCharacters: CharacterConfig[]; charColors: Record<string, string> }> = ({
+export const Scene: React.FC<{ config: SceneConfig; defaultBackground: BackgroundConfig; defaultCharacters: CharacterConfig[]; charColors: Record<string, string>; overlay?: import("./types").OverlayConfig }> = ({
   config,
   defaultBackground,
   defaultCharacters,
   charColors,
+  overlay,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -84,6 +86,7 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
     <AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${scale})` }}>
       {renderBackground(bg)}
+      {overlay && <GradientOverlay {...overlay} />}
       {(config.audio ?? []).map((clip) => (
         <Sequence key={clip.src} from={clip.startFrame ?? 0} durationInFrames={clip.durationInFrames}>
           <Audio
@@ -118,18 +121,21 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
           <Audio src={staticFile(sfx.src)} volume={() => sfx.volume ?? 1} />
         </Sequence>
       ))}
-      {characters.map((char) => {
+      {[...characters.filter(c => c.behind), ...characters.filter(c => !c.behind)].map((char) => {
         const CharComponent = characterRegistry[char.id];
         if (!CharComponent) return null;
         const anim = getActiveAnimation(char.id);
         const glitch = getGlitchWrapStyle(anim, char.id);
+        const limbState = evaluateLimbs(anim);
+        const posX = limbState.position != null ? limbState.position.x : char.x;
+        const posY = limbState.position != null ? limbState.position.y : char.y;
         return (
           <React.Fragment key={char.id}>
             <div
               style={{
                 position: "absolute",
-                left: `${char.x * 100}%`,
-                top: `${char.y * 100}%`,
+                left: `${posX * 100}%`,
+                top: `${posY * 100}%`,
                 transform: `translate(-50%, -50%) scale(${char.size ?? 1})`,
               }}
             >

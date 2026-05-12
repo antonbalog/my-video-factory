@@ -2,7 +2,7 @@ export type BackgroundConfig =
   | { type: "color"; value: string }
   | { type: "svg"; src: string }
   | { type: "pattern"; src: string; tileSize: number }
-  | { type: "chessboard"; tileSize: number; color1: string; color2: string };
+  | { type: "chessboard"; tileSize: number; color1: string; color2: string; pulse?: { amplitude?: number } };
 
 export type NameTagConfig = {
   label: string;
@@ -18,6 +18,7 @@ export type CharacterConfig = {
   colors?: Record<string, string>;
   props?: Record<string, unknown>;
   nameTag?: NameTagConfig;
+  behind?: boolean;
 };
 
 import type { Caption } from "@remotion/captions";
@@ -69,6 +70,13 @@ export type SceneConfig = {
   animations?: AnimationEvent[];
 };
 
+export type OverlayConfig = {
+  colorTop: string;
+  colorBottom: string;
+  opacityTop?: number;
+  opacityMiddle?: number;
+};
+
 export type MusicTrack = { src: string; volume?: number };
 
 export type MusicConfig = {
@@ -85,4 +93,5 @@ export type VideoConfig = {
   defaultBackground: BackgroundConfig;
   defaultCharacters?: CharacterConfig[];
   music?: MusicConfig;
+  overlay?: OverlayConfig;
 };

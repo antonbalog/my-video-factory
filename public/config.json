@@ -14,6 +14,12 @@
             "volume": 0.3
         }
     },
+    "overlay": {
+        "colorTop": "#272757",
+        "colorBottom": "#7CFC00",
+        "opacityTop": 0.9,
+        "opacityMiddle": 0.1
+    },
     "defaultBackground": {
         "type": "chessboard",
         "tileSize": 80,
@@ -33,7 +39,7 @@
                     "size": 2,
                     "nameTag": {
                         "label": "dirtbag",
-                        "color": "#FFFFFF"
+                        "color": "#FAEBD7"
                     }
                 }
             ],
@@ -63,7 +69,7 @@
                     "size": 2,
                     "nameTag": {
                         "label": "dirtbag",
-                        "color": "#FFFFFF"
+                        "color": "#FAEBD7"
                     }
                 },
                 {
@@ -320,6 +326,20 @@
                     "x": 0.25,
                     "y": 0.5,
                     "size": 2
+                },
+                {
+                    "id": "ufo",
+                    "x": -0.5,
+                    "y": -0.5,
+                    "size": 1.5,
+                    "behind": true
+                }
+            ],
+            "animations": [
+                {
+                    "characterId": "ufo",
+                    "type": "ufo-fly",
+                    "atMs": 0
                 }
             ]
         },
@@ -502,7 +522,7 @@
                     "size": 2,
                     "nameTag": {
                         "label": "dirtbag",
-                        "color": "#FFFFFF"
+                        "color": "#FAEBD7"
                     }
                 }
             ],
