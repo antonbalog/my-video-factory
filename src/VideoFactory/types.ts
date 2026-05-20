@@ -2,7 +2,9 @@ export type BackgroundConfig =
   | { type: "color"; value: string }
   | { type: "svg"; src: string }
   | { type: "pattern"; src: string; tileSize: number }
-  | { type: "chessboard"; tileSize: number; color1: string; color2: string; pulse?: { amplitude?: number } };
+  | { type: "chessboard"; tileSize: number; color1: string; color2: string; pulse?: { amplitude?: number } }
+  | { type: "perspective-floor"; tileSize?: number; color1?: string; color2?: string; horizon?: number }
+  | { type: "night-grass"; horizon?: number };
 
 export type NameTagConfig = {
   label: string;

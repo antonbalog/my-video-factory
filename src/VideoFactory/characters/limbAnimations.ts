@@ -218,7 +218,7 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
         y = 1 / 4;
       } else {
         x = interpolate(lf, [40, 50], [0.5, -0.2], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
-        y = interpolate(lf, [40, 50], [1 / 4, -0.1], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
+        y = 1 / 4;
       }
       return { ...DEFAULT, position: { x, y } };
     },

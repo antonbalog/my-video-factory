@@ -1,6 +1,6 @@
 ﻿{
     "music": {
-        "muted": true,
+        "muted": false,
         "intro": {
             "src": "assets/intro.wav",
             "volume": 0.3
@@ -14,17 +14,8 @@
             "volume": 0.3
         }
     },
-    "overlay": {
-        "colorTop": "#272757",
-        "colorBottom": "#7CFC00",
-        "opacityTop": 0.9,
-        "opacityMiddle": 0.1
-    },
     "defaultBackground": {
-        "type": "chessboard",
-        "tileSize": 80,
-        "color1": "#141414",
-        "color2": "#1F1F1F"
+        "type": "night-grass"
     },
     "defaultCharacters": [],
     "scenes": [
@@ -94,7 +85,7 @@
         },
         {
             "id": "scene-2",
-            "tileSize": 200,
+            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -115,7 +106,7 @@
         },
         {
             "id": "scene-3",
-            "tileSize": 200,
+            "tileSize": 640,
             "transition": "zoom-out",
             "audio": [
                 {
@@ -145,7 +136,7 @@
         },
         {
             "id": "scene-4",
-            "tileSize": 200,
+            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -434,7 +425,7 @@
         },
         {
             "id": "scene-13",
-            "tileSize": 200,
+            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -455,7 +446,7 @@
         },
         {
             "id": "scene-14",
-            "tileSize": 200,
+            "tileSize": 640,
             "transition": "zoom-out",
             "audio": [
                 {
