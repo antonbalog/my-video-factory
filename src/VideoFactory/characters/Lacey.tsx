@@ -35,15 +35,17 @@ export const Lacey: React.FC<Props> = ({ colors = {}, mouthHeight = 0 }) => {
       <g
         stroke="#000"
         strokeWidth="2"
-        strokeLinejoin="round"
+
         strokeLinecap="round"
         transform="translate(-8 -8)"
       >
         <rect x="55" y="40" width="40" height="80" fill="url(#lacey-chess-board)" />
         <rect x="45" y="55" width="20" height="20" fill="#FFF" />
         <rect x="70" y="60" width="10" height="10" fill="#FFF" />
-        <rect x="60" y="65" width="2" height="2" fill="#000" />
-        <rect x="73" y="65" width="2" height="2" fill="#000" />
+        <g strokeLinejoin="round">
+          <rect x="60" y="65" width="2" height="2" fill="#000" />
+          <rect x="73" y="65" width="2" height="2" fill="#000" />
+        </g>
         {blink > 0 && (
           <>
             <rect x="45" y="55" width="20" height={blink * 20} fill="url(#lacey-chess-board)" />

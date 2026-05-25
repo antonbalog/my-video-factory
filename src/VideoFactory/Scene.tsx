@@ -24,6 +24,9 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
     ? { ...baseBg, tileSize: config.tileSize }
     : baseBg;
   const characters = config.characters ?? defaultCharacters;
+  const isZoom = config.transition === "zoom-in" || config.transition === "zoom-out";
+  const maxCharSize = Math.max(...characters.map((c) => c.size ?? 1), 1);
+  const bgScale = isZoom ? maxCharSize / 2 : 1;
 
   const scale = config.transition === "zoom-in"
     ? spring({ frame, fps, from: 1.15, to: 1, config: { damping: 18, stiffness: 80 } })
@@ -85,8 +88,10 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${scale})` }}>
-      {renderBackground(bg)}
-      {overlay && <GradientOverlay {...overlay} />}
+      <div style={{ position: "absolute", inset: 0, transform: `scale(${bgScale})` }}>
+        {renderBackground(bg)}
+        {overlay && <GradientOverlay {...overlay} />}
+      </div>
       {(config.audio ?? []).map((clip) => (
         <Sequence key={clip.src} from={clip.startFrame ?? 0} durationInFrames={clip.durationInFrames}>
           <Audio

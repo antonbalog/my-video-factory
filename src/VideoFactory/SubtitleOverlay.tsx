@@ -1,10 +1,8 @@
 import type { Caption } from "@remotion/captions";
 import { createTikTokStyleCaptions } from "@remotion/captions";
-import { loadFont } from "@remotion/google-fonts/BebasNeue";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import type { AudioConfig } from "./types";
-
-const { fontFamily } = loadFont();
+import { fontFamily } from "./fonts";
 
 const censorToken = (text: string, censored: Set<string>): string => {
   return text.replace(/[a-zA-Z]+/g, (word) => {
@@ -76,10 +74,11 @@ export const SubtitleOverlay: React.FC<{
     >
       <span
         style={{
-          fontSize: Math.round(ref * 0.067),
+          fontSize: Math.round(ref * 0.045),
           fontFamily,
-          fontWeight: 900,
+          fontWeight: "bold",
           color: subtitleColor,
+          textTransform: "uppercase",
           textShadow: "0 0 8px rgba(0,0,0,0.9), 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
           lineHeight: 1.2,
         }}

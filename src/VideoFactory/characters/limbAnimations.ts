@@ -212,13 +212,13 @@ export const LIMB_ANIMATIONS: Record<string, AnimDef> = {
       let x: number, y: number;
       if (lf < 30) {
         x = interpolate(lf, [0, 30], [1.2, 0.5], { extrapolateRight: "clamp", easing: Easing.out(Easing.quad) });
-        y = 1 / 4;
+        y = 1 / 2;
       } else if (lf < 40) {
         x = 0.5;
-        y = 1 / 4;
+        y = 1 / 2;
       } else {
         x = interpolate(lf, [40, 50], [0.5, -0.2], { extrapolateRight: "clamp", easing: Easing.in(Easing.quad) });
-        y = 1 / 4;
+        y = 1 / 2;
       }
       return { ...DEFAULT, position: { x, y } };
     },

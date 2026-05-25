@@ -20,9 +20,9 @@ type Props = {
 export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animation = null }) => {
   const frame = useCurrentFrame();
   const bodyStart = colors.bodyStart ?? "#F3E5AB";
-  const bodyEnd = colors.bodyEnd ?? "#222";
-  const headStart = colors.headStart ?? "#FAEBD7";
-  const headEnd = colors.headEnd ?? "#666";
+  const bodyEnd = colors.bodyEnd ?? "#000000";
+  const headStart = colors.headStart ?? "#FFF";
+  const headEnd = colors.headEnd ?? "#FFF";
   const mouth = colors.mouth ?? "#780606";
 
   const blink = getBlinkProgress(frame, 1);
@@ -52,7 +52,7 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
         stroke="#000"
         strokeWidth="2"
         fill="url(#dirtbag-body-gradient)"
-        strokeLinejoin="round"
+
         strokeLinecap="round"
         transform="translate(-13 -8)"
       >
@@ -67,8 +67,10 @@ export const Dirtbag: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animati
           <rect x="55" y="40" width="40" height="40" fill="url(#dirtbag-head-gradient)" />
           <rect x="55" y="60" width="10" height="10" fill="#FFF" />
           <rect x="70" y="55" width="20" height="20" fill="#FFF" />
-          <rect x="60" y="65" width="2" height="2" fill="#000" />
-          <rect x="73" y="65" width="2" height="2" fill="#000" />
+          <g strokeLinejoin="round">
+            <rect x="60" y="65" width="2" height="2" fill="#000" />
+            <rect x="73" y="65" width="2" height="2" fill="#000" />
+          </g>
           {blink > 0 && (
             <>
               <rect x="55" y="60" width="10" height={blink * 10} fill="url(#dirtbag-head-gradient)" />

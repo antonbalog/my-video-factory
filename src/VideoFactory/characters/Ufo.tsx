@@ -10,20 +10,20 @@ export const Ufo: React.FC = () => (
   >
     <defs>
       <linearGradient id="ufoGradient-purple" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#F1E3FF" />
-        <stop offset="100%" stopColor="#222" />
+        <stop offset="0%" stopColor="#FFF" />
+        <stop offset="100%" stopColor="#FFF" />
       </linearGradient>
       <linearGradient id="ufoGradient-grey" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#EEE" />
-        <stop offset="100%" stopColor="#222" />
+        <stop offset="0%" stopColor="#FFF" />
+        <stop offset="100%" stopColor="#FFF" />
       </linearGradient>
       <linearGradient id="ufoGradient-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#E3F1FF" />
-        <stop offset="100%" stopColor="#222" />
+        <stop offset="0%" stopColor="#FFF" />
+        <stop offset="100%" stopColor="#FFF" />
       </linearGradient>
       <linearGradient id="ufoGradient-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#666" />
-        <stop offset="100%" stopColor="#222" />
+        <stop offset="0%" stopColor="#FFF" />
+        <stop offset="100%" stopColor="#FFF" />
       </linearGradient>
     </defs>
     <g

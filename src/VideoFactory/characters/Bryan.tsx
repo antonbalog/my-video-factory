@@ -11,8 +11,8 @@ type Props = {
 
 export const Bryan: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animation = null }) => {
   const frame = useCurrentFrame();
-  const gradStart = colors.gradStart ?? "#CCC";
-  const gradEnd = colors.gradEnd ?? "#FF8DA1";
+  const gradStart = colors.gradStart ?? "#E40078";
+  const gradEnd = colors.gradEnd ?? "#FFF";
   const mouth = colors.mouth ?? "#780606";
   const blink = getBlinkProgress(frame, 2);
   const bobY = Math.sqrt(mouthHeight) * 2.2;
@@ -39,15 +39,17 @@ export const Bryan: React.FC<Props> = ({ colors = {}, mouthHeight = 0, animation
       stroke="#000"
       strokeWidth="2"
       fill="url(#bryan-brain-gradient)"
-      strokeLinejoin="round"
+
       strokeLinecap="round"
       transform="translate(2 -8)"
     >
       <path d="M50 50 L75 50 L75 55 L85 55 L85 60 L90 60 L90 70 L80 70 L80 75 L70 75 L70 80 L60 80 L60 85 L50 85 L50 90 L45 90 L45 85 L40 85 L40 80 L35 80 L35 75 L30 75 L30 60 L35 60 L35 55 L40 55 L45 55 L45 50 Z" />
       <rect x="45" y="55" width="20" height="20" fill="#FFF" />
       <rect x="70" y="60" width="10" height="10" fill="#FFF" />
-      <rect x="60" y="65" width="2" height="2" fill="#000" />
-      <rect x="73" y="65" width="2" height="2" fill="#000" />
+      <g strokeLinejoin="round">
+        <rect x="60" y="65" width="2" height="2" fill="#000" />
+        <rect x="73" y="65" width="2" height="2" fill="#000" />
+      </g>
       {blink > 0 && (
         <>
           <rect x="45" y="55" width="20" height={blink * 20} fill="url(#bryan-brain-gradient)" />
