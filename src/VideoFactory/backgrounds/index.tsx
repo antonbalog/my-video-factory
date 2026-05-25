@@ -6,6 +6,7 @@ import { PatternBackground } from "./PatternBackground";
 import { SvgBackground } from "./SvgBackground";
 import { PerspectiveFloorBackground } from "./PerspectiveFloorBackground";
 import { NightGrassBackground } from "./NightGrassBackground";
+import { LineBackground } from "./LineBackground";
 
 export const renderBackground = (bg: BackgroundConfig): React.ReactElement => {
   if (bg.type === "color") return <ColorBackground value={bg.value} />;
@@ -16,5 +17,7 @@ export const renderBackground = (bg: BackgroundConfig): React.ReactElement => {
     return <PerspectiveFloorBackground tileSize={bg.tileSize} color1={bg.color1} color2={bg.color2} horizon={bg.horizon} />;
   if (bg.type === "night-grass")
     return <NightGrassBackground horizon={bg.horizon} />;
+  if (bg.type === "line")
+    return <LineBackground color={bg.color} />;
   return <SvgBackground src={bg.src} />;
 };

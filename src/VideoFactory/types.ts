@@ -4,7 +4,8 @@ export type BackgroundConfig =
   | { type: "pattern"; src: string; tileSize: number }
   | { type: "chessboard"; tileSize: number; color1: string; color2: string; pulse?: { amplitude?: number } }
   | { type: "perspective-floor"; tileSize?: number; color1?: string; color2?: string; horizon?: number }
-  | { type: "night-grass"; horizon?: number };
+  | { type: "night-grass"; horizon?: number }
+  | { type: "line"; color?: string };
 
 export type NameTagConfig = {
   label: string;

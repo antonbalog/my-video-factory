@@ -15,7 +15,7 @@
         }
     },
     "defaultBackground": {
-        "type": "night-grass"
+        "type": "line"
     },
     "defaultCharacters": [],
     "scenes": [
