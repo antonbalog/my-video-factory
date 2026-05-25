@@ -19,12 +19,15 @@ export const NameTag: React.FC<NameTagConfig> = ({ label, color, strikePrefix })
       textShadow: shadow,
       lineHeight: 1.2,
       whiteSpace: "nowrap",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     }}
   >
     {strikePrefix && (
       <span style={{ textDecoration: "line-through", textDecorationColor: "#000000", textDecorationThickness: 10 }}>{strikePrefix}</span>
     )}
-    {label}
+    <span>{label}</span>
   </span>
   );
 };
