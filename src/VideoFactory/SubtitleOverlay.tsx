@@ -58,8 +58,6 @@ export const SubtitleOverlay: React.FC<{
       ? activeTokens.reduce((a, b) => (b.fromMs > a.fromMs ? b : a))
       : null;
 
-  if (!activeToken) return null;
-
   return (
     <div
       style={{
@@ -77,13 +75,21 @@ export const SubtitleOverlay: React.FC<{
           fontSize: Math.round(ref * 0.045),
           fontFamily,
           fontWeight: "bold",
-          color: subtitleColor,
           textTransform: "uppercase",
-          textShadow: "0 0 8px rgba(0,0,0,0.9), 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
           lineHeight: 1.2,
         }}
       >
-        {censorToken(activeToken.text, censored)}
+        {currentPage.tokens.map((t, i) => (
+          <span
+            key={i}
+            style={{
+              color: t === activeToken ? "#FFE600" : subtitleColor,
+              textShadow: "0 0 8px rgba(0,0,0,0.9), 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
+            }}
+          >
+            {censorToken(t.text, censored)}{" "}
+          </span>
+        ))}
       </span>
     </div>
   );

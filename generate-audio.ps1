@@ -354,7 +354,14 @@ foreach ($clip in $clips) {
     Set-Content -Path $tmp -Value $clip.Text -Encoding UTF8
 
     Write-Host "  1/3 edge-tts..."
-    edge-tts -f $tmp -v $voices[$clip.Character] $voiceArgs[$clip.Character] --write-media $mp3 --write-subtitles $vtt
+    $charArgs = $voiceArgs[$clip.Character]
+    $rateVal  = "+0%"
+    $pitchVal = "+0Hz"
+    foreach ($a in $charArgs) {
+        if ($a -match '^--rate=(.+)$')  { $rateVal  = $matches[1] }
+        if ($a -match '^--pitch=(.+)$') { $pitchVal = $matches[1] }
+    }
+    python "$PSScriptRoot\edge-tts-words.py" $tmp $voices[$clip.Character] $rateVal $pitchVal $mp3 $vtt
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "  edge-tts failed (exit $LASTEXITCODE) - skipping [$base]"
         Remove-Item $tmp -ErrorAction SilentlyContinue
