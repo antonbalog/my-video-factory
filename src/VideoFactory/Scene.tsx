@@ -153,7 +153,7 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
                 style={{
                   position: "absolute",
                   left: `${char.x * 100}%`,
-                  top: "20%",
+                  top: `calc(${char.y * 100}% - 324px)`,
                   transform: "translateX(-50%)",
                   textAlign: "center",
                   pointerEvents: "none",
