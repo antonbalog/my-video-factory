@@ -21,9 +21,6 @@ export const VideoFactory: React.FC<VideoConfig> = ({ scenes, defaultBackground,
       }
     }
   }
-  charColors["bryan"] = "#E40078";
-  charColors["dirtbag"] = "#F3E5AB";
-
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       {/* Legacy single-track music */}
