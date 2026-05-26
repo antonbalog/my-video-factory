@@ -1,5 +1,6 @@
 ﻿{
     "music":  {
+                  "muted":  true,
                   "intro":  {
                                 "src":  "assets/intro.wav",
                                 "volume":  0.3
@@ -73,7 +74,7 @@
                                               "y":  0.5,
                                               "size":  2,
                                               "nameTag":  {
-                                                              "label":  " bryan",
+                                                              "label":  "bryan",
                                                               "color":  "#FF8DA1",
                                                               "strikePrefix":  "brain"
                                                           }

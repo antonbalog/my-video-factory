@@ -49,8 +49,8 @@ $charDefaults = @{
 }
 
 $charNameTags = @{
-    "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#F3E5AB" }
-    "bryan"   = [ordered]@{ label = "bryan"; color = "#E40078"; strikePrefix = "brain" }
+    "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#FAEBD7" }
+    "bryan"   = [ordered]@{ label = "bryan"; color = "#FF8DA1"; strikePrefix = "brain" }
 }
 
 $defaultBackground = [ordered]@{
