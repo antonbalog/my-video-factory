@@ -35,7 +35,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#FAEBD7"
+                                                              "color":  "#F3E5AB"
                                                           }
                                           }
                                       ],
@@ -65,7 +65,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#FAEBD7"
+                                                              "color":  "#F3E5AB"
                                                           }
                                           },
                                           {
@@ -75,7 +75,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "bryan",
-                                                              "color":  "#FF8DA1",
+                                                              "color":  "#E40078",
                                                               "strikePrefix":  "brain"
                                                           }
                                           }
@@ -504,7 +504,7 @@
                                               "size":  2,
                                               "nameTag":  {
                                                               "label":  "dirtbag",
-                                                              "color":  "#FAEBD7"
+                                                              "color":  "#F3E5AB"
                                                           }
                                           }
                                       ],
