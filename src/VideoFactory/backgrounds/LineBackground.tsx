@@ -1,6 +1,5 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
-import { sr } from "../utils/seededRand";
 
 const REF_W = 1920;
 const REF_H = 720; // 2/3 of 1080
@@ -30,22 +29,37 @@ export const LineBackground: React.FC<{ color?: string }> = ({ color = "#222222"
   const u = Math.min(width, height) / 80;
 
   // Three levels, each separated by a 2u edge-to-edge gap from the line above
-  const levels = [lineY + 3 * u, lineY + 6 * u, lineY + 9 * u];
+  const levels = [lineY + 3 * u, lineY + 5 * u, lineY + 7 * u];
 
   const stars = STARS.map((s) => ({ x: s.rx * width, y: s.ry * lineY, size: s.size }));
 
   const levelColors = ["#333333", "#444444", "#555555"];
-  const marks: { x: number; y: number; w: number; c: string }[] = [];
-  let seed = 0;
+  const spaceW = u * 1;
+  const patternDefs = [
+    // first half
+    { li: 0, w: u * 3 },
+    { li: 0, w: u * 3 },
+    { li: 1, w: u * 2 },
+    { li: 2, w: u * 2 },
+    { li: 2, w: u * 1 },
+    // second half
+    { li: 0, w: u * 3 },
+    { li: 0, w: u * 3 },
+    { li: 2, w: u * 2 },
+    { li: 1, w: u * 2 },
+    { li: 0, w: u * 1 },
+  ];
+  const patternW = patternDefs.reduce((sum, m) => sum + spaceW + m.w, 0);
 
-  for (let li = 0; li < levels.length; li++) {
-    const y = levels[li];
-    const w = u * (3 - li);
-    const c = levelColors[li];
-    let x = sr(seed++) * u * 15;
-    while (x < width) {
-      marks.push({ x, y, w, c });
-      x += w + sr(seed++) * u * 20;
+  const marks: { x: number; y: number; w: number; c: string }[] = [];
+  for (let startX = 0; startX < width + patternW; startX += patternW) {
+    let x = startX;
+    for (const m of patternDefs) {
+      x += spaceW;
+      if (x + m.w > 0 && x < width) {
+        marks.push({ x, y: levels[m.li], w: m.w, c: levelColors[m.li] });
+      }
+      x += m.w;
     }
   }
 
