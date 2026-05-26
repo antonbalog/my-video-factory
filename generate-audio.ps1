@@ -103,11 +103,12 @@ function Parse-CharTag($line) {
     $parts    = $matches[1].Trim() -split '\s+'
     $charName = $parts[0].ToLower()
     $def      = $script:charDefaults[$charName]
+    $isZoom   = $null -ne $script:curScene -and $null -ne $script:curScene.transition
     $result   = @{
         name      = $charName
-        x         = if ($def) { $def.x }    else { 0.5 }
+        x         = if ($isZoom) { 0.5 } elseif ($def) { $def.x }    else { 0.5 }
         y         = if ($def) { $def.y }    else { 0.5 }
-        size      = if ($def) { $def.size } else { 2 }
+        size      = if ($isZoom) { 5 }   elseif ($def) { $def.size } else { 2 }
         wave      = $null
         nametag   = $false
         trimStart = $null
@@ -291,7 +292,6 @@ foreach ($scene in $scenes) {
     $obj = [ordered]@{ id = $scene.id }
 
     if ($null -ne $scene.durationInFrames) { $obj.durationInFrames = $scene.durationInFrames }
-    if ($null -ne $scene.tileSize)         { $obj.tileSize         = $scene.tileSize }
     if ($null -ne $scene.transition)       { $obj.transition       = $scene.transition }
     if ($scene.audioList.Count -gt 0)      { $obj.audio            = $scene.audioList }
     if ($scene.sfxList.Count -gt 0)        { $obj.sfx              = $scene.sfxList }

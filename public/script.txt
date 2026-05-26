@@ -1,5 +1,5 @@
 === intro durationInFrames=120 ===
-[dirtbag nametag wave=intro]    
+[dirtbag nametag wave=intro]
 
 === scene-1 ===
 @animate: bryan glitch-in at=0s
@@ -9,21 +9,18 @@ Hello! This is my very first video!
 [bryan nametag]
 
 === scene-2 ===
-@tileSize: 200
 @transition: zoom-in
-[bryan size=5 x=0.5]
+[bryan]
 And hopefully the last
 
 === scene-3 ===
-@tileSize: 200
 @transition: zoom-out
-[dirtbag size=5 x=0.5]
+[dirtbag]
 I hope it doesn't [suck]
 
 === scene-4 ===
-@tileSize: 200
 @transition: zoom-in
-[bryan size=5 x=0.5]
+[bryan]
 It already does
 
 === scene-5 ===
@@ -56,8 +53,8 @@ but I do know I'm going to keep it real
 He needs to get a job
 
 === scene-8 ===
-[bryan size=5 x=0.5]
 @transition: zoom-in
+[bryan]
 For real
 
 === scene-9 ===
@@ -75,29 +72,27 @@ you might want to stick around
 I would rather watch ads
 
 === scene-11 ===
-[bryan size=5 x=0.5]
 @transition: zoom-in
+[bryan]
 if I was you
 
 === scene-12 ===
 @animate: dirtbag thumb-up at=1s
 [dirtbag]
-And hey! Subscribe! 
+And hey! Subscribe!
 Don't let my mom be my only subscriber
 
 [bryan]
 His mom doesn't know about this
 
 === scene-13 ===
-@tileSize: 200
 @transition: zoom-in
-[bryan size=5 x=0.5]
+[bryan]
 You know you don't have to do it
 
 === scene-14 ===
-@tileSize: 200
 @transition: zoom-out
-[dirtbag size=5 x=0.5]
+[dirtbag]
 Please!
 
 === scene-15 ===

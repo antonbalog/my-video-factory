@@ -90,7 +90,6 @@
                    },
                    {
                        "id":  "scene-2",
-                       "tileSize":  200,
                        "transition":  "zoom-in",
                        "audio":  [
                                      {
@@ -111,7 +110,6 @@
                    },
                    {
                        "id":  "scene-3",
-                       "tileSize":  200,
                        "transition":  "zoom-out",
                        "audio":  [
                                      {
@@ -141,7 +139,6 @@
                    },
                    {
                        "id":  "scene-4",
-                       "tileSize":  200,
                        "transition":  "zoom-in",
                        "audio":  [
                                      {
@@ -416,7 +413,6 @@
                    },
                    {
                        "id":  "scene-13",
-                       "tileSize":  200,
                        "transition":  "zoom-in",
                        "audio":  [
                                      {
@@ -437,7 +433,6 @@
                    },
                    {
                        "id":  "scene-14",
-                       "tileSize":  200,
                        "transition":  "zoom-out",
                        "audio":  [
                                      {
