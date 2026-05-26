@@ -15,7 +15,10 @@
         }
     },
     "defaultBackground": {
-        "type": "line"
+        "type": "chessboard",
+        "tileSize": 80,
+        "color1": "#141414",
+        "color2": "#1F1F1F"
     },
     "defaultCharacters": [],
     "scenes": [
@@ -69,7 +72,7 @@
                     "y": 0.5,
                     "size": 2,
                     "nameTag": {
-                        "label": "bryan",
+                        "label": " bryan",
                         "color": "#E40078",
                         "strikePrefix": "brain"
                     }
@@ -85,7 +88,6 @@
         },
         {
             "id": "scene-2",
-            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -106,7 +108,6 @@
         },
         {
             "id": "scene-3",
-            "tileSize": 640,
             "transition": "zoom-out",
             "audio": [
                 {
@@ -136,7 +137,6 @@
         },
         {
             "id": "scene-4",
-            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -255,7 +255,7 @@
                     "type": "fortnite-dance",
                     "atMs": 3000,
                     "params": {
-                        "cycles": 4
+                        "cycles": 3
                     }
                 }
             ]
@@ -317,20 +317,6 @@
                     "x": 0.25,
                     "y": 0.5,
                     "size": 2
-                },
-                {
-                    "id": "ufo",
-                    "x": -0.5,
-                    "y": -0.5,
-                    "size": 1.5,
-                    "behind": true
-                }
-            ],
-            "animations": [
-                {
-                    "characterId": "ufo",
-                    "type": "ufo-fly",
-                    "atMs": 0
                 }
             ]
         },
@@ -425,7 +411,6 @@
         },
         {
             "id": "scene-13",
-            "tileSize": 640,
             "transition": "zoom-in",
             "audio": [
                 {
@@ -446,7 +431,6 @@
         },
         {
             "id": "scene-14",
-            "tileSize": 640,
             "transition": "zoom-out",
             "audio": [
                 {
