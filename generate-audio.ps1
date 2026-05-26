@@ -50,7 +50,7 @@ $charDefaults = @{
 
 $charNameTags = @{
     "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#FAEBD7" }
-    "bryan"   = [ordered]@{ label = " bryan"; color = "#FF8DA1"; strikePrefix = "brain" }
+    "bryan"   = [ordered]@{ label = "bryan"; color = "#FF8DA1"; strikePrefix = "brain" }
 }
 
 $defaultBackground = [ordered]@{
@@ -319,6 +319,7 @@ foreach ($scene in $scenes) {
 }
 
 $music = [ordered]@{
+    muted = $true
     intro = [ordered]@{ src = "assets/intro.wav"; volume = 0.3 }
     loop  = [ordered]@{ src = "assets/loop.wav";  volume = 0.3 }
     outro = [ordered]@{ src = "assets/outro.wav"; volume = 0.3 }

@@ -33,8 +33,14 @@ export const SubtitleOverlay: React.FC<{
     : "#FFF";
   const currentMs = (frame / fps) * 1000;
 
+  const clipStartMs = activeClip ? ((activeClip.startFrame ?? 0) / fps) * 1000 : null;
+  const clipEndMs = activeClip ? (((activeClip.startFrame ?? 0) + (activeClip.durationInFrames ?? 0)) / fps) * 1000 : null;
+  const activeClipCaptions = clipStartMs !== null && clipEndMs !== null
+    ? captions.filter((c) => c.startMs >= clipStartMs && c.startMs < clipEndMs)
+    : [];
+
   const { pages } = createTikTokStyleCaptions({
-    captions,
+    captions: activeClipCaptions,
     combineTokensWithinMilliseconds: 500,
   });
 
@@ -83,7 +89,7 @@ export const SubtitleOverlay: React.FC<{
           <span
             key={i}
             style={{
-              color: t === activeToken ? "#FFE600" : subtitleColor,
+              color: t === activeToken ? "#FFFAFA" : subtitleColor,
               textShadow: "0 0 8px rgba(0,0,0,0.9), 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
             }}
           >
