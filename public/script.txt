@@ -11,7 +11,7 @@ Hello! This is my very first video!
 === scene-2 ===
 @transition: zoom-in
 [bryan]
-And hopefully the last
+And hopefully also the last
 
 === scene-3 ===
 @transition: zoom-out
