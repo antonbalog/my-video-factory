@@ -52,12 +52,12 @@ but I do know I'm going to keep it real
 [bryan]
 He needs to get a job
 
-=== scene-8 ===
+=== scene-7 ===
 @transition: zoom-in
 [bryan]
 For real!
 
-=== scene-9 ===
+=== scene-8 ===
 @animate: ufo ufo-fly at=0s
 [ufo x=1.5 size=1.5]
 
@@ -67,18 +67,18 @@ So if you like honest, slightly chaotic content
 [bryan]
 I would rather watch ads if I were you
 
-=== scene-10 ===
+=== scene-9 ===
 [dirtbag]
 You might want to stick around
 
 [bryan]
 
-=== scene-11 ===
+=== scene-10 ===
 @transition: zoom-in
 [bryan]
 Please don't support this [bullshit]!
 
-=== scene-12 ===
+=== scene-11 ===
 @animate: dirtbag thumb-up at=1s
 [dirtbag]
 And hey! Subscribe!
@@ -87,22 +87,22 @@ Don't let my mom be my only subscriber
 [bryan]
 His mom doesn't know about this
 
-=== scene-13 ===
+=== scene-12 ===
 @transition: zoom-out
 [dirtbag]
 Please!
 
-=== scene-14 ===
+=== scene-13 ===
 @transition: zoom-in
 [bryan]
 You know you don't have to do it
 
-=== scene-15 ===
+=== scene-14 ===
 @transition: zoom-out
 [dirtbag]
 Pretty please!
 
-=== scene-16 ===
+=== scene-15 ===
 @animate: dirtbag cry at=1s
 @animate: bryan glitch-out at=0s
 [dirtbag]

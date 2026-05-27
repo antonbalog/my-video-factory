@@ -15,7 +15,7 @@ export const Ufo: React.FC = () => (
       </linearGradient>
       <linearGradient id="ufoGradient-grey" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stopColor="#1F1F1F" />
-        <stop offset="100%" stopColor="#331414143" />
+        <stop offset="100%" stopColor="#141414" />
       </linearGradient>
       <linearGradient id="ufoGradient-blue" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stopColor="#1F1F1F" />

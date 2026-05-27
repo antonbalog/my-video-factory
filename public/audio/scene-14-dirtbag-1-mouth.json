@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "soundFile": "C:\\Projects\\remotion\\my-video-factory\\public\\audio\\scene-14-dirtbag-1.wav",
+    "duration": 1.65
+  },
+  "mouthCues": [
+    { "start": 0.00, "end": 0.08, "value": "X" },
+    { "start": 0.08, "end": 0.16, "value": "A" },
+    { "start": 0.16, "end": 0.36, "value": "B" },
+    { "start": 0.36, "end": 0.44, "value": "A" },
+    { "start": 0.44, "end": 0.91, "value": "B" },
+    { "start": 0.91, "end": 1.65, "value": "X" }
+  ]
+}
