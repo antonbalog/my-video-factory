@@ -66,13 +66,22 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
     const duration = (anim.params?.durationFrames as number | undefined) ?? 40;
     const t = Math.min(anim.localFrame / duration, 1);
     const intensity = anim.type === "glitch-in" ? 1 - t : t;
-    const opacity   = anim.type === "glitch-in" ? t : 1 - t;
-    const tick = Math.floor(anim.localFrame / 2);
-    const jitterX = (sr(tick * 5) - 0.5) * intensity * 30;
+    const opacityRaw = anim.type === "glitch-in" ? t : 1 - t;
+    const opacity = Math.round(opacityRaw * 3) / 3;
+    const tick = anim.localFrame;
+    const jitterX = (sr(tick * 5) - 0.5) * intensity * 40;
+    const jitterY = (sr(tick * 7) - 0.5) * intensity * 10;
+    const chromaOffset = Math.round(sr(tick * 3) * intensity * 20);
     return {
       opacity,
-      filter: `hue-rotate(${sr(tick * 9) * intensity * 180}deg) brightness(${1 + intensity * 0.5}) blur(${intensity * 4}px)`,
-      transform: `translateX(${jitterX}px)`,
+      filter: [
+        `contrast(${1 + intensity * 1.5})`,
+        `saturate(${1 + intensity * 2})`,
+        `hue-rotate(${Math.round(sr(tick * 9) * intensity * 3) * 60}deg)`,
+        `drop-shadow(${chromaOffset}px 0 0 rgba(255,0,0,0.9))`,
+        `drop-shadow(${-chromaOffset}px 0 0 rgba(0,255,255,0.9))`,
+      ].join(" "),
+      transform: `translate(${jitterX}px, ${jitterY}px)`,
     };
   };
 
