@@ -44,9 +44,22 @@ export const SubtitleOverlay: React.FC<{
     combineTokensWithinMilliseconds: 300,
   });
 
+  const MAX_WORDS = 5;
+  const splitPages = pages.flatMap((page) => {
+    if (page.tokens.length <= MAX_WORDS) return [page];
+    const result = [];
+    let i = 0;
+    while (i < page.tokens.length) {
+      const chunk = page.tokens.slice(i, i + MAX_WORDS);
+      result.push({ startMs: chunk[0].fromMs, tokens: chunk });
+      i += MAX_WORDS;
+    }
+    return result;
+  });
+
   let currentPage = null;
-  for (let i = pages.length - 1; i >= 0; i--) {
-    const p = pages[i];
+  for (let i = splitPages.length - 1; i >= 0; i--) {
+    const p = splitPages[i];
     const endMs = Math.max(...p.tokens.map((t) => t.toMs));
     if (p.startMs <= currentMs && currentMs < endMs) {
       currentPage = p;
