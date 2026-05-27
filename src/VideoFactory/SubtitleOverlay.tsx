@@ -41,7 +41,7 @@ export const SubtitleOverlay: React.FC<{
 
   const { pages } = createTikTokStyleCaptions({
     captions: activeClipCaptions,
-    combineTokensWithinMilliseconds: 100,
+    combineTokensWithinMilliseconds: 300,
   });
 
   let currentPage = null;
@@ -89,7 +89,7 @@ export const SubtitleOverlay: React.FC<{
           <span
             key={i}
             style={{
-              color: t === activeToken ? "#2CFF05" : subtitleColor,
+              color: t === activeToken ? "#FFFFFF" : subtitleColor,
               textShadow: "0 0 8px rgba(0,0,0,0.9), 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000",
             }}
           >

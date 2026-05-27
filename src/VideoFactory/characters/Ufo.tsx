@@ -10,24 +10,24 @@ export const Ufo: React.FC = () => (
   >
     <defs>
       <linearGradient id="ufoGradient-purple" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFF" />
-        <stop offset="100%" stopColor="#FFF" />
+        <stop offset="0%" stopColor="#1F1F1F" />
+        <stop offset="100%" stopColor="#141414" />
       </linearGradient>
       <linearGradient id="ufoGradient-grey" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFF" />
-        <stop offset="100%" stopColor="#FFF" />
+        <stop offset="0%" stopColor="#1F1F1F" />
+        <stop offset="100%" stopColor="#331414143" />
       </linearGradient>
       <linearGradient id="ufoGradient-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFF" />
-        <stop offset="100%" stopColor="#FFF" />
+        <stop offset="0%" stopColor="#1F1F1F" />
+        <stop offset="100%" stopColor="#141414" />
       </linearGradient>
       <linearGradient id="ufoGradient-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFF" />
-        <stop offset="100%" stopColor="#FFF" />
+        <stop offset="0%" stopColor="#1F1F1F" />
+        <stop offset="100%" stopColor="#141414" />
       </linearGradient>
     </defs>
     <g
-      stroke="#222"
+      stroke="#141414"
       strokeWidth="2"
       strokeLinejoin="round"
       strokeLinecap="round"

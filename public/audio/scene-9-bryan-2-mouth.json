@@ -1,22 +1,20 @@
 {
   "metadata": {
     "soundFile": "C:\\Projects\\remotion\\my-video-factory\\public\\audio\\scene-9-bryan-2.wav",
-    "duration": 2.68
+    "duration": 2.61
   },
   "mouthCues": [
-    { "start": 0.00, "end": 0.23, "value": "X" },
-    { "start": 0.23, "end": 0.27, "value": "F" },
-    { "start": 0.27, "end": 0.45, "value": "B" },
-    { "start": 0.45, "end": 0.66, "value": "C" },
-    { "start": 0.66, "end": 0.80, "value": "B" },
-    { "start": 0.80, "end": 0.88, "value": "A" },
-    { "start": 0.88, "end": 1.05, "value": "E" },
-    { "start": 1.05, "end": 1.13, "value": "A" },
-    { "start": 1.13, "end": 1.30, "value": "C" },
-    { "start": 1.30, "end": 1.37, "value": "B" },
-    { "start": 1.37, "end": 1.44, "value": "E" },
-    { "start": 1.44, "end": 1.51, "value": "F" },
-    { "start": 1.51, "end": 1.93, "value": "B" },
-    { "start": 1.93, "end": 2.68, "value": "X" }
+    { "start": 0.00, "end": 0.16, "value": "X" },
+    { "start": 0.16, "end": 0.35, "value": "C" },
+    { "start": 0.35, "end": 0.42, "value": "B" },
+    { "start": 0.42, "end": 0.49, "value": "D" },
+    { "start": 0.49, "end": 0.77, "value": "B" },
+    { "start": 0.77, "end": 0.84, "value": "D" },
+    { "start": 0.84, "end": 1.19, "value": "B" },
+    { "start": 1.19, "end": 1.33, "value": "D" },
+    { "start": 1.33, "end": 1.40, "value": "C" },
+    { "start": 1.40, "end": 1.48, "value": "A" },
+    { "start": 1.48, "end": 1.83, "value": "B" },
+    { "start": 1.83, "end": 2.61, "value": "X" }
   ]
 }

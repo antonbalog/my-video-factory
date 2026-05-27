@@ -4,7 +4,7 @@
 === scene-1 ===
 @animate: bryan glitch-in at=0s
 [dirtbag nametag]
-Hello! This is my very first video!
+Hello! This is my very first video
 
 [bryan nametag]
 
@@ -30,7 +30,7 @@ I love the internet way too much
 [bryan]
 
 === scene-6 ===
-@animate: dirtbag fortnite-dance at=3s cycles=4
+@animate: dirtbag fortnite-dance at=3s cycles=3
 [bryan]
 He's addicted and needs help
 
@@ -38,7 +38,7 @@ He's addicted and needs help
 And I want to make stuff people actually enjoy watching
 
 [bryan]
-He wants to be lazy piece of [shit]!
+He just wants to be a lazy piece of [shit]
 
 [dirtbag]
 I don't know exactly where this will go yet
@@ -55,26 +55,28 @@ He needs to get a job
 === scene-8 ===
 @transition: zoom-in
 [bryan]
-For real
+For real!
 
 === scene-9 ===
+@animate: ufo ufo-fly at=0s
+[ufo x=1.5 size=1.5]
+
 [dirtbag]
 So if you like honest, slightly chaotic content
 
 [bryan]
-Please don't support this [bullshit]!
+I would rather watch ads if I were you
 
 === scene-10 ===
 [dirtbag]
-you might want to stick around
+You might want to stick around
 
 [bryan]
-I would rather watch ads
 
 === scene-11 ===
 @transition: zoom-in
 [bryan]
-if I was you
+Please don't support this [bullshit]!
 
 === scene-12 ===
 @animate: dirtbag thumb-up at=1s
@@ -86,20 +88,25 @@ Don't let my mom be my only subscriber
 His mom doesn't know about this
 
 === scene-13 ===
-@transition: zoom-in
-[bryan]
-You know you don't have to do it
-
-=== scene-14 ===
 @transition: zoom-out
 [dirtbag]
 Please!
 
+=== scene-14 ===
+@transition: zoom-in
+[bryan]
+You know you don't have to do it
+
 === scene-15 ===
-@animate: dirtbag cry at=0s
+@transition: zoom-out
+[dirtbag]
+Pretty please!
+
+=== scene-16 ===
+@animate: dirtbag cry at=1s
 @animate: bryan glitch-out at=0s
 [dirtbag]
-I would love to have a friend!
+I really wish I had a friend
 
 [bryan]
 

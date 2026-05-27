@@ -1,12 +1,13 @@
 {
   "metadata": {
     "soundFile": "C:\\Projects\\remotion\\my-video-factory\\public\\audio\\scene-8-bryan-1.wav",
-    "duration": 1.41
+    "duration": 1.44
   },
   "mouthCues": [
-    { "start": 0.00, "end": 0.18, "value": "X" },
-    { "start": 0.18, "end": 0.29, "value": "E" },
-    { "start": 0.29, "end": 0.64, "value": "B" },
-    { "start": 0.64, "end": 1.41, "value": "X" }
+    { "start": 0.00, "end": 0.20, "value": "X" },
+    { "start": 0.20, "end": 0.25, "value": "G" },
+    { "start": 0.25, "end": 0.37, "value": "E" },
+    { "start": 0.37, "end": 0.65, "value": "B" },
+    { "start": 0.65, "end": 1.44, "value": "X" }
   ]
 }
