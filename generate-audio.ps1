@@ -77,11 +77,13 @@ if (-not (Test-Path $beepFile)) {
 # Clean audio folder
 # ---------------------------------------------------------------------------
 
-Write-Host "Cleaning $audioDir..."
-Get-ChildItem $audioDir -File | Where-Object {
-    $_.Extension -in @(".mp3", ".vtt", ".json", ".txt", ".wav")
-} | Remove-Item -Force
-Write-Host "Done."
+$cacheFile = "$audioDir\.audiocache.json"
+$cache = @{}
+if (Test-Path $cacheFile) {
+    $parsed = Get-Content $cacheFile -Raw | ConvertFrom-Json
+    $parsed.PSObject.Properties | ForEach-Object { $cache[$_.Name] = $_.Value }
+}
+$newCache = @{}
 
 # ---------------------------------------------------------------------------
 # Parsing helpers
@@ -349,12 +351,6 @@ foreach ($clip in $clips) {
         continue
     }
 
-    $preview = $clip.Text.Substring(0, [Math]::Min(60, $clip.Text.Length))
-    Write-Host "[$base] $preview..."
-
-    Set-Content -Path $tmp -Value $clip.Text -Encoding UTF8
-
-    Write-Host "  1/3 edge-tts..."
     $charArgs = $voiceArgs[$clip.Character]
     $rateVal  = "+0%"
     $pitchVal = "+0Hz"
@@ -362,6 +358,26 @@ foreach ($clip in $clips) {
         if ($a -match '^--rate=(.+)$')  { $rateVal  = $matches[1] }
         if ($a -match '^--pitch=(.+)$') { $pitchVal = $matches[1] }
     }
+
+    $hashInput = "$($clip.Text)|$($clip.Character)|$($voices[$clip.Character])|$rateVal|$pitchVal|$($clip.BleepWordIndices -join ',')"
+    $hashBytes = [System.Text.Encoding]::UTF8.GetBytes($hashInput)
+    $sha       = [System.Security.Cryptography.SHA256]::Create()
+    $hashStr   = [System.BitConverter]::ToString($sha.ComputeHash($hashBytes)) -replace '-', ''
+
+    $cached = $cache[$base]
+    if ($cached -and $cached.hash -eq $hashStr -and (Test-Path $mp3) -and (Test-Path $vtt) -and (Test-Path $json)) {
+        Write-Host "[$base] cached, skipping."
+        if ($cached.bleeps) { $clip.AudioEntry.bleeps = $cached.bleeps }
+        $newCache[$base] = $cached
+        continue
+    }
+
+    $preview = $clip.Text.Substring(0, [Math]::Min(60, $clip.Text.Length))
+    Write-Host "[$base] $preview..."
+
+    Set-Content -Path $tmp -Value $clip.Text -Encoding UTF8
+
+    Write-Host "  1/3 edge-tts..."
     python "$PSScriptRoot\edge-tts-words.py" $tmp $voices[$clip.Character] $rateVal $pitchVal $mp3 $vtt
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "  edge-tts failed (exit $LASTEXITCODE) - skipping [$base]"
@@ -410,8 +426,23 @@ foreach ($clip in $clips) {
     }
 
     Remove-Item $tmp -ErrorAction SilentlyContinue
+
+    $cacheEntry = @{ hash = $hashStr }
+    if ($clip.AudioEntry.bleeps) { $cacheEntry.bleeps = $clip.AudioEntry.bleeps }
+    $newCache[$base] = $cacheEntry
     Write-Host "  done."
 }
+
+# Remove orphaned audio files and save updated cache
+$expectedBases = $clips | ForEach-Object { "$($_.Scene)-$($_.Character)-$($_.Index)" }
+Get-ChildItem $audioDir -File | Where-Object { $_.Name -ne ".audiocache.json" } | ForEach-Object {
+    $baseName = $_.BaseName -replace '-mouth$', ''
+    if ($baseName -notin $expectedBases) {
+        Remove-Item $_.FullName -Force
+        Write-Host "Removed orphan: $($_.Name)"
+    }
+}
+$newCache | ConvertTo-Json -Depth 5 | Set-Content $cacheFile -Encoding UTF8
 
 $tmpConfig = $configFile + ".tmp"
 $config | ConvertTo-Json -Depth 10 | Set-Content -Path $tmpConfig -Encoding UTF8
