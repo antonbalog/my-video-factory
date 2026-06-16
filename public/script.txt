@@ -16,7 +16,7 @@ And hopefully also the last
 === scene-3 ===
 @transition: zoom-out
 [dirtbag]
-I hope it doesn't {suck}
+I hope it doesn't {bleep:suck}
 
 === scene-4 ===
 @transition: zoom-in
@@ -38,7 +38,7 @@ He's addicted and needs help
 And I want to make stuff people actually enjoy watching
 
 [bryan]
-He just wants to be a lazy piece of {shit}
+He just wants to be a lazy piece of {bleep:shit}
 
 [dirtbag]
 I don't know exactly where this will go yet
@@ -76,7 +76,7 @@ You might want to stick around
 === scene-10 ===
 @transition: zoom-in
 [bryan]
-Please don't support this {bullshit}!
+Please don't support this {bleep:bullshit}!
 
 === scene-11 ===
 @animate: dirtbag thumb-up at=1s
