@@ -163,6 +163,11 @@ function Invoke-AutoDirection($scenes) {
         if ($s.id -notin @("intro", "outro")) { $firstSceneId = $s.id; break }
     }
 
+    $lastSceneId = $null
+    for ($i = $scenes.Count - 1; $i -ge 0; $i--) {
+        if ($scenes[$i].id -notin @("intro", "outro")) { $lastSceneId = $scenes[$i].id; break }
+    }
+
     foreach ($scene in $scenes) {
         $sid = $scene.id
 
@@ -180,7 +185,11 @@ function Invoke-AutoDirection($scenes) {
         }
 
         if ($null -eq $scene.transition) {
-            if ($scene.charMap.Count -eq 1) {
+            if ($sid -eq $lastSceneId) {
+                $scene.transition = 'zoom-out'
+                Write-Host "  [$sid] transition -> zoom-out (last scene)" -ForegroundColor DarkCyan
+                $applied++
+            } elseif ($scene.charMap.Count -eq 1) {
                 $scene.transition = 'zoom-in'
                 Write-Host "  [$sid] transition -> zoom-in" -ForegroundColor DarkCyan
                 $applied++
