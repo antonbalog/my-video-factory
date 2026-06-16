@@ -38,7 +38,7 @@ $voices = @{
 
 $voiceArgs = @{
     "dirtbag" = @("--rate=+15%")
-    "bryan"   = @("--rate=+15%", "--pitch=+10%")
+    "bryan"   = @("--rate=+15%", "--pitch=+50Hz")
 }
 
 $charDefaults = @{
