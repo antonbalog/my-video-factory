@@ -7,13 +7,13 @@ SHOW dirtbag nametag
 DIRTBAG: Hello! This is my very first video
 SHOW bryan nametag
 
-[Scene transition=zoom-in]
+[Scene]
 BRYAN: And hopefully also the last
 
-[Scene transition=zoom-out]
+[Scene]
 DIRTBAG: I hope it doesn't {bleep:suck}
 
-[Scene transition=zoom-in]
+[Scene]
 BRYAN: It already does
 
 [Scene]
@@ -30,7 +30,7 @@ BRYAN: Nowhere
 DIRTBAG: but I do know I'm going to keep it real
 BRYAN: He needs to get a job
 
-[Scene transition=zoom-in]
+[Scene]
 BRYAN: For real!
 
 [Scene]
@@ -43,7 +43,7 @@ BRYAN: I would rather watch ads, if I were you
 DIRTBAG: You might want to stick around
 SHOW bryan
 
-[Scene transition=zoom-in]
+[Scene]
 BRYAN: Please don't support this {bleep:bullshit}!
 
 [Scene]
@@ -51,13 +51,13 @@ ANIMATE dirtbag thumb-up at=1s
 DIRTBAG: And hey! Subscribe! Don't let my mom be my only subscriber
 BRYAN: His mom doesn't know about this
 
-[Scene transition=zoom-out]
+[Scene]
 DIRTBAG: Please!
 
-[Scene transition=zoom-in]
+[Scene]
 BRYAN: You know you don't have to do it
 
-[Scene transition=zoom-out]
+[Scene]
 DIRTBAG: Please!
 
 [Scene]

@@ -38,7 +38,7 @@ $voices = @{
 
 $voiceArgs = @{
     "dirtbag" = @("--rate=+15%")
-    "bryan"   = @("--rate=+15%", "--pitch=+50Hz")
+    "bryan"   = @("--rate=+15%", "--pitch=+20Hz")
 }
 
 $charDefaults = @{
@@ -123,22 +123,22 @@ function Parse-ShowTag($line) {
     $parts    = $matches[1].Trim() -split '\s+'
     $charName = $parts[0].ToLower()
     $def      = $script:charDefaults[$charName]
-    $isZoom   = $null -ne $script:curScene -and $null -ne $script:curScene.transition
     $result   = @{
-        name      = $charName
-        x         = if ($isZoom) { 0.5 } elseif ($def) { $def.x }    else { 0.5 }
-        y         = if ($def) { $def.y }    else { 0.5 }
-        size      = if ($isZoom) { 5 }   elseif ($def) { $def.size } else { 2 }
-        wave      = $null
-        nametag   = $false
-        trimStart = $null
-        trimEnd   = $null
-        padEnd    = $null
+        name         = $charName
+        x            = if ($def) { $def.x }    else { 0.5 }
+        y            = if ($def) { $def.y }    else { 0.5 }
+        size         = if ($def) { $def.size } else { 2 }
+        sizeExplicit = $false
+        wave         = $null
+        nametag      = $false
+        trimStart    = $null
+        trimEnd      = $null
+        padEnd       = $null
     }
     foreach ($part in $parts[1..($parts.Count - 1)]) {
-        if    ($part -match '^x=(.+)$')                { $result.x         = [double]$matches[1] }
-        elseif ($part -match '^y=(.+)$')                { $result.y         = [double]$matches[1] }
-        elseif ($part -match '^size=(\d+)$')            { $result.size      = [int]$matches[1] }
+        if    ($part -match '^x=(.+)$')                { $result.x           = [double]$matches[1] }
+        elseif ($part -match '^y=(.+)$')                { $result.y           = [double]$matches[1] }
+        elseif ($part -match '^size=([\d.]+)$')         { $result.size        = [double]$matches[1]; $result.sizeExplicit = $true }
         elseif ($part -match '^wave=(intro|outro)$')    { $result.wave      = $matches[1] }
         elseif ($part -eq 'wave')                       { $result.wave      = "intro" }
         elseif ($part -eq 'nametag')                    { $result.nametag   = $true }
@@ -147,6 +147,71 @@ function Parse-ShowTag($line) {
         elseif ($part -match '^pad-end=([\d.]+)s$')    { $result.padEnd    = [double]$matches[1] }
     }
     return $result
+}
+
+# ---------------------------------------------------------------------------
+# Rule-based auto-direction
+# Transition and closeup are independent — each fires on its own rules.
+# ---------------------------------------------------------------------------
+
+function Invoke-AutoDirection($scenes) {
+    Write-Host "[auto-direction] Applying rules..."
+
+    $applied        = 0
+    $prevTransition = $null
+
+    for ($i = 0; $i -lt $scenes.Count; $i++) {
+        $scene = $scenes[$i]
+        $sid   = $scene.id
+
+        if ($sid -in @("intro", "outro")) {
+            $prevTransition = $scene.transition
+            continue
+        }
+
+        # Gather dialogue stats
+        $totalWords = 0
+        $hasExclaim = $false
+        $speakers   = @{}
+        foreach ($a in $scene.audioList) {
+            $totalWords += ($a.text -split '\s+' | Where-Object { $_ }).Count
+            $hasExclaim  = $hasExclaim -or ($a.text -match '!')
+            $speakers[$a.characterId] = $true
+        }
+        $singleSpeaker = $speakers.Count -eq 1
+        $isPunchy      = $singleSpeaker -and ($totalWords -le 6 -or $hasExclaim)
+
+        # -- Transition rule (only if not manually set) --
+        if ($null -eq $scene.transition) {
+            if ($prevTransition -eq 'zoom-in') {
+                $scene.transition = 'zoom-out'
+                Write-Host "  [$sid] transition -> zoom-out" -ForegroundColor DarkCyan
+                $applied++
+            } elseif ($isPunchy) {
+                $scene.transition = 'zoom-in'
+                Write-Host "  [$sid] transition -> zoom-in" -ForegroundColor DarkCyan
+                $applied++
+            }
+        }
+
+        # -- Closeup rule (independent of transition) --
+        if ($isPunchy) {
+            $charName = @($speakers.Keys)[0]
+            if ($scene.charMap.Contains($charName)) {
+                $entry = $scene.charMap[$charName]
+                if (-not $entry.sizeExplicit) {
+                    $entry.size = 5
+                    $entry.x    = 0.5
+                    Write-Host "  [$sid] closeup -> $charName" -ForegroundColor DarkCyan
+                    $applied++
+                }
+            }
+        }
+
+        $prevTransition = $scene.transition
+    }
+
+    Write-Host "[auto-direction] Done -- $applied suggestions applied." -ForegroundColor Cyan
 }
 
 # ---------------------------------------------------------------------------
@@ -282,18 +347,18 @@ foreach ($line in (Get-Content $scriptFile)) {
         $dialogue = $matches[2].Trim()
         if ($curScene) {
             if (-not $curScene.charMap.Contains($charName)) {
-                $def    = $script:charDefaults[$charName]
-                $isZoom = $null -ne $curScene.transition
+                $def = $script:charDefaults[$charName]
                 $curScene.charMap[$charName] = @{
-                    name      = $charName
-                    x         = if ($isZoom) { 0.5 } elseif ($def) { $def.x }    else { 0.5 }
-                    y         = if ($def) { $def.y } else { 0.5 }
-                    size      = if ($isZoom) { 5 }   elseif ($def) { $def.size } else { 2 }
-                    wave      = $null
-                    nametag   = $false
-                    trimStart = $null
-                    trimEnd   = $null
-                    padEnd    = $null
+                    name         = $charName
+                    x            = if ($def) { $def.x }    else { 0.5 }
+                    y            = if ($def) { $def.y }    else { 0.5 }
+                    size         = if ($def) { $def.size } else { 2 }
+                    sizeExplicit = $false
+                    wave         = $null
+                    nametag      = $false
+                    trimStart    = $null
+                    trimEnd      = $null
+                    padEnd       = $null
                 }
             }
             Emit-Clip -Scene $curScene -CharInfo $curScene.charMap[$charName] -Text $dialogue
@@ -302,6 +367,7 @@ foreach ($line in (Get-Content $scriptFile)) {
     }
 }
 Flush-Scene
+Invoke-AutoDirection $scenes
 
 # ---------------------------------------------------------------------------
 # Build and write config.json
