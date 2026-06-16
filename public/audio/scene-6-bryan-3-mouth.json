@@ -4,18 +4,15 @@
     "duration": 2.88
   },
   "mouthCues": [
-    { "start": 0.00, "end": 0.18, "value": "X" },
-    { "start": 0.18, "end": 0.47, "value": "B" },
-    { "start": 0.47, "end": 0.54, "value": "F" },
-    { "start": 0.54, "end": 0.61, "value": "E" },
-    { "start": 0.61, "end": 0.75, "value": "B" },
-    { "start": 0.75, "end": 1.00, "value": "D" },
-    { "start": 1.00, "end": 1.07, "value": "C" },
-    { "start": 1.07, "end": 1.31, "value": "B" },
-    { "start": 1.31, "end": 1.38, "value": "C" },
-    { "start": 1.38, "end": 1.87, "value": "B" },
-    { "start": 1.87, "end": 1.94, "value": "C" },
-    { "start": 1.94, "end": 2.15, "value": "B" },
-    { "start": 2.15, "end": 2.88, "value": "X" }
+    { "start": 0.00, "end": 0.17, "value": "X" },
+    { "start": 0.17, "end": 0.45, "value": "B" },
+    { "start": 0.45, "end": 0.52, "value": "F" },
+    { "start": 0.52, "end": 0.66, "value": "E" },
+    { "start": 0.66, "end": 0.80, "value": "B" },
+    { "start": 0.80, "end": 1.22, "value": "C" },
+    { "start": 1.22, "end": 1.71, "value": "B" },
+    { "start": 1.71, "end": 1.99, "value": "F" },
+    { "start": 1.99, "end": 2.13, "value": "B" },
+    { "start": 2.13, "end": 2.88, "value": "X" }
   ]
 }
