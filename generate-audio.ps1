@@ -189,7 +189,7 @@ function Invoke-AutoDirection($scenes) {
                 $scene.transition = 'zoom-out'
                 Write-Host "  [$sid] transition -> zoom-out (last scene)" -ForegroundColor DarkCyan
                 $applied++
-            } elseif ($scene.charMap.Count -eq 1) {
+            } elseif ($scene.charMap.Count -le 1) {
                 $scene.transition = 'zoom-in'
                 Write-Host "  [$sid] transition -> zoom-in" -ForegroundColor DarkCyan
                 $applied++

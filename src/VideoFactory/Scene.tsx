@@ -29,10 +29,10 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
   const bgScale = isZoom ? maxCharSize / 2 : 1;
 
   const scale = config.transition === "zoom-in"
-    ? spring({ frame, fps, from: 1.15, to: 1, config: { damping: 18, stiffness: 80 } })
+    ? spring({ frame, fps, from: 1, to: 1.10, config: { damping: 18, stiffness: 80 } })
     : config.transition === "zoom-out"
-    ? spring({ frame, fps, from: 1, to: 1.15, config: { damping: 18, stiffness: 80 } })
-    : 1;
+      ? spring({ frame, fps, from: 1.10, to: 1, config: { damping: 18, stiffness: 80 } })
+      : 1;
 
   const getActiveAnimation = (charId: string) => {
     for (const anim of config.animations ?? []) {
@@ -54,7 +54,7 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
       const def = LIMB_ANIMATIONS[anim.type];
       const duration = def ? def.duration(anim.params) : 40;
       if (anim.type === "glitch-out" && frame >= start + duration) return 0;
-      if (anim.type === "glitch-in"  && frame < start)             return 0;
+      if (anim.type === "glitch-in" && frame < start) return 0;
     }
     return null;
   };
@@ -97,86 +97,86 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ transform: `scale(${scale})` }}>
-      <div style={{ position: "absolute", inset: 0, transform: `scale(${bgScale})` }}>
-        {renderBackground(bg)}
-        {overlay && <GradientOverlay {...overlay} />}
-      </div>
-      {(config.audio ?? []).map((clip) => (
-        <Sequence key={clip.src} from={clip.startFrame ?? 0} durationInFrames={clip.durationInFrames}>
-          <Audio
-            src={staticFile(clip.src)}
-            startFrom={clip.trimStartFrames ?? 0}
-            volume={(f) => {
-              if (!clip.parsedBleeps?.length) return clip.volume ?? 1;
-              return clip.parsedBleeps.some((b) => f >= b.startFrame && f < b.endFrame)
-                ? 0
-                : clip.volume ?? 1;
-            }}
-          />
-        </Sequence>
-      ))}
-      {(config.audio ?? []).flatMap((clip) =>
-        (clip.parsedBleeps ?? []).map((b, i) => (
-          <Sequence
-            key={`bleep-${clip.src}-${i}`}
-            from={(clip.startFrame ?? 0) + b.startFrame}
-            durationInFrames={b.endFrame - b.startFrame}
-          >
-            <Audio src={staticFile("sfx/censor-beep.wav")} volume={() => 1} />
-          </Sequence>
-        ))
-      )}
-      {(config.sfx ?? []).map((sfx, i) => (
-        <Sequence
-          key={`sfx-${i}`}
-          from={Math.round(sfx.atMs / 1000 * fps)}
-          durationInFrames={Math.ceil(fps * 2)}
-        >
-          <Audio src={staticFile(sfx.src)} volume={() => sfx.volume ?? 1} />
-        </Sequence>
-      ))}
-      {[...characters.filter(c => c.behind), ...characters.filter(c => !c.behind)].map((char) => {
-        const CharComponent = characterRegistry[char.id];
-        if (!CharComponent) return null;
-        const anim = getActiveAnimation(char.id);
-        const glitch = getGlitchWrapStyle(anim, char.id);
-        const limbState = evaluateLimbs(anim);
-        const posX = limbState.position != null ? limbState.position.x : char.x;
-        const posY = limbState.position != null ? limbState.position.y : char.y;
-        return (
-          <React.Fragment key={char.id}>
-            <div
-              style={{
-                position: "absolute",
-                left: `${posX * 100}%`,
-                top: `${posY * 100}%`,
-                transform: `translate(-50%, -50%) scale(${char.size ?? 1})`,
+        <div style={{ position: "absolute", inset: 0, transform: `scale(${bgScale})` }}>
+          {renderBackground(bg)}
+          {overlay && <GradientOverlay {...overlay} />}
+        </div>
+        {(config.audio ?? []).map((clip) => (
+          <Sequence key={clip.src} from={clip.startFrame ?? 0} durationInFrames={clip.durationInFrames}>
+            <Audio
+              src={staticFile(clip.src)}
+              startFrom={clip.trimStartFrames ?? 0}
+              volume={(f) => {
+                if (!clip.parsedBleeps?.length) return clip.volume ?? 1;
+                return clip.parsedBleeps.some((b) => f >= b.startFrame && f < b.endFrame)
+                  ? 0
+                  : clip.volume ?? 1;
               }}
+            />
+          </Sequence>
+        ))}
+        {(config.audio ?? []).flatMap((clip) =>
+          (clip.parsedBleeps ?? []).map((b, i) => (
+            <Sequence
+              key={`bleep-${clip.src}-${i}`}
+              from={(clip.startFrame ?? 0) + b.startFrame}
+              durationInFrames={b.endFrame - b.startFrame}
             >
-              <div style={glitch ?? undefined}>
-                <CharComponent colors={char.colors} props={char.props} mouthHeight={getCharMouthHeight(char.id)} animation={anim} />
-              </div>
-            </div>
-            {char.nameTag && (
+              <Audio src={staticFile("sfx/censor-beep.wav")} volume={() => 1} />
+            </Sequence>
+          ))
+        )}
+        {(config.sfx ?? []).map((sfx, i) => (
+          <Sequence
+            key={`sfx-${i}`}
+            from={Math.round(sfx.atMs / 1000 * fps)}
+            durationInFrames={Math.ceil(fps * 2)}
+          >
+            <Audio src={staticFile(sfx.src)} volume={() => sfx.volume ?? 1} />
+          </Sequence>
+        ))}
+        {[...characters.filter(c => c.behind), ...characters.filter(c => !c.behind)].map((char) => {
+          const CharComponent = characterRegistry[char.id];
+          if (!CharComponent) return null;
+          const anim = getActiveAnimation(char.id);
+          const glitch = getGlitchWrapStyle(anim, char.id);
+          const limbState = evaluateLimbs(anim);
+          const posX = limbState.position != null ? limbState.position.x : char.x;
+          const posY = limbState.position != null ? limbState.position.y : char.y;
+          return (
+            <React.Fragment key={char.id}>
               <div
                 style={{
                   position: "absolute",
-                  left: `${char.x * 100}%`,
-                  top: `calc(${char.y * 100}% - 324px)`,
-                  transform: "translateX(-50%)",
-                  textAlign: "center",
-                  pointerEvents: "none",
-                  zIndex: 100,
+                  left: `${posX * 100}%`,
+                  top: `${posY * 100}%`,
+                  transform: `translate(-50%, -50%) scale(${char.size ?? 1})`,
                 }}
               >
                 <div style={glitch ?? undefined}>
-                  <NameTag {...char.nameTag} />
+                  <CharComponent colors={char.colors} props={char.props} mouthHeight={getCharMouthHeight(char.id)} animation={anim} />
                 </div>
               </div>
-            )}
-          </React.Fragment>
-        );
-      })}
+              {char.nameTag && (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: `${char.x * 100}%`,
+                    top: `calc(${char.y * 100}% - 324px)`,
+                    transform: "translateX(-50%)",
+                    textAlign: "center",
+                    pointerEvents: "none",
+                    zIndex: 100,
+                  }}
+                >
+                  <div style={glitch ?? undefined}>
+                    <NameTag {...char.nameTag} />
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </AbsoluteFill>
       {config.captions && config.captions.length > 0 && (
         <SubtitleOverlay
