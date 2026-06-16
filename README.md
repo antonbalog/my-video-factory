@@ -66,6 +66,13 @@ npx remotion render            # Render the video
 ```powershell
 # Generate all audio (TTS + enhancement + lip sync)
 powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
+
+# Render to out/youtube.mp4 and out/shorts.mp4
+powershell -ExecutionPolicy Bypass -File .\render.ps1
+
+# Render a single composition
+powershell -ExecutionPolicy Bypass -File .\render.ps1 -Composition Youtube
+powershell -ExecutionPolicy Bypass -File .\render.ps1 -Composition Shorts
 ```
 
 ## How it works

@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, random, useCurrentFrame, useVideoConfig } from "remotion";
 
 const REF_W = 1920;
 const REF_H = 720; // 2/3 of 1080
@@ -7,10 +7,10 @@ const STAR_GAP = 5;
 
 const STARS: { rx: number; ry: number; size: number }[] = [];
 for (let i = 0; i < 80; i++) {
-  const size = Math.random() > 0.5 ? 10 : 5;
+  const size = random(null) > 0.5 ? 10 : 5;
   for (let attempt = 0; attempt < 200; attempt++) {
-    const rx = Math.random();
-    const ry = Math.random();
+    const rx = random(null);
+    const ry = random(null);
     const px = rx * REF_W;
     const py = ry * REF_H;
     const ok = STARS.every((s) => {
