@@ -32,16 +32,13 @@ $configFile = ".\public\config.json"
 # ---------------------------------------------------------------------------
 
 $voices = @{
-    # "dirtbag" = "en-US-AnaNeural"
     "dirtbag" = "en-US-AnaNeural"
     "bryan"   = "en-GB-MaisieNeural"
 }
 
 $voiceArgs = @{
-    # "dirtbag" = @("--rate=-5%")
-    # "bryan"   = @("--pitch=+25Hz")
-    "dirtbag" = @("--rate=+15%", "--pitch=+5Hz")
-    "bryan"   = @("--rate=+15%", "--pitch=+15Hz")
+    "dirtbag" = @("--rate=+15%")
+    "bryan"   = @("--rate=+15%", "--pitch=+10%")
 }
 
 $charDefaults = @{
