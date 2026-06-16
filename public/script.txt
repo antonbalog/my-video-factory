@@ -8,83 +8,61 @@ DIRTBAG: Hello! This is my very first video
 SHOW bryan nametag
 
 [Scene 2 transition=zoom-in]
-SHOW bryan
 BRYAN: And hopefully also the last
 
 [Scene 3 transition=zoom-out]
-SHOW dirtbag
 DIRTBAG: I hope it doesn't {bleep:suck}
 
 [Scene 4 transition=zoom-in]
-SHOW bryan
 BRYAN: It already does
 
 [Scene 5]
-SHOW dirtbag
 DIRTBAG: I love the internet way too much
 SHOW bryan
 
 [Scene 6]
 ANIMATE dirtbag fortnite-dance at=3s cycles=3
-SHOW bryan
 BRYAN: He's addicted and needs help
-SHOW dirtbag
 DIRTBAG: And I want to make stuff people actually enjoy watching
-SHOW bryan
 BRYAN: He just wants to be a lazy piece of {bleep:shit}
-SHOW dirtbag
 DIRTBAG: I don't know exactly where this will go yet
-SHOW bryan
 BRYAN: Nowhere
-SHOW dirtbag
 DIRTBAG: but I do know I'm going to keep it real
-SHOW bryan
 BRYAN: He needs to get a job
 
 [Scene 7 transition=zoom-in]
-SHOW bryan
 BRYAN: For real!
 
 [Scene 8]
 ANIMATE ufo ufo-fly at=0s
 SHOW ufo x=1.5 size=1.5
-SHOW dirtbag
 DIRTBAG: So if you like honest, slightly chaotic content
-SHOW bryan
 BRYAN: I would rather watch ads, if I were you
 
 [Scene 9]
-SHOW dirtbag
 DIRTBAG: You might want to stick around
 SHOW bryan
 
 [Scene 10 transition=zoom-in]
-SHOW bryan
 BRYAN: Please don't support this {bleep:bullshit}!
 
 [Scene 11]
 ANIMATE dirtbag thumb-up at=1s
-SHOW dirtbag
 DIRTBAG: And hey! Subscribe! Don't let my mom be my only subscriber
-SHOW bryan
 BRYAN: His mom doesn't know about this
 
 [Scene 12 transition=zoom-out]
-SHOW dirtbag
 DIRTBAG: Please!
 
 [Scene 13 transition=zoom-in]
-SHOW bryan
 BRYAN: You know you don't have to do it
 
 [Scene 14 transition=zoom-out]
-SHOW dirtbag
 DIRTBAG: Please!
 
 [Scene 15]
 ANIMATE dirtbag cry at=1s
 ANIMATE bryan glitch-out at=0s
-SHOW dirtbag
 DIRTBAG: I really wish I had a friend
 SHOW bryan
 
