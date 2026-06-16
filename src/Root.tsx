@@ -16,25 +16,36 @@ const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
     const allCaptions: import("@remotion/captions").Caption[] = [];
 
     for (const clip of scene.audio ?? []) {
-      let durationInSeconds: number | null = null;
-      try {
-        ({ durationInSeconds } = await parseMedia({
-          src: staticFile(clip.src),
-          fields: { durationInSeconds: true },
-          acknowledgeRemotionLicense: true,
-        }));
-      } catch {
-        console.warn(`Skipping missing audio: ${clip.src}`);
-        clip.startFrame = clipStartFrame;
-        clip.durationInFrames = 0;
-        continue;
+      let clipFrames: number;
+      let trimStartFrames: number;
+
+      if (clip.durationMs != null) {
+        // Fast path: timing pre-computed by generate-audio.ps1
+        trimStartFrames = Math.round((clip.trimStart ?? 0) * fps);
+        clipFrames = Math.round(clip.durationMs / 1000 * fps);
+      } else {
+        // Fallback: derive from audio file via parseMedia
+        let durationInSeconds: number | null = null;
+        try {
+          ({ durationInSeconds } = await parseMedia({
+            src: staticFile(clip.src),
+            fields: { durationInSeconds: true },
+            acknowledgeRemotionLicense: true,
+          }));
+        } catch {
+          console.warn(`Skipping missing audio: ${clip.src}`);
+          clip.startFrame = clipStartFrame;
+          clip.durationInFrames = 0;
+          continue;
+        }
+        const trimStart = clip.trimStart ?? 0;
+        const trimEnd   = clip.trimEnd   ?? 0;
+        const padEnd    = clip.padEnd    ?? 0;
+        trimStartFrames = Math.round(trimStart * fps);
+        const padEndFrames = Math.round(padEnd * fps);
+        clipFrames = Math.ceil(((durationInSeconds ?? 0) - trimStart - trimEnd) * fps) + padEndFrames;
       }
-      const trimStart = clip.trimStart ?? 0;
-      const trimEnd   = clip.trimEnd   ?? 0;
-      const padEnd    = clip.padEnd    ?? 0;
-      const trimStartFrames = Math.round(trimStart * fps);
-      const padEndFrames    = Math.round(padEnd    * fps);
-      const clipFrames = Math.ceil(((durationInSeconds ?? 0) - trimStart - trimEnd) * fps) + padEndFrames;
+
       clip.trimStartFrames = trimStartFrames;
 
       if (clip.mouthCues) {
@@ -54,10 +65,7 @@ const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
           const res = await fetch(staticFile(clip.subtitles), { signal: abortSignal });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const vttText = await res.text();
-          // NOTE: if trim-start cuts into actual speech, captions from the trimmed
-          // portion get negative timestamps and may flash at frame 0. Acceptable
-          // for now since trim-start is only used to cut leading silence.
-          const offsetMs = (clipStartFrame / fps) * 1000 - trimStart * 1000;
+          const offsetMs = (clipStartFrame / fps) * 1000 - (clip.trimStart ?? 0) * 1000;
           const captions = parseVtt(vttText).map((c) => ({
             ...c,
             startMs: c.startMs + offsetMs,

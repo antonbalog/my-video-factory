@@ -90,6 +90,13 @@ $newCache = @{}
 # Parsing helpers
 # ---------------------------------------------------------------------------
 
+function Get-EffectiveMs($rawMs, $entry) {
+    $ts = if ($null -ne $entry.trimStart) { [math]::Round($entry.trimStart * 1000) } else { 0 }
+    $te = if ($null -ne $entry.trimEnd)   { [math]::Round($entry.trimEnd   * 1000) } else { 0 }
+    $pe = if ($null -ne $entry.padEnd)    { [math]::Round($entry.padEnd    * 1000) } else { 0 }
+    return [math]::Round($rawMs - $ts - $te + $pe)
+}
+
 function Parse-SceneHeader($line) {
     if ($line -notmatch '^\[(.+)\]\s*$') { return $null }
     $content = $matches[1].Trim()
@@ -181,6 +188,7 @@ function Emit-Clip($Scene, $CharInfo, $Text) {
         subtitles   = "audio/$sid-$charId-$idx.vtt"
         mouthCues   = "audio/$sid-$charId-$idx-mouth.json"
         characterId = $charId
+        text        = $ttsText
     }
     if ($censoredWordsList.Count -gt 0) {
         $audioEntry.censoredWords = $censoredWordsList.ToArray()
@@ -374,6 +382,12 @@ foreach ($clip in $clips) {
     if ($cached -and $cached.hash -eq $hashStr -and (Test-Path $mp3) -and (Test-Path $vtt) -and (Test-Path $json)) {
         Write-Host "[$base] cached, skipping."
         if ($cached.bleeps) { $clip.AudioEntry.bleeps = $cached.bleeps }
+        if ($cached.durationMs) {
+            $clip.AudioEntry.durationMs = $cached.durationMs
+        } elseif (Test-Path $mp3) {
+            $rawMs = [math]::Round([double](ffprobe -v quiet -show_entries format=duration -of csv=p=0 $mp3) * 1000)
+            $clip.AudioEntry.durationMs = Get-EffectiveMs $rawMs $clip.AudioEntry
+        }
         $newCache[$base] = $cached
         continue
     }
@@ -435,6 +449,8 @@ foreach ($clip in $clips) {
         if ($LASTEXITCODE -ne 0) {
             Write-Warning "  loudnorm failed for [$base]"
         }
+        $rawMs = [math]::Round([double](ffprobe -v quiet -show_entries format=duration -of csv=p=0 $mp3) * 1000)
+        $clip.AudioEntry.durationMs = Get-EffectiveMs $rawMs $clip.AudioEntry
         Write-Host "  5/5 rhubarb (wav -> mouth.json)..."
         rhubarb -f json -o $json $wav
         if ($LASTEXITCODE -ne 0) {
@@ -446,7 +462,8 @@ foreach ($clip in $clips) {
     Remove-Item $tmp -ErrorAction SilentlyContinue
 
     $cacheEntry = @{ hash = $hashStr }
-    if ($clip.AudioEntry.bleeps) { $cacheEntry.bleeps = $clip.AudioEntry.bleeps }
+    if ($clip.AudioEntry.bleeps)    { $cacheEntry.bleeps    = $clip.AudioEntry.bleeps    }
+    if ($clip.AudioEntry.durationMs) { $cacheEntry.durationMs = $clip.AudioEntry.durationMs }
     $newCache[$base] = $cacheEntry
     Write-Host "  done."
 }
@@ -460,6 +477,28 @@ Get-ChildItem $audioDir -File | Where-Object { $_.Name -ne ".audiocache.json" } 
         Write-Host "Removed orphan: $($_.Name)"
     }
 }
+# Compute clip-level startMs/endMs and scene-level durationMs/durationInFrames
+for ($i = 0; $i -lt $scenes.Count; $i++) {
+    $scene  = $scenes[$i]
+    $obj    = $scenesJson[$i]
+    $cursor = 0
+    foreach ($entry in $scene.audioList) {
+        $ms          = if ($entry.durationMs) { $entry.durationMs } else { 0 }
+        $entry.startMs = $cursor
+        $entry.endMs   = $cursor + $ms
+        $cursor       += $ms
+    }
+    $sceneMs = if ($null -ne $scene.durationInFrames) {
+        [math]::Round($scene.durationInFrames / 60.0 * 1000)
+    } else {
+        $cursor
+    }
+    if ($sceneMs -gt 0) {
+        $obj.durationMs       = $sceneMs
+        $obj.durationInFrames = [math]::Round($sceneMs / 1000.0 * 60)
+    }
+}
+
 $newCache | ConvertTo-Json -Depth 5 | Set-Content $cacheFile -Encoding UTF8
 
 $tmpConfig = $configFile + ".tmp"

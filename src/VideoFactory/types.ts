@@ -44,6 +44,11 @@ export type AudioConfig = {
   trimStart?: number;
   trimEnd?: number;
   padEnd?: number;
+  // Pre-computed by generate-audio.ps1:
+  text?: string;
+  startMs?: number;
+  durationMs?: number;
+  endMs?: number;
   // Runtime-only (set by calculateMetadata):
   startFrame?: number;
   durationInFrames?: number;
@@ -63,6 +68,7 @@ export type AnimationEvent = {
 export type SceneConfig = {
   id: string;
   durationInFrames?: number;
+  durationMs?: number;
   background?: BackgroundConfig;
   tileSize?: number;
   transition?: "cut" | "zoom-in" | "zoom-out";
