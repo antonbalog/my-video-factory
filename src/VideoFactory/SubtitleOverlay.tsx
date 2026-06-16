@@ -77,11 +77,14 @@ export const SubtitleOverlay: React.FC<{
       ? activeTokens.reduce((a, b) => (b.fromMs > a.fromMs ? b : a))
       : null;
 
+  const isPortrait = height > width;
+  const bottomSafe = isPortrait ? "28%" : "12%";
+
   return (
     <div
       style={{
         position: "absolute",
-        bottom: "8%",
+        bottom: bottomSafe,
         left: "10%",
         right: "10%",
         textAlign: "center",
