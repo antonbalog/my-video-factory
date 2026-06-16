@@ -6,7 +6,7 @@
 # script.txt format:
 #
 #   [Scene N]                     scene header (also [Intro duration=120], [Outro duration=120])
-#   [Scene N transition=zoom-in]  optional transition and other options in header
+#   [Scene N transition=cut]      optional transition and other options in header
 #   SHOW character [flags]        character visual config
 #   ANIMATE char type at=Xs       animation (optional cycles=N return=N)
 #   SFX path at=Xs                sound effect
@@ -151,64 +151,45 @@ function Parse-ShowTag($line) {
 
 # ---------------------------------------------------------------------------
 # Rule-based auto-direction
-# Transition and closeup are independent — each fires on its own rules.
+# Closeup rules: intro/outro = never; first scene = never; single speaker = closeup
 # ---------------------------------------------------------------------------
 
 function Invoke-AutoDirection($scenes) {
     Write-Host "[auto-direction] Applying rules..."
+    $applied = 0
 
-    $applied        = 0
-    $prevTransition = $null
+    $firstSceneId = $null
+    foreach ($s in $scenes) {
+        if ($s.id -notin @("intro", "outro")) { $firstSceneId = $s.id; break }
+    }
 
-    for ($i = 0; $i -lt $scenes.Count; $i++) {
-        $scene = $scenes[$i]
-        $sid   = $scene.id
+    foreach ($scene in $scenes) {
+        $sid = $scene.id
 
-        if ($sid -in @("intro", "outro")) {
-            $prevTransition = $scene.transition
-            continue
-        }
+        if ($sid -in @("intro", "outro") -or $sid -eq $firstSceneId) { continue }
 
-        # Gather dialogue stats
-        $totalWords = 0
-        $hasExclaim = $false
-        $speakers   = @{}
-        foreach ($a in $scene.audioList) {
-            $totalWords += ($a.text -split '\s+' | Where-Object { $_ }).Count
-            $hasExclaim  = $hasExclaim -or ($a.text -match '!')
-            $speakers[$a.characterId] = $true
-        }
-        $singleSpeaker = $speakers.Count -eq 1
-        $isPunchy      = $singleSpeaker -and ($totalWords -le 6 -or $hasExclaim)
-
-        # -- Transition rule (only if not manually set) --
-        if ($null -eq $scene.transition) {
-            if ($prevTransition -eq 'zoom-in') {
-                $scene.transition = 'zoom-out'
-                Write-Host "  [$sid] transition -> zoom-out" -ForegroundColor DarkCyan
+        if ($scene.charMap.Count -eq 1) {
+            $charName = @($scene.charMap.Keys)[0]
+            $entry    = $scene.charMap[$charName]
+            if (-not $entry.sizeExplicit) {
+                $entry.size = 5
+                $entry.x    = 0.5
+                Write-Host "  [$sid] closeup -> $charName" -ForegroundColor DarkCyan
                 $applied++
-            } elseif ($isPunchy) {
+            }
+        }
+
+        if ($null -eq $scene.transition) {
+            if ($scene.charMap.Count -eq 1) {
                 $scene.transition = 'zoom-in'
                 Write-Host "  [$sid] transition -> zoom-in" -ForegroundColor DarkCyan
                 $applied++
+            } elseif ($scene.charMap.Count -ge 2) {
+                $scene.transition = 'zoom-out'
+                Write-Host "  [$sid] transition -> zoom-out" -ForegroundColor DarkCyan
+                $applied++
             }
         }
-
-        # -- Closeup rule (independent of transition) --
-        if ($isPunchy) {
-            $charName = @($speakers.Keys)[0]
-            if ($scene.charMap.Contains($charName)) {
-                $entry = $scene.charMap[$charName]
-                if (-not $entry.sizeExplicit) {
-                    $entry.size = 5
-                    $entry.x    = 0.5
-                    Write-Host "  [$sid] closeup -> $charName" -ForegroundColor DarkCyan
-                    $applied++
-                }
-            }
-        }
-
-        $prevTransition = $scene.transition
     }
 
     Write-Host "[auto-direction] Done -- $applied suggestions applied." -ForegroundColor Cyan

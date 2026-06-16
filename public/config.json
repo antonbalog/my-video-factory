@@ -123,7 +123,7 @@
                    },
                    {
                        "id":  "scene-3",
-                       "transition":  "zoom-out",
+                       "transition":  "zoom-in",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-3-dirtbag-1.mp3",
@@ -184,6 +184,7 @@
                    },
                    {
                        "id":  "scene-5",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-5-dirtbag-1.mp3",
@@ -215,6 +216,7 @@
                    },
                    {
                        "id":  "scene-6",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-6-bryan-1.mp3",
@@ -351,6 +353,7 @@
                    },
                    {
                        "id":  "scene-8",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-8-dirtbag-1.mp3",
@@ -378,7 +381,7 @@
                                               "id":  "ufo",
                                               "x":  1.5,
                                               "y":  0.5,
-                                              "size":  2
+                                              "size":  1.5
                                           },
                                           {
                                               "id":  "dirtbag",
@@ -405,6 +408,7 @@
                    },
                    {
                        "id":  "scene-9",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-9-dirtbag-1.mp3",
@@ -471,6 +475,7 @@
                    },
                    {
                        "id":  "scene-11",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-11-dirtbag-1.mp3",
@@ -519,7 +524,7 @@
                    },
                    {
                        "id":  "scene-12",
-                       "transition":  "zoom-out",
+                       "transition":  "zoom-in",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-12-dirtbag-1.mp3",
@@ -571,7 +576,7 @@
                    },
                    {
                        "id":  "scene-14",
-                       "transition":  "zoom-out",
+                       "transition":  "zoom-in",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-14-dirtbag-1.mp3",
@@ -597,6 +602,7 @@
                    },
                    {
                        "id":  "scene-15",
+                       "transition":  "zoom-out",
                        "audio":  [
                                      {
                                          "src":  "audio/scene-15-dirtbag-1.mp3",
