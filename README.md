@@ -73,6 +73,39 @@ powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
 1. Edit `public/script.txt` to define scenes and dialogue
 2. Run `generate-audio.ps1` — generates mp3, vtt, and mouth.json for each line
    - Uses hash-based caching — unchanged clips are skipped automatically
-   - Audio pipeline: `edge-tts → ffmpeg → Resemble Enhance → rhubarb`
+   - Audio pipeline: `edge-tts → ffmpeg → Resemble Enhance → loudnorm → rhubarb`
 3. Open Remotion Studio (`npm run dev`) to preview
 4. Render with `npx remotion render`
+
+## script.txt syntax
+
+```
+[Scene N]                           scene header
+[Scene N transition=zoom-in]        with optional transition
+[Intro duration=120]                fixed-duration intro (frames)
+[Outro duration=120]                fixed-duration outro (frames)
+
+SHOW character [flags]              place character on screen
+ANIMATE character type at=Xs        play animation at timestamp
+SFX path/to/file.wav at=Xs         play sound effect at timestamp
+CHARACTER: dialogue text            one line of TTS dialogue
+{bleep:word}                        censored word (plays beep + censors subtitle)
+```
+
+**SHOW flags:** `x=0.5` `y=0.5` `size=2` `nametag` `wave` `wave=outro` `trim-start=0.5s` `trim-end=0.2s` `pad-end=0.5s`
+
+**ANIMATE extras:** `cycles=3` `return=30`
+
+Example:
+
+```
+[Scene 1]
+ANIMATE bryan glitch-in at=0s
+SHOW dirtbag nametag
+DIRTBAG: Hello! This is my very first video
+SHOW bryan nametag
+
+[Scene 2 transition=zoom-in]
+SHOW bryan
+BRYAN: And hopefully also the last
+```

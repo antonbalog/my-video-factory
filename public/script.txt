@@ -1,114 +1,92 @@
-=== intro durationInFrames=120 ===
-[dirtbag nametag wave=intro]
+[Intro duration=120]
+SHOW dirtbag nametag wave=intro
 
-=== scene-1 ===
-@animate: bryan glitch-in at=0s
-[dirtbag nametag]
-Hello! This is my very first video
+[Scene 1]
+ANIMATE bryan glitch-in at=0s
+SHOW dirtbag nametag
+DIRTBAG: Hello! This is my very first video
+SHOW bryan nametag
 
-[bryan nametag]
+[Scene 2 transition=zoom-in]
+SHOW bryan
+BRYAN: And hopefully also the last
 
-=== scene-2 ===
-@transition: zoom-in
-[bryan]
-And hopefully also the last
+[Scene 3 transition=zoom-out]
+SHOW dirtbag
+DIRTBAG: I hope it doesn't {bleep:suck}
 
-=== scene-3 ===
-@transition: zoom-out
-[dirtbag]
-I hope it doesn't {bleep:suck}
+[Scene 4 transition=zoom-in]
+SHOW bryan
+BRYAN: It already does
 
-=== scene-4 ===
-@transition: zoom-in
-[bryan]
-It already does
+[Scene 5]
+SHOW dirtbag
+DIRTBAG: I love the internet way too much
+SHOW bryan
 
-=== scene-5 ===
-[dirtbag]
-I love the internet way too much
+[Scene 6]
+ANIMATE dirtbag fortnite-dance at=3s cycles=3
+SHOW bryan
+BRYAN: He's addicted and needs help
+SHOW dirtbag
+DIRTBAG: And I want to make stuff people actually enjoy watching
+SHOW bryan
+BRYAN: He just wants to be a lazy piece of {bleep:shit}
+SHOW dirtbag
+DIRTBAG: I don't know exactly where this will go yet
+SHOW bryan
+BRYAN: Nowhere
+SHOW dirtbag
+DIRTBAG: but I do know I'm going to keep it real
+SHOW bryan
+BRYAN: He needs to get a job
 
-[bryan]
+[Scene 7 transition=zoom-in]
+SHOW bryan
+BRYAN: For real!
 
-=== scene-6 ===
-@animate: dirtbag fortnite-dance at=3s cycles=3
-[bryan]
-He's addicted and needs help
+[Scene 8]
+ANIMATE ufo ufo-fly at=0s
+SHOW ufo x=1.5 size=1.5
+SHOW dirtbag
+DIRTBAG: So if you like honest, slightly chaotic content
+SHOW bryan
+BRYAN: I would rather watch ads, if I were you
 
-[dirtbag]
-And I want to make stuff people actually enjoy watching
+[Scene 9]
+SHOW dirtbag
+DIRTBAG: You might want to stick around
+SHOW bryan
 
-[bryan]
-He just wants to be a lazy piece of {bleep:shit}
+[Scene 10 transition=zoom-in]
+SHOW bryan
+BRYAN: Please don't support this {bleep:bullshit}!
 
-[dirtbag]
-I don't know exactly where this will go yet
+[Scene 11]
+ANIMATE dirtbag thumb-up at=1s
+SHOW dirtbag
+DIRTBAG: And hey! Subscribe! Don't let my mom be my only subscriber
+SHOW bryan
+BRYAN: His mom doesn't know about this
 
-[bryan]
-Nowhere
+[Scene 12 transition=zoom-out]
+SHOW dirtbag
+DIRTBAG: Please!
 
-[dirtbag]
-but I do know I'm going to keep it real
+[Scene 13 transition=zoom-in]
+SHOW bryan
+BRYAN: You know you don't have to do it
 
-[bryan]
-He needs to get a job
+[Scene 14 transition=zoom-out]
+SHOW dirtbag
+DIRTBAG: Please!
 
-=== scene-7 ===
-@transition: zoom-in
-[bryan]
-For real!
+[Scene 15]
+ANIMATE dirtbag cry at=1s
+ANIMATE bryan glitch-out at=0s
+SHOW dirtbag
+DIRTBAG: I really wish I had a friend
+SHOW bryan
 
-=== scene-8 ===
-@animate: ufo ufo-fly at=0s
-[ufo x=1.5 size=1.5]
-
-[dirtbag]
-So if you like honest, slightly chaotic content
-
-[bryan]
-I would rather watch ads, if I were you
-
-=== scene-9 ===
-[dirtbag]
-You might want to stick around
-
-[bryan]
-
-=== scene-10 ===
-@transition: zoom-in
-[bryan]
-Please don't support this {bleep:bullshit}!
-
-=== scene-11 ===
-@animate: dirtbag thumb-up at=1s
-[dirtbag]
-And hey! Subscribe!
-Don't let my mom be my only subscriber
-
-[bryan]
-His mom doesn't know about this
-
-=== scene-12 ===
-@transition: zoom-out
-[dirtbag]
-Please!
-
-=== scene-13 ===
-@transition: zoom-in
-[bryan]
-You know you don't have to do it
-
-=== scene-14 ===
-@transition: zoom-out
-[dirtbag]
-Please!
-
-=== scene-15 ===
-@animate: dirtbag cry at=1s
-@animate: bryan glitch-out at=0s
-[dirtbag]
-I really wish I had a friend
-
-[bryan]
-
-=== outro durationInFrames=120 ===
-[dirtbag nametag wave=outro]
+[Outro duration=120]
+SHOW dirtbag nametag wave=outro

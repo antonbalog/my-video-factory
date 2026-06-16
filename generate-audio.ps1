@@ -5,22 +5,23 @@
 #
 # script.txt format:
 #
-#   === scene-id [durationInFrames=N] [tileSize=N] ===
-#   @tileSize: 200          (optional scene-level override)
-#   @durationInFrames: 120  (optional fixed duration)
-#   [character [x=0.75] [y=0.5] [size=2] [wave] [nametag]]
-#   dialogue text here
-#   (more lines...)
+#   [Scene N]                     scene header (also [Intro duration=120], [Outro duration=120])
+#   [Scene N transition=zoom-in]  optional transition and other options in header
+#   SHOW character [flags]        character visual config
+#   ANIMATE char type at=Xs       animation (optional cycles=N return=N)
+#   SFX path at=Xs                sound effect
+#   CHARACTER: dialogue text      dialogue line — generates one TTS clip
+#   {bleep:word}                  censored word inline in dialogue
 #
-#   [next-character ...]
-#   more dialogue
-#
-# Flags on character tag:
-#   wave    -> animateHand: true
-#   nametag -> show name tag (label/color defined per character below)
-#   size=5  -> close-up; size=2 -> normal (default)
-#   x=0.5   -> horizontal position (0.0-1.0); default per character
-#   y=0.5   -> vertical position (0.0-1.0); default 0.5
+# SHOW flags:
+#   wave=(intro|outro)  animate hand
+#   nametag             show name tag
+#   size=5              close-up; size=2 normal (default)
+#   x=0.5               horizontal position (0.0-1.0)
+#   y=0.5               vertical position (0.0-1.0); default 0.5
+#   trim-start=0.5s     trim leading silence
+#   trim-end=0.2s       trim trailing silence
+#   pad-end=0.5s        add silence at end
 
 $audioDir   = ".\public\audio"
 $scriptFile = ".\public\script.txt"
@@ -90,18 +91,28 @@ $newCache = @{}
 # ---------------------------------------------------------------------------
 
 function Parse-SceneHeader($line) {
-    if ($line -notmatch '^\s*===\s*(.+?)\s*===\s*$') { return $null }
-    $parts = $matches[1].Trim() -split '\s+'
-    $result = @{ id = $parts[0]; durationInFrames = $null; tileSize = $null }
-    foreach ($part in $parts[1..($parts.Count - 1)]) {
-        if ($part -match '^durationInFrames=(\d+)$') { $result.durationInFrames = [int]$matches[1] }
-        if ($part -match '^tileSize=(\d+)$')         { $result.tileSize         = [int]$matches[1] }
+    if ($line -notmatch '^\[(.+)\]\s*$') { return $null }
+    $content = $matches[1].Trim()
+    if ($content -match '^Scene\s+(\d+)(.*)$') {
+        $id   = "scene-$($matches[1])"
+        $opts = $matches[2]
+    } elseif ($content -match '^(Intro|Outro)(.*)$') {
+        $id   = $matches[1].ToLower()
+        $opts = $matches[2]
+    } else {
+        return $null
+    }
+    $result = @{ id = $id; durationInFrames = $null; tileSize = $null; transition = $null }
+    foreach ($part in ($opts.Trim() -split '\s+' | Where-Object { $_ -ne '' })) {
+        if ($part -match '^duration=(\d+)$')      { $result.durationInFrames = [int]$matches[1] }
+        if ($part -match '^tileSize=(\d+)$')      { $result.tileSize         = [int]$matches[1] }
+        if ($part -match '^transition=([\w-]+)$') { $result.transition       = $matches[1] }
     }
     return $result
 }
 
-function Parse-CharTag($line) {
-    if ($line -notmatch '^\s*\[(.+?)\]\s*$') { return $null }
+function Parse-ShowTag($line) {
+    if ($line -notmatch '^SHOW\s+(.+)$') { return $null }
     $parts    = $matches[1].Trim() -split '\s+'
     $charName = $parts[0].ToLower()
     $def      = $script:charDefaults[$charName]
@@ -140,24 +151,19 @@ $clips      = [System.Collections.Generic.List[PSCustomObject]]::new()
 $sceneIndex = @{}
 
 $curScene = $null
-$curChar  = $null
-$curLines = [System.Collections.Generic.List[string]]::new()
 
-function Flush-Clip {
-    if ($null -eq $script:curScene -or $null -eq $script:curChar) { return }
-    $text = ($script:curLines | Where-Object { $_.Trim() -ne '' }) -join ' '
-    if ($text.Trim() -eq '') { return }
+function Emit-Clip($Scene, $Char, $Text) {
+    $text = $Text.Trim()
+    if ($text -eq '') { return }
 
-    $sid  = $script:curScene.id
-    $char = $script:curChar.name
+    $sid  = $Scene.id
+    $char = $Char.name
 
     if (-not $script:sceneIndex.ContainsKey($sid)) { $script:sceneIndex[$sid] = 0 }
     $script:sceneIndex[$sid]++
     $idx = $script:sceneIndex[$sid]
 
-    # Detect [bleep] markers — record word positions, strip brackets for TTS
-    # Handles trailing punctuation: [shit]! -> shit!
-    $bleepWordIndices = [System.Collections.Generic.List[int]]::new()
+    $bleepWordIndices  = [System.Collections.Generic.List[int]]::new()
     $censoredWordsList = [System.Collections.Generic.List[string]]::new()
     $words = $text -split '\s+'
     for ($w = 0; $w -lt $words.Count; $w++) {
@@ -167,7 +173,7 @@ function Flush-Clip {
             $words[$w] = $words[$w] -replace '^\{bleep:(.+?)\}', '$1'
         }
     }
-    $ttsText  = $words -join ' '
+    $ttsText   = $words -join ' '
     $wordCount = $words.Count
 
     $audioEntry = [ordered]@{
@@ -179,10 +185,10 @@ function Flush-Clip {
     if ($censoredWordsList.Count -gt 0) {
         $audioEntry.censoredWords = $censoredWordsList.ToArray()
     }
-    if ($null -ne $script:curChar.trimStart) { $audioEntry.trimStart = $script:curChar.trimStart }
-    if ($null -ne $script:curChar.trimEnd)   { $audioEntry.trimEnd   = $script:curChar.trimEnd   }
-    if ($null -ne $script:curChar.padEnd)    { $audioEntry.padEnd    = $script:curChar.padEnd    }
-    $script:curScene.audioList.Add($audioEntry)
+    if ($null -ne $Char.trimStart) { $audioEntry.trimStart = $Char.trimStart }
+    if ($null -ne $Char.trimEnd)   { $audioEntry.trimEnd   = $Char.trimEnd   }
+    if ($null -ne $Char.padEnd)    { $audioEntry.padEnd    = $Char.padEnd    }
+    $Scene.audioList.Add($audioEntry)
 
     $script:clips.Add([PSCustomObject]@{
         Scene            = $sid
@@ -205,12 +211,10 @@ $seenSceneIds = @{}
 foreach ($line in (Get-Content $scriptFile)) {
     $sh = Parse-SceneHeader $line
     if ($sh) {
-        Flush-Clip; Flush-Scene
+        Flush-Scene
         if ($seenSceneIds.ContainsKey($sh.id)) {
             Write-Warning "Duplicate scene id '$($sh.id)' - skipping second occurrence"
             $curScene = $null
-            $curChar  = $null
-            $curLines = [System.Collections.Generic.List[string]]::new()
             continue
         }
         $seenSceneIds[$sh.id] = $true
@@ -218,33 +222,16 @@ foreach ($line in (Get-Content $scriptFile)) {
             id               = $sh.id
             durationInFrames = $sh.durationInFrames
             tileSize         = $sh.tileSize
-            transition       = $null
+            transition       = $sh.transition
             charMap          = [ordered]@{}
             audioList        = [System.Collections.Generic.List[object]]::new()
             sfxList          = [System.Collections.Generic.List[object]]::new()
             animList         = [System.Collections.Generic.List[object]]::new()
         }
-        $curChar  = $null
-        $curLines = [System.Collections.Generic.List[string]]::new()
         continue
     }
 
-    if ($line -match '^\s*@tileSize:\s*(\d+)') {
-        if ($curScene) { $curScene.tileSize = [int]$matches[1] }
-        continue
-    }
-
-    if ($line -match '^\s*@durationInFrames:\s*(\d+)') {
-        if ($curScene) { $curScene.durationInFrames = [int]$matches[1] }
-        continue
-    }
-
-    if ($line -match '^\s*@transition:\s*([\w-]+)') {
-        if ($curScene) { $curScene.transition = $matches[1] }
-        continue
-    }
-
-    if ($line -match '^\s*@animate:\s+([\w-]+)\s+([\w=-]+)\s+at=([\d.]+)s(.*)') {
+    if ($line -match '^ANIMATE\s+([\w-]+)\s+([\w-]+)\s+at=([\d.]+)s(.*)') {
         if ($curScene) {
             $entry = [ordered]@{
                 characterId = $matches[1]
@@ -262,27 +249,46 @@ foreach ($line in (Get-Content $scriptFile)) {
         continue
     }
 
-    if ($line -match '^\s*@sfx:\s*([\S]+)\s+at=([\d.]+)s') {
+    if ($line -match '^SFX\s+([\S]+)\s+at=([\d.]+)s') {
         if ($curScene) {
             $curScene.sfxList.Add([ordered]@{ src = $matches[1]; atMs = [math]::Round([double]$matches[2] * 1000) })
         }
         continue
     }
 
-    $ct = Parse-CharTag $line
-    if ($ct) {
-        Flush-Clip
-        $curChar  = $ct
-        $curLines = [System.Collections.Generic.List[string]]::new()
-        if (-not $curScene.charMap.Contains($ct.name)) {
-            $curScene.charMap[$ct.name] = $ct
+    $st = Parse-ShowTag $line
+    if ($st) {
+        if ($curScene -and -not $curScene.charMap.Contains($st.name)) {
+            $curScene.charMap[$st.name] = $st
         }
         continue
     }
 
-    $curLines.Add($line)
+    if ($line -match '^([A-Z][A-Z0-9_-]*):\s*(.+)$') {
+        $charName = $matches[1].ToLower()
+        $dialogue = $matches[2].Trim()
+        if ($curScene) {
+            if (-not $curScene.charMap.Contains($charName)) {
+                $def    = $script:charDefaults[$charName]
+                $isZoom = $null -ne $curScene.transition
+                $curScene.charMap[$charName] = @{
+                    name      = $charName
+                    x         = if ($isZoom) { 0.5 } elseif ($def) { $def.x }    else { 0.5 }
+                    y         = if ($def) { $def.y } else { 0.5 }
+                    size      = if ($isZoom) { 5 }   elseif ($def) { $def.size } else { 2 }
+                    wave      = $null
+                    nametag   = $false
+                    trimStart = $null
+                    trimEnd   = $null
+                    padEnd    = $null
+                }
+            }
+            Emit-Clip -Scene $curScene -Char $curScene.charMap[$charName] -Text $dialogue
+        }
+        continue
+    }
 }
-Flush-Clip; Flush-Scene
+Flush-Scene
 
 # ---------------------------------------------------------------------------
 # Build and write config.json
