@@ -105,8 +105,9 @@
                                          "mouthCues":  "audio/scene-2-bryan-1-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "And hopefully also the last",
+                                         "durationMs":  2448,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  2448
                                      }
                                  ],
                        "characters":  [
@@ -116,7 +117,9 @@
                                               "y":  0.5,
                                               "size":  5
                                           }
-                                      ]
+                                      ],
+                       "durationMs":  2448,
+                       "durationInFrames":  147
                    },
                    {
                        "id":  "scene-3",
@@ -163,8 +166,9 @@
                                          "mouthCues":  "audio/scene-4-bryan-1-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "It already does",
+                                         "durationMs":  1897,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  1897
                                      }
                                  ],
                        "characters":  [
@@ -174,7 +178,9 @@
                                               "y":  0.5,
                                               "size":  5
                                           }
-                                      ]
+                                      ],
+                       "durationMs":  1897,
+                       "durationInFrames":  114
                    },
                    {
                        "id":  "scene-5",
@@ -216,8 +222,9 @@
                                          "mouthCues":  "audio/scene-6-bryan-1-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "He\u0027s addicted and needs help",
+                                         "durationMs":  2377,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  2377
                                      },
                                      {
                                          "src":  "audio/scene-6-dirtbag-2.mp3",
@@ -226,8 +233,8 @@
                                          "characterId":  "dirtbag",
                                          "text":  "And I want to make stuff people actually enjoy watching",
                                          "durationMs":  3840,
-                                         "startMs":  0,
-                                         "endMs":  3840
+                                         "startMs":  2377,
+                                         "endMs":  6217
                                      },
                                      {
                                          "src":  "audio/scene-6-bryan-3.mp3",
@@ -238,8 +245,15 @@
                                          "censoredWords":  [
                                                                "shit"
                                                            ],
-                                         "startMs":  3840,
-                                         "endMs":  3840
+                                         "bleeps":  [
+                                                        {
+                                                            "startMs":  1740,
+                                                            "endMs":  2540
+                                                        }
+                                                    ],
+                                         "durationMs":  2880,
+                                         "startMs":  6217,
+                                         "endMs":  9097
                                      },
                                      {
                                          "src":  "audio/scene-6-dirtbag-4.mp3",
@@ -248,8 +262,8 @@
                                          "characterId":  "dirtbag",
                                          "text":  "I don\u0027t know exactly where this will go yet",
                                          "durationMs":  3048,
-                                         "startMs":  3840,
-                                         "endMs":  6888
+                                         "startMs":  9097,
+                                         "endMs":  12145
                                      },
                                      {
                                          "src":  "audio/scene-6-bryan-5.mp3",
@@ -257,8 +271,9 @@
                                          "mouthCues":  "audio/scene-6-bryan-5-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "Nowhere",
-                                         "startMs":  6888,
-                                         "endMs":  6888
+                                         "durationMs":  1393,
+                                         "startMs":  12145,
+                                         "endMs":  13538
                                      },
                                      {
                                          "src":  "audio/scene-6-dirtbag-6.mp3",
@@ -267,8 +282,8 @@
                                          "characterId":  "dirtbag",
                                          "text":  "but I do know I\u0027m going to keep it real",
                                          "durationMs":  2905,
-                                         "startMs":  6888,
-                                         "endMs":  9793
+                                         "startMs":  13538,
+                                         "endMs":  16443
                                      },
                                      {
                                          "src":  "audio/scene-6-bryan-7.mp3",
@@ -276,8 +291,9 @@
                                          "mouthCues":  "audio/scene-6-bryan-7-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "He needs to get a job",
-                                         "startMs":  9793,
-                                         "endMs":  9793
+                                         "durationMs":  2017,
+                                         "startMs":  16443,
+                                         "endMs":  18460
                                      }
                                  ],
                        "characters":  [
@@ -304,8 +320,8 @@
                                                          }
                                           }
                                       ],
-                       "durationMs":  9793,
-                       "durationInFrames":  588
+                       "durationMs":  18460,
+                       "durationInFrames":  1108
                    },
                    {
                        "id":  "scene-7",
@@ -317,8 +333,9 @@
                                          "mouthCues":  "audio/scene-7-bryan-1-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "For real!",
+                                         "durationMs":  1440,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  1440
                                      }
                                  ],
                        "characters":  [
@@ -328,7 +345,9 @@
                                               "y":  0.5,
                                               "size":  5
                                           }
-                                      ]
+                                      ],
+                       "durationMs":  1440,
+                       "durationInFrames":  86
                    },
                    {
                        "id":  "scene-8",
@@ -349,8 +368,9 @@
                                          "mouthCues":  "audio/scene-8-bryan-2-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "I would rather watch ads, if I were you",
+                                         "durationMs":  3000,
                                          "startMs":  3913,
-                                         "endMs":  3913
+                                         "endMs":  6913
                                      }
                                  ],
                        "characters":  [
@@ -380,8 +400,8 @@
                                               "atMs":  0
                                           }
                                       ],
-                       "durationMs":  3913,
-                       "durationInFrames":  235
+                       "durationMs":  6913,
+                       "durationInFrames":  415
                    },
                    {
                        "id":  "scene-9",
@@ -427,8 +447,15 @@
                                          "censoredWords":  [
                                                                "bullshit"
                                                            ],
+                                         "bleeps":  [
+                                                        {
+                                                            "startMs":  1431,
+                                                            "endMs":  2231
+                                                        }
+                                                    ],
+                                         "durationMs":  2688,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  2688
                                      }
                                  ],
                        "characters":  [
@@ -438,7 +465,9 @@
                                               "y":  0.5,
                                               "size":  5
                                           }
-                                      ]
+                                      ],
+                       "durationMs":  2688,
+                       "durationInFrames":  161
                    },
                    {
                        "id":  "scene-11",
@@ -459,8 +488,9 @@
                                          "mouthCues":  "audio/scene-11-bryan-2-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "His mom doesn\u0027t know about this",
+                                         "durationMs":  2425,
                                          "startMs":  5953,
-                                         "endMs":  5953
+                                         "endMs":  8378
                                      }
                                  ],
                        "characters":  [
@@ -484,8 +514,8 @@
                                               "atMs":  1000
                                           }
                                       ],
-                       "durationMs":  5953,
-                       "durationInFrames":  357
+                       "durationMs":  8378,
+                       "durationInFrames":  503
                    },
                    {
                        "id":  "scene-12",
@@ -523,8 +553,9 @@
                                          "mouthCues":  "audio/scene-13-bryan-1-mouth.json",
                                          "characterId":  "bryan",
                                          "text":  "You know you don\u0027t have to do it",
+                                         "durationMs":  2208,
                                          "startMs":  0,
-                                         "endMs":  0
+                                         "endMs":  2208
                                      }
                                  ],
                        "characters":  [
@@ -534,7 +565,9 @@
                                               "y":  0.5,
                                               "size":  5
                                           }
-                                      ]
+                                      ],
+                       "durationMs":  2208,
+                       "durationInFrames":  132
                    },
                    {
                        "id":  "scene-14",

@@ -4,9 +4,10 @@
     "duration": 1.44
   },
   "mouthCues": [
-    { "start": 0.00, "end": 0.22, "value": "X" },
-    { "start": 0.22, "end": 0.28, "value": "F" },
-    { "start": 0.28, "end": 0.69, "value": "B" },
+    { "start": 0.00, "end": 0.10, "value": "X" },
+    { "start": 0.10, "end": 0.20, "value": "B" },
+    { "start": 0.20, "end": 0.48, "value": "E" },
+    { "start": 0.48, "end": 0.69, "value": "F" },
     { "start": 0.69, "end": 1.44, "value": "X" }
   ]
 }
