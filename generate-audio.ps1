@@ -152,12 +152,12 @@ $sceneIndex = @{}
 
 $curScene = $null
 
-function Emit-Clip($Scene, $Char, $Text) {
-    $text = $Text.Trim()
-    if ($text -eq '') { return }
+function Emit-Clip($Scene, $CharInfo, $Text) {
+    $ttsInput = $Text.Trim()
+    if ($ttsInput -eq '') { return }
 
-    $sid  = $Scene.id
-    $char = $Char.name
+    $sid    = $Scene.id
+    $charId = $CharInfo.name
 
     if (-not $script:sceneIndex.ContainsKey($sid)) { $script:sceneIndex[$sid] = 0 }
     $script:sceneIndex[$sid]++
@@ -165,7 +165,7 @@ function Emit-Clip($Scene, $Char, $Text) {
 
     $bleepWordIndices  = [System.Collections.Generic.List[int]]::new()
     $censoredWordsList = [System.Collections.Generic.List[string]]::new()
-    $words = $text -split '\s+'
+    $words = $ttsInput -split '\s+'
     for ($w = 0; $w -lt $words.Count; $w++) {
         if ($words[$w] -match '^\{bleep:(.+?)\}') {
             $bleepWordIndices.Add($w)
@@ -177,22 +177,22 @@ function Emit-Clip($Scene, $Char, $Text) {
     $wordCount = $words.Count
 
     $audioEntry = [ordered]@{
-        src         = "audio/$sid-$char-$idx.mp3"
-        subtitles   = "audio/$sid-$char-$idx.vtt"
-        mouthCues   = "audio/$sid-$char-$idx-mouth.json"
-        characterId = $char
+        src         = "audio/$sid-$charId-$idx.mp3"
+        subtitles   = "audio/$sid-$charId-$idx.vtt"
+        mouthCues   = "audio/$sid-$charId-$idx-mouth.json"
+        characterId = $charId
     }
     if ($censoredWordsList.Count -gt 0) {
         $audioEntry.censoredWords = $censoredWordsList.ToArray()
     }
-    if ($null -ne $Char.trimStart) { $audioEntry.trimStart = $Char.trimStart }
-    if ($null -ne $Char.trimEnd)   { $audioEntry.trimEnd   = $Char.trimEnd   }
-    if ($null -ne $Char.padEnd)    { $audioEntry.padEnd    = $Char.padEnd    }
+    if ($null -ne $CharInfo.trimStart) { $audioEntry.trimStart = $CharInfo.trimStart }
+    if ($null -ne $CharInfo.trimEnd)   { $audioEntry.trimEnd   = $CharInfo.trimEnd   }
+    if ($null -ne $CharInfo.padEnd)    { $audioEntry.padEnd    = $CharInfo.padEnd    }
     $Scene.audioList.Add($audioEntry)
 
     $script:clips.Add([PSCustomObject]@{
         Scene            = $sid
-        Character        = $char
+        Character        = $charId
         Index            = $idx
         Text             = $ttsText
         Words            = $words
@@ -283,7 +283,7 @@ foreach ($line in (Get-Content $scriptFile)) {
                     padEnd    = $null
                 }
             }
-            Emit-Clip -Scene $curScene -Char $curScene.charMap[$charName] -Text $dialogue
+            Emit-Clip -Scene $curScene -CharInfo $curScene.charMap[$charName] -Text $dialogue
         }
         continue
     }
