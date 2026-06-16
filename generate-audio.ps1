@@ -412,12 +412,19 @@ foreach ($clip in $clips) {
         $clip.AudioEntry.bleeps = $bleepsArr
     }
 
-    Write-Host "  2/3 ffmpeg (mp3 -> wav)..."
+    Write-Host "  2/4 ffmpeg (mp3 -> wav)..."
     ffmpeg -y -i $mp3 $wav 2>$null
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $wav)) {
-        Write-Warning "  ffmpeg failed - skipping rhubarb for [$base]"
+        Write-Warning "  ffmpeg failed - skipping enhance+rhubarb for [$base]"
     } else {
-        Write-Host "  3/3 rhubarb (wav -> mouth.json)..."
+        Write-Host "  3/4 resemble-enhance (wav -> enhanced wav)..."
+        $wavAbs = (Resolve-Path $wav).Path
+        $wavWsl = "/mnt/" + $wavAbs[0].ToString().ToLower() + ($wavAbs.Substring(2) -replace '\\', '/')
+        wsl -e bash -c "~/enhance-env/bin/python ~/enhance.py '$wavWsl' '$wavWsl' 2>&1 | grep -v pynvml | grep -v ds_accelerator" | Write-Host
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning "  resemble-enhance failed (exit $LASTEXITCODE) for [$base] - continuing with unenhanced wav"
+        }
+        Write-Host "  4/4 rhubarb (wav -> mouth.json)..."
         rhubarb -f json -o $json $wav
         if ($LASTEXITCODE -ne 0) {
             Write-Warning "  rhubarb failed (exit $LASTEXITCODE) for [$base]"

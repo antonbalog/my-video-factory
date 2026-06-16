@@ -100,7 +100,7 @@ You know you don't have to do it
 === scene-14 ===
 @transition: zoom-out
 [dirtbag]
-Pretty please!
+Please!
 
 === scene-15 ===
 @animate: dirtbag cry at=1s
