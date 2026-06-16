@@ -161,10 +161,10 @@ function Flush-Clip {
     $censoredWordsList = [System.Collections.Generic.List[string]]::new()
     $words = $text -split '\s+'
     for ($w = 0; $w -lt $words.Count; $w++) {
-        if ($words[$w] -match '^\[(.+?)\]') {
+        if ($words[$w] -match '^\{(.+?)\}') {
             $bleepWordIndices.Add($w)
             $censoredWordsList.Add($matches[1])
-            $words[$w] = $words[$w] -replace '^\[(.+?)\]', '$1'
+            $words[$w] = $words[$w] -replace '^\{(.+?)\}', '$1'
         }
     }
     $ttsText  = $words -join ' '
