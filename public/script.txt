@@ -1,26 +1,26 @@
-[Intro duration=120]
+﻿[Intro duration=120]
 SHOW dirtbag nametag wave=intro
 
-[Scene 1]
+[Scene]
 ANIMATE bryan glitch-in at=0s
 SHOW dirtbag nametag
 DIRTBAG: Hello! This is my very first video
 SHOW bryan nametag
 
-[Scene 2 transition=zoom-in]
+[Scene transition=zoom-in]
 BRYAN: And hopefully also the last
 
-[Scene 3 transition=zoom-out]
+[Scene transition=zoom-out]
 DIRTBAG: I hope it doesn't {bleep:suck}
 
-[Scene 4 transition=zoom-in]
+[Scene transition=zoom-in]
 BRYAN: It already does
 
-[Scene 5]
+[Scene]
 DIRTBAG: I love the internet way too much
 SHOW bryan
 
-[Scene 6]
+[Scene]
 ANIMATE dirtbag fortnite-dance at=3s cycles=3
 BRYAN: He's addicted and needs help
 DIRTBAG: And I want to make stuff people actually enjoy watching
@@ -30,37 +30,37 @@ BRYAN: Nowhere
 DIRTBAG: but I do know I'm going to keep it real
 BRYAN: He needs to get a job
 
-[Scene 7 transition=zoom-in]
+[Scene transition=zoom-in]
 BRYAN: For real!
 
-[Scene 8]
+[Scene]
 ANIMATE ufo ufo-fly at=0s
 SHOW ufo x=1.5 size=1.5
 DIRTBAG: So if you like honest, slightly chaotic content
 BRYAN: I would rather watch ads, if I were you
 
-[Scene 9]
+[Scene]
 DIRTBAG: You might want to stick around
 SHOW bryan
 
-[Scene 10 transition=zoom-in]
+[Scene transition=zoom-in]
 BRYAN: Please don't support this {bleep:bullshit}!
 
-[Scene 11]
+[Scene]
 ANIMATE dirtbag thumb-up at=1s
 DIRTBAG: And hey! Subscribe! Don't let my mom be my only subscriber
 BRYAN: His mom doesn't know about this
 
-[Scene 12 transition=zoom-out]
+[Scene transition=zoom-out]
 DIRTBAG: Please!
 
-[Scene 13 transition=zoom-in]
+[Scene transition=zoom-in]
 BRYAN: You know you don't have to do it
 
-[Scene 14 transition=zoom-out]
+[Scene transition=zoom-out]
 DIRTBAG: Please!
 
-[Scene 15]
+[Scene]
 ANIMATE dirtbag cry at=1s
 ANIMATE bryan glitch-out at=0s
 DIRTBAG: I really wish I had a friend

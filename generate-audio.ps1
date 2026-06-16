@@ -100,6 +100,9 @@ function Parse-SceneHeader($line) {
     if ($content -match '^Scene\s+(\d+)(.*)$') {
         $id   = "scene-$($matches[1])"
         $opts = $matches[2]
+    } elseif ($content -match '^Scene(.*)$') {
+        $id   = $null   # caller assigns auto-number
+        $opts = $matches[1]
     } elseif ($content -match '^(Intro|Outro)(.*)$') {
         $id   = $matches[1].ToLower()
         $opts = $matches[2]
@@ -212,11 +215,16 @@ function Flush-Scene {
 }
 
 $seenSceneIds = @{}
+$nextSceneNum = 1
 
 foreach ($line in (Get-Content $scriptFile)) {
     $sh = Parse-SceneHeader $line
     if ($sh) {
         Flush-Scene
+        if ($null -eq $sh.id) {
+            $sh.id = "scene-$nextSceneNum"
+        }
+        if ($sh.id -match '^scene-(\d+)$') { $nextSceneNum = [int]$matches[1] + 1 }
         if ($seenSceneIds.ContainsKey($sh.id)) {
             Write-Warning "Duplicate scene id '$($sh.id)' - skipping second occurrence"
             $curScene = $null

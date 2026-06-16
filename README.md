@@ -87,8 +87,9 @@ powershell -ExecutionPolicy Bypass -File .\render.ps1 -Composition Shorts
 ## script.txt syntax
 
 ```
-[Scene N]                           scene header
-[Scene N transition=zoom-in]        with optional transition
+[Scene]                             scene header (auto-numbered)
+[Scene transition=zoom-in]          with optional transition
+[Scene N]                           explicit scene number (also auto-advances counter)
 [Intro duration=120]                fixed-duration intro (frames)
 [Outro duration=120]                fixed-duration outro (frames)
 
@@ -106,13 +107,13 @@ CHARACTER: dialogue text            one line of TTS dialogue
 Example:
 
 ```
-[Scene 1]
+[Scene]
 ANIMATE bryan glitch-in at=0s
 SHOW dirtbag nametag
 DIRTBAG: Hello! This is my very first video
 SHOW bryan nametag
 
-[Scene 2 transition=zoom-in]
+[Scene transition=zoom-in]
 SHOW bryan
 BRYAN: And hopefully also the last
 ```
