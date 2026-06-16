@@ -26,6 +26,11 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "audio": "powershell -ExecutionPolicy Bypass -File .\\generate-audio.ps1",
+    "render:youtube": "powershell -ExecutionPolicy Bypass -File .\\render.ps1 -Composition Youtube",
+    "render:shorts": "powershell -ExecutionPolicy Bypass -File .\\render.ps1 -Composition Shorts",
+    "render": "powershell -ExecutionPolicy Bypass -File .\\render.ps1",
+    "factory": "npm run audio && npm run render"
   }
 }
