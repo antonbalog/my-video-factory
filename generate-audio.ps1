@@ -62,7 +62,7 @@ $defaultBackground = [ordered]@{
 # Generate censor beep (once)
 # ---------------------------------------------------------------------------
 
-$beepFile = ".\public\sfx\censor-beep.wav"
+$beepFile = ".\public\assets\sfx\censor-beep.wav"
 if (-not (Test-Path $beepFile)) {
     Write-Host "Generating censor beep..."
     ffmpeg -f lavfi -i "sine=frequency=1000:duration=0.7,volume=0.7" `
@@ -397,9 +397,9 @@ foreach ($scene in $scenes) {
 
 $music = [ordered]@{
     muted = $true
-    intro = [ordered]@{ src = "assets/intro.wav"; volume = 0.3 }
-    loop  = [ordered]@{ src = "assets/loop.wav";  volume = 0.3 }
-    outro = [ordered]@{ src = "assets/outro.wav"; volume = 0.3 }
+    intro = [ordered]@{ src = "assets/music/intro.wav"; volume = 0.3 }
+    loop  = [ordered]@{ src = "assets/music/loop.wav";  volume = 0.3 }
+    outro = [ordered]@{ src = "assets/music/outro.wav"; volume = 0.3 }
 }
 
 $config = [ordered]@{

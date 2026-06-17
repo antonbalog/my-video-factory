@@ -122,7 +122,7 @@ export const Scene: React.FC<{ config: SceneConfig; defaultBackground: Backgroun
               from={(clip.startFrame ?? 0) + b.startFrame}
               durationInFrames={b.endFrame - b.startFrame}
             >
-              <Audio src={staticFile("sfx/censor-beep.wav")} volume={() => 1} />
+              <Audio src={staticFile("assets/sfx/censor-beep.wav")} volume={() => 1} />
             </Sequence>
           ))
         )}
