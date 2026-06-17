@@ -9,4 +9,4 @@ out
 # Build artifacts and local tooling
 *.zip
 .claude/
-public/audio/*.tmp.txt
+public/audio/
