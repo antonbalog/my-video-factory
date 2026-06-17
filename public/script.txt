@@ -18,10 +18,7 @@ BRYAN: It already does
 
 [Scene]
 DIRTBAG: I love the internet way too much
-SHOW bryan
-
-[Scene]
-ANIMATE dirtbag fortnite-dance at=3s cycles=3
+ANIMATE dirtbag fortnite-dance at=5s cycles=3
 BRYAN: He's addicted and needs help
 DIRTBAG: And I want to make stuff people actually enjoy watching
 BRYAN: He just wants to be a lazy piece of {bleep:shit}
@@ -37,7 +34,10 @@ BRYAN: For real!
 ANIMATE ufo ufo-fly at=0s
 SHOW ufo x=1.5 size=1.5
 DIRTBAG: So if you like honest, slightly chaotic content
-BRYAN: I would rather watch ads, if I were you
+BRYAN: I would rather watch ads
+
+[Scene]
+BRYAN: If I were you
 
 [Scene]
 DIRTBAG: You might want to stick around
@@ -58,7 +58,7 @@ DIRTBAG: Please!
 BRYAN: You know you don't have to do it
 
 [Scene]
-DIRTBAG: Please!
+DIRTBAG: Pretty please!
 
 [Scene]
 ANIMATE dirtbag cry at=1s
