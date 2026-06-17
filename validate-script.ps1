@@ -46,6 +46,42 @@ function Err($n, $msg)  { Add-Error   "Line ${n}: $msg" }
 function Warn($n, $msg) { Add-Warning "Line ${n}: $msg" }
 
 # ---------------------------------------------------------------------------
+# Meta block validation
+# ---------------------------------------------------------------------------
+
+$metaFields  = @{ name = ""; title = ""; description = ""; platform = "" }
+$inMeta      = $false
+$metaLineNum = 0
+$metaFound   = $false
+
+foreach ($line in (Get-Content $scriptFile)) {
+    $metaLineNum++
+    $trimmed = $line.Trim()
+    if ($trimmed -match '^\[Meta\]\s*$') { $inMeta = $true; $metaFound = $true; continue }
+    if ($inMeta) {
+        if ($trimmed -match '^\[') { break }
+        if ($trimmed -match '^(name|title|description|platform):\s*(.*)$') {
+            $metaFields[$matches[1]] = $matches[2].Trim()
+        }
+    }
+}
+
+if (-not $metaFound) {
+    Add-Error "[Meta] block is missing -- add it at the top of script.txt"
+} else {
+    if (-not $metaFields.name) {
+        Add-Error "Meta: 'name' is required"
+    } elseif ($metaFields.name -match '[\\/:*?"<>|]') {
+        Add-Error "Meta: 'name' contains invalid folder characters"
+    }
+    if ($metaFields.platform -notin @("Youtube", "Shorts", "")) {
+        Add-Error "Meta: 'platform' must be 'Youtube' or 'Shorts', got '$($metaFields.platform)'"
+    }
+    if (-not $metaFields.title)       { Add-Warning "Meta: 'title' is missing" }
+    if (-not $metaFields.description) { Add-Warning "Meta: 'description' is missing" }
+}
+
+# ---------------------------------------------------------------------------
 # Pipeline coherence
 # ---------------------------------------------------------------------------
 
@@ -78,10 +114,18 @@ $nextSceneNum    = 1
 $seenSceneIds    = @{}
 $lineNum         = 0
 
+$inMetaBlock = $false
+
 foreach ($line in $lines) {
     $lineNum++
     $trimmed = $line.Trim()
     if ($trimmed -eq '' -or $trimmed.StartsWith('#')) { continue }
+
+    if ($trimmed -match '^\[Meta\]\s*$') { $inMetaBlock = $true; continue }
+    if ($inMetaBlock) {
+        if ($trimmed -match '^\[') { $inMetaBlock = $false }
+        else { continue }
+    }
 
     # --- Scene / Intro / Outro header ---
     if ($trimmed -match '^\[(.+)\]\s*$') {

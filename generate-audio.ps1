@@ -27,6 +27,9 @@ $audioDir   = ".\public\audio"
 $scriptFile = ".\public\script.txt"
 $configFile = ".\public\config.json"
 
+$meta   = [ordered]@{ name = ""; title = ""; description = ""; platform = "Youtube" }
+$inMeta = $false
+
 # ---------------------------------------------------------------------------
 # Character config
 # ---------------------------------------------------------------------------
@@ -273,6 +276,15 @@ $seenSceneIds = @{}
 $nextSceneNum = 1
 
 foreach ($line in (Get-Content $scriptFile)) {
+    if ($line -match '^\[Meta\]\s*$') { $inMeta = $true; continue }
+    if ($inMeta) {
+        if ($line -match '^\[') { $inMeta = $false }
+        elseif ($line -match '^(name|title|description|platform):\s*(.+)$') {
+            $meta[$matches[1]] = $matches[2].Trim()
+        }
+        if ($inMeta) { continue }
+    }
+
     $sh = Parse-SceneHeader $line
     if ($sh) {
         Flush-Scene
@@ -403,6 +415,7 @@ $music = [ordered]@{
 }
 
 $config = [ordered]@{
+    meta              = $meta
     music             = $music
     defaultBackground = $defaultBackground
     defaultCharacters = @()

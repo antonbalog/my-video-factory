@@ -1,4 +1,10 @@
-﻿[Intro duration=120]
+﻿[Meta]
+name: my-first-video
+title: My First Video
+description: A chaotic introduction featuring dirtbag and bryan
+platform: Youtube
+
+[Intro duration=120]
 SHOW dirtbag nametag wave=intro
 
 [Scene]

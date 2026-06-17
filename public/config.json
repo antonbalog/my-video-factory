@@ -1,16 +1,22 @@
 ﻿{
+    "meta":  {
+                 "name":  "my-first-video",
+                 "title":  "My First Video",
+                 "description":  "A chaotic introduction featuring dirtbag and bryan",
+                 "platform":  "Youtube"
+             },
     "music":  {
                   "muted":  true,
                   "intro":  {
-                                "src":  "assets/intro.wav",
+                                "src":  "assets/music/intro.wav",
                                 "volume":  0.3
                             },
                   "loop":  {
-                               "src":  "assets/loop.wav",
+                               "src":  "assets/music/loop.wav",
                                "volume":  0.3
                            },
                   "outro":  {
-                                "src":  "assets/outro.wav",
+                                "src":  "assets/music/outro.wav",
                                 "volume":  0.3
                             }
               },
