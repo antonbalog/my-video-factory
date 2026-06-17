@@ -7,8 +7,8 @@
     { "start": 0.00, "end": 0.17, "value": "X" },
     { "start": 0.17, "end": 0.67, "value": "B" },
     { "start": 0.67, "end": 0.75, "value": "A" },
-    { "start": 0.75, "end": 0.97, "value": "C" },
-    { "start": 0.97, "end": 1.11, "value": "B" },
-    { "start": 1.11, "end": 1.89, "value": "X" }
+    { "start": 0.75, "end": 0.92, "value": "C" },
+    { "start": 0.92, "end": 1.13, "value": "B" },
+    { "start": 1.13, "end": 1.89, "value": "X" }
   ]
 }

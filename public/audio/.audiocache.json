@@ -1,29 +1,29 @@
 ﻿{
-    "scene-6-bryan-3":  {
-                            "durationMs":  2880,
-                            "hash":  "1784541472D22F607C8BD890889EEC2ADFCAED65B2D22E1C9C0AFBE5BEEF30EC",
-                            "bleeps":  [
-                                           {
-                                               "startMs":  1740,
-                                               "endMs":  2540
-                                           }
-                                       ]
-                        },
     "scene-11-bryan-2":  {
-                             "hash":  "869B7D493C23F30858847A4031020BAD1C342CF82C8F7F98465EB2411333E954",
+                             "hash":  "46D9D7395ECC0511BAA81AB284C6A2D0390D4E51FC09BF65A791A11BECFFD0F6",
                              "durationMs":  2425
                          },
-    "scene-12-dirtbag-1":  {
-                               "hash":  "ABD5202C227B94920549AF66844CD1EFEEEAAC03C108A5D512E2E138C3E3EBD0",
-                               "durationMs":  1368
-                           },
+    "scene-10-bryan-1":  {
+                             "durationMs":  2688,
+                             "hash":  "7F2032D809BE4781D5C59265A0771060C71FBE806D9378F660381C031B2CC085",
+                             "bleeps":  [
+                                            {
+                                                "startMs":  1409,
+                                                "endMs":  2209
+                                            }
+                                        ]
+                         },
     "scene-1-dirtbag-1":  {
                               "hash":  "2C2784252D5973AB98F07654E73D007FA6993A408D8D48B551EC95448519C670",
                               "durationMs":  3840
                           },
-    "scene-7-bryan-1":  {
-                            "hash":  "3393A3122A3B848476FBF83857CA1FC743CDB930ECE284709AF6EBE3C1D9690B",
-                            "durationMs":  1440
+    "scene-7-dirtbag-1":  {
+                              "hash":  "0B152ADBB880F182BF2C7CCFB755F551AE7025DF920E47F9FCC99FC123CF87E7",
+                              "durationMs":  3913
+                          },
+    "scene-5-bryan-6":  {
+                            "hash":  "21AD692D3D076E7FF196C75418A2C7E0A8C4046A05118F3E054A3699FA884B3D",
+                            "durationMs":  1393
                         },
     "scene-15-dirtbag-1":  {
                                "hash":  "B2C8CBFE4CC3202D99F1CE3957D1ADF9585E84E8ACF249E0E8A8E399B37F77EF",
@@ -34,55 +34,63 @@
                               "durationMs":  2737
                           },
     "scene-6-bryan-1":  {
-                            "hash":  "0E5B8A0EE0AB5A934D00EE7A7CE402A71AF7FB1D4BC793092E1B25A4A37E5269",
+                            "hash":  "887C64AE60BD4CADF551B1108D238D2404EA2E5E162F14F702F6E81073C2EE7C",
+                            "durationMs":  1440
+                        },
+    "scene-5-dirtbag-7":  {
+                              "hash":  "27C513CC9621BA5265127C0DC44881D8FEEEC1335D1A82BCBDF67423EF0A7A77",
+                              "durationMs":  2905
+                          },
+    "scene-5-bryan-8":  {
+                            "hash":  "4D0A2833E00F8803544AE40E0C4776912B25A7870C11908CD75CB5D19EFFCEAE",
+                            "durationMs":  2017
+                        },
+    "scene-8-bryan-1":  {
+                            "hash":  "707BB3A42A311CB8A860EFEBC300843FC47DF2DB3A29FFFAE0750B75AFBEDA8B",
+                            "durationMs":  1633
+                        },
+    "scene-13-bryan-1":  {
+                             "hash":  "478DD4CA07A9AE458EBC70F9700C863330FF14FD7FC836640340DBEEF563445B",
+                             "durationMs":  2208
+                         },
+    "scene-14-dirtbag-1":  {
+                               "hash":  "24902765F1EDDCC32F2A8FBC9E2FFD5A6148B98A1C98CDE90C38CA02ED0BFC00",
+                               "durationMs":  1657
+                           },
+    "scene-2-bryan-1":  {
+                            "hash":  "B9B5E4663B9F95479302DFEB4F5D7DCC4355E7913871E8206A46FB6B9B664B2F",
+                            "durationMs":  2448
+                        },
+    "scene-12-dirtbag-1":  {
+                               "hash":  "ABD5202C227B94920549AF66844CD1EFEEEAAC03C108A5D512E2E138C3E3EBD0",
+                               "durationMs":  1368
+                           },
+    "scene-5-bryan-2":  {
+                            "hash":  "F5334FE896F5DE8EDF7B14D7AA67090A91019376D71DB61EBD25F7F56E57BF58",
                             "durationMs":  2377
                         },
-    "scene-8-dirtbag-1":  {
-                              "hash":  "0B152ADBB880F182BF2C7CCFB755F551AE7025DF920E47F9FCC99FC123CF87E7",
-                              "durationMs":  3913
-                          },
-    "scene-6-dirtbag-2":  {
+    "scene-5-dirtbag-3":  {
                               "hash":  "8FA1A421EA097345D65ECF7915BAD07D23FD5360782CA7E156FD232C7B5F2C82",
                               "durationMs":  3840
                           },
-    "scene-6-dirtbag-4":  {
-                              "hash":  "693E26AC7690EE61696DD5465A6105342177C1BBB697CB3673ACBD8412B65458",
-                              "durationMs":  3048
-                          },
-    "scene-13-bryan-1":  {
-                             "hash":  "2E79384AEE93FAC8A6CF0342CA2BC025F9193A20EA5B4FEAEC282DD58786F6CC",
-                             "durationMs":  2208
-                         },
-    "scene-6-bryan-7":  {
-                            "hash":  "71E0B9F970B9BC6A8B65CE02D8E376F0A348CDC28E591A1692F62D8A3A434B5E",
-                            "durationMs":  2017
-                        },
-    "scene-8-bryan-2":  {
-                            "hash":  "F735D6FDE0170396A8C95A22A72A5D7A598D1FF2429481CC9A9261EDA5305C99",
-                            "durationMs":  3000
-                        },
-    "scene-2-bryan-1":  {
-                            "hash":  "2D634E5C7C4CE27F659C491EE95949516F4A7FC1CBC9D8842045B07AC1798B41",
-                            "durationMs":  2448
-                        },
-    "scene-11-dirtbag-1":  {
-                               "hash":  "6340A32E26657470B8D88811E5B458AE469FB3962DE12258003BE8CC8819AAA7",
-                               "durationMs":  5953
-                           },
     "scene-9-dirtbag-1":  {
                               "hash":  "2EBAC63401CFADF8F624D28E04796DB986980505EF355214B8D60C2974177B2F",
                               "durationMs":  2377
                           },
-    "scene-10-bryan-1":  {
-                             "durationMs":  2688,
-                             "hash":  "2F22259666B5D8193BB8FC7E56FFADC88EEE1511C29F392EAB4C846366B10FD8",
-                             "bleeps":  [
-                                            {
-                                                "startMs":  1431,
-                                                "endMs":  2231
-                                            }
-                                        ]
-                         },
+    "scene-5-bryan-4":  {
+                            "durationMs":  2880,
+                            "hash":  "F857013A7E98F697983B6EA8C083D4FC51176B50B87AFB061227D6EA1D7E3BCB",
+                            "bleeps":  [
+                                           {
+                                               "startMs":  1737,
+                                               "endMs":  2537
+                                           }
+                                       ]
+                        },
+    "scene-7-bryan-2":  {
+                            "hash":  "E44EB92A77A1AF7824C74FEEE9B15751CC9ADAB6869372628EA528E19381F28C",
+                            "durationMs":  2160
+                        },
     "scene-3-dirtbag-1":  {
                               "durationMs":  2137,
                               "hash":  "279E9CDA38F297D1840C948B4D7967F4DA115B7BF3687D03231EF963CD06B67B",
@@ -93,20 +101,16 @@
                                              }
                                          ]
                           },
-    "scene-14-dirtbag-1":  {
-                               "hash":  "ABD5202C227B94920549AF66844CD1EFEEEAAC03C108A5D512E2E138C3E3EBD0",
-                               "durationMs":  1368
-                           },
-    "scene-6-bryan-5":  {
-                            "hash":  "D82A2FA4F999AA878E7806864A2DDD1BC608A8E57373E3D344692EBA3DA4FE9D",
-                            "durationMs":  1393
-                        },
-    "scene-6-dirtbag-6":  {
-                              "hash":  "27C513CC9621BA5265127C0DC44881D8FEEEC1335D1A82BCBDF67423EF0A7A77",
-                              "durationMs":  2905
+    "scene-5-dirtbag-5":  {
+                              "hash":  "693E26AC7690EE61696DD5465A6105342177C1BBB697CB3673ACBD8412B65458",
+                              "durationMs":  3048
                           },
+    "scene-11-dirtbag-1":  {
+                               "hash":  "6340A32E26657470B8D88811E5B458AE469FB3962DE12258003BE8CC8819AAA7",
+                               "durationMs":  5953
+                           },
     "scene-4-bryan-1":  {
-                            "hash":  "BBA2F9F840E5DA19F6C405DE7C2AC7CC8734CC8ED1E0274E0DC4A71961CDAE2F",
+                            "hash":  "9286C4D546710277590ED617012A7EBD19D449CB17907D11F36B7B65B29937F5",
                             "durationMs":  1897
                         }
 }

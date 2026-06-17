@@ -6,7 +6,7 @@
   "mouthCues": [
     { "start": 0.00, "end": 0.08, "value": "X" },
     { "start": 0.08, "end": 0.16, "value": "A" },
-    { "start": 0.16, "end": 0.62, "value": "B" },
-    { "start": 0.62, "end": 1.36, "value": "X" }
+    { "start": 0.16, "end": 0.63, "value": "B" },
+    { "start": 0.63, "end": 1.36, "value": "X" }
   ]
 }
