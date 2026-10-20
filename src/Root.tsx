@@ -3,6 +3,7 @@ import { parseMedia } from "@remotion/media-parser";
 import { VideoFactory } from "./VideoFactory/VideoFactory";
 import { VideoConfig } from "./VideoFactory/types";
 import { parseVtt } from "./VideoFactory/utils/parseVtt";
+import { LIMB_ANIMATIONS } from "./VideoFactory/characters/limbAnimations";
 
 const FPS = 60;
 
@@ -100,6 +101,15 @@ const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
     // Derive scene duration from clips if not set
     if (scene.durationInFrames == null) {
       scene.durationInFrames = clipStartFrame > 0 ? clipStartFrame : 300;
+    }
+
+    // Extend the scene so every animation can finish
+    const animEnd = Math.max(0, ...(scene.animations ?? []).map((a) => {
+      const def = LIMB_ANIMATIONS[a.type];
+      return (a.atFrame ?? 0) + (def ? def.duration(a.params) : 0);
+    }));
+    if (animEnd > (scene.durationInFrames ?? 0)) {
+      scene.durationInFrames = animEnd;
     }
   }
 
