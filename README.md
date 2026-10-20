@@ -57,52 +57,60 @@ EOF
 ## Commands
 
 ```bash
-npm i                          # Install Node dependencies
-npm run dev                    # Start Remotion Studio (live preview)
-npm run lint                   # ESLint + TypeScript type-check
-npx remotion render            # Render the video
+npm i                    # Install Node dependencies
+npm run dev              # Start Remotion Studio (live preview)
+npm run lint             # ESLint + TypeScript type-check
+npm run validate         # Check public/script.txt for errors (no files written)
+npm run audio            # validate + generate all audio (TTS, enhancement, lip sync) and config.json
+npm run render           # Render the platform set in [Meta]
+npm run render:youtube   # Render only the 16:9 version
+npm run render:shorts    # Render only the 9:16 version (blocked if over 60s)
+npm run factory          # audio + render, end to end
 ```
 
-```powershell
-# Generate all audio (TTS + enhancement + lip sync)
-powershell -ExecutionPolicy Bypass -File .\generate-audio.ps1
-
-# Render to out/youtube.mp4 and out/shorts.mp4
-powershell -ExecutionPolicy Bypass -File .\render.ps1
-
-# Render a single composition
-powershell -ExecutionPolicy Bypass -File .\render.ps1 -Composition Youtube
-powershell -ExecutionPolicy Bypass -File .\render.ps1 -Composition Shorts
-```
+Renders go to `out/<name>/<Platform>/<platform>.mp4`, with a copy of `script.txt` and `config.json` saved next to the video. `<name>` and the default platform come from the `[Meta]` block.
 
 ## How it works
 
-1. Edit `public/script.txt` to define scenes and dialogue
-2. Run `generate-audio.ps1` — generates mp3, vtt, and mouth.json for each line
-   - Uses hash-based caching — unchanged clips are skipped automatically
-   - Audio pipeline: `edge-tts → ffmpeg → Resemble Enhance → loudnorm → rhubarb`
-3. Open Remotion Studio (`npm run dev`) to preview
-4. Render with `npx remotion render`
+1. Edit `public/script.txt` to define the video
+2. `npm run audio` validates the script, then generates mp3, vtt and mouth.json for each line
+   - Hash-based caching: unchanged lines are skipped
+   - Audio pipeline: `edge-tts -> ffmpeg -> Resemble Enhance -> loudnorm -> rhubarb`
+   - Auto-direction: scenes with one character get a close-up and zoom-in; scenes with two or more zoom out
+3. `npm run dev` to preview in Remotion Studio
+4. `npm run render` to render
+
+Scene length follows the dialogue, and is extended automatically so any animation in the scene can finish.
 
 ## script.txt syntax
 
 ```
+[Meta]                              video metadata (top of file)
+name: my-first-video                output folder name
+title: My First Video
+description: ...
+platform: Youtube                   default render target: Youtube | Shorts
+
 [Scene]                             scene header (auto-numbered)
-[Scene transition=zoom-in]          with optional transition
+[Scene transition=zoom-in]          optional transition: cut | zoom-in | zoom-out
 [Scene N]                           explicit scene number (also auto-advances counter)
-[Intro duration=120]                fixed-duration intro (frames)
-[Outro duration=120]                fixed-duration outro (frames)
+[Intro duration=120]                fixed-duration intro (frames @ 60fps)
+[Outro duration=120]                fixed-duration outro (frames @ 60fps)
 
 SHOW character [flags]              place character on screen
 ANIMATE character type at=Xs        play animation at timestamp
-SFX path/to/file.wav at=Xs         play sound effect at timestamp
+SFX path/to/file.wav at=Xs          play sound effect at timestamp
 CHARACTER: dialogue text            one line of TTS dialogue
 {bleep:word}                        censored word (plays beep + censors subtitle)
 ```
 
+**Characters:** `dirtbag`, `bryan` (both voiced), `lacey`, `ufo` (no voice). Voices, default positions and name tags live in `characters.json`.
+
 **SHOW flags:** `x=0.5` `y=0.5` `size=2` `nametag` `wave` `wave=outro` `trim-start=0.5s` `trim-end=0.2s` `pad-end=0.5s`
 
-**ANIMATE extras:** `cycles=3` `return=30`
+**Animations:** `wave-intro` `wave-outro` `fortnite-dance` `thumb-up` `thumb-down` `cry` `tv-glitch` `glitch-in` `glitch-out` `ufo-fly`
+
+**ANIMATE extras:** `cycles=3` (fortnite-dance repeats) `return=30` (frames to return to rest)
 
 Example:
 

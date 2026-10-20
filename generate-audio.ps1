@@ -34,24 +34,31 @@ $inMeta = $false
 # Character config
 # ---------------------------------------------------------------------------
 
-$voices = @{
-    "dirtbag" = "en-US-AnaNeural"
-    "bryan"   = "en-GB-MaisieNeural"
-}
+# characters.json is the single source of truth for voices, default
+# positions and name tags (validate-script.ps1 and the TS registry read it too)
+$characters = Get-Content "$PSScriptRoot\characters.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 
-$voiceArgs = @{
-    "dirtbag" = @("--rate=+25%")
-    "bryan"   = @("--rate=+25%", "--pitch=+20Hz")
-}
-
-$charDefaults = @{
-    "dirtbag" = @{ x = 0.75; y = 0.5; size = 2 }
-    "bryan"   = @{ x = 0.25; y = 0.5; size = 2 }
-}
-
-$charNameTags = @{
-    "dirtbag" = [ordered]@{ label = "dirtbag"; color = "#F3E5AB" }
-    "bryan"   = [ordered]@{ label = "bryan"; color = "#E40078"; strikePrefix = "brain" }
+$voices       = @{}
+$voiceArgs    = @{}
+$charDefaults = @{}
+$charNameTags = @{}
+foreach ($p in $characters.PSObject.Properties) {
+    $name = $p.Name
+    $c    = $p.Value
+    if ($c.voice) {
+        $voices[$name]    = $c.voice
+        $voiceArgs[$name] = @()
+        if ($c.rate)  { $voiceArgs[$name] += "--rate=$($c.rate)" }
+        if ($c.pitch) { $voiceArgs[$name] += "--pitch=$($c.pitch)" }
+    }
+    if ($null -ne $c.x) {
+        $charDefaults[$name] = @{ x = $c.x; y = $c.y; size = $c.size }
+    }
+    if ($c.nameTag) {
+        $tag = [ordered]@{ label = $c.nameTag.label; color = $c.nameTag.color }
+        if ($c.nameTag.strikePrefix) { $tag.strikePrefix = $c.nameTag.strikePrefix }
+        $charNameTags[$name] = $tag
+    }
 }
 
 $defaultBackground = [ordered]@{

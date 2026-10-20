@@ -1,0 +1,21 @@
+{
+  "dirtbag": {
+    "voice": "en-US-AnaNeural",
+    "rate": "+25%",
+    "x": 0.75,
+    "y": 0.5,
+    "size": 2,
+    "nameTag": { "label": "dirtbag", "color": "#F3E5AB" }
+  },
+  "bryan": {
+    "voice": "en-GB-MaisieNeural",
+    "rate": "+25%",
+    "pitch": "+20Hz",
+    "x": 0.25,
+    "y": 0.5,
+    "size": 2,
+    "nameTag": { "label": "bryan", "color": "#E40078", "strikePrefix": "brain" }
+  },
+  "lacey": {},
+  "ufo": {}
+}

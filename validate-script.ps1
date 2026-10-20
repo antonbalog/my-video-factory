@@ -7,20 +7,22 @@ $scriptFile   = ".\public\script.txt"
 $audioGenFile = ".\generate-audio.ps1"
 
 # ---------------------------------------------------------------------------
-# Known values -- keep in sync with the files noted in comments
+# Known values -- read from their source files where possible
 # ---------------------------------------------------------------------------
 
-# src/VideoFactory/characters/index.ts -- characterRegistry keys
-$knownCharacters  = @("dirtbag", "bryan", "lacey", "ufo")
+# characters.json -- every character; those with a "voice" can speak
+$characterData    = Get-Content "$PSScriptRoot\characters.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+$knownCharacters  = @($characterData.PSObject.Properties.Name)
+$voicedCharacters = @($characterData.PSObject.Properties | Where-Object { $_.Value.voice } | ForEach-Object { $_.Name })
 
-# generate-audio.ps1 -- $voices keys
-$voicedCharacters = @("dirtbag", "bryan")
-
-# src/VideoFactory/characters/limbAnimations.ts -- LIMB_ANIMATIONS keys
-$knownAnimations = @(
-    "wave-intro", "wave-outro", "fortnite-dance", "thumb-up", "thumb-down",
-    "cry", "tv-glitch", "glitch-in", "glitch-out", "ufo-fly"
-)
+# src/VideoFactory/characters/limbAnimations.ts -- LIMB_ANIMATIONS keys, read from the source
+$animFile        = "$PSScriptRoot\src\VideoFactory\characters\limbAnimations.ts"
+$knownAnimations = @(Select-String -Path $animFile -Pattern '^  "([\w-]+)": \{' |
+    ForEach-Object { $_.Matches[0].Groups[1].Value })
+if ($knownAnimations.Count -eq 0) {
+    Write-Host "ERROR: could not read animation names from $animFile" -ForegroundColor Red
+    exit 1
+}
 
 # src/VideoFactory/types.ts -- SceneConfig.transition union
 $knownTransitions = @("cut", "zoom-in", "zoom-out")
@@ -240,7 +242,7 @@ foreach ($line in $lines) {
         if ($knownCharacters -notcontains $charName) {
             Err $lineNum "Unknown character '$charName' in dialogue"
         } elseif ($voicedCharacters -notcontains $charName) {
-            Err $lineNum "'$charName' has no voice configured in generate-audio.ps1"
+            Err $lineNum "'$charName' has no voice configured in characters.json"
         }
         $check = $dialogue
         while ($check -match '\{bleep:([^}]*)\}') {
