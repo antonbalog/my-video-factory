@@ -1,7 +1,7 @@
 ﻿[Meta]
 name: my-first-video
 title: My First Video
-description: A chaotic introduction featuring dirtbag and bryan
+description: My First Video
 platform: Youtube
 
 [Intro duration=120]
@@ -40,14 +40,8 @@ BRYAN: For real!
 ANIMATE ufo ufo-fly at=0s
 SHOW ufo x=1.5 size=1.5
 DIRTBAG: So if you like honest, slightly chaotic content
-BRYAN: I would rather watch ads
-
-[Scene]
-BRYAN: If I were you
-
-[Scene]
+BRYAN: I would rather watch ads, If I were you
 DIRTBAG: You might want to stick around
-SHOW bryan
 
 [Scene]
 BRYAN: Please don't support this {bleep:bullshit}!

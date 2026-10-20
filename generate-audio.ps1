@@ -23,11 +23,11 @@
 #   trim-end=0.2s       trim trailing silence
 #   pad-end=0.5s        add silence at end
 
-$audioDir   = ".\public\audio"
+$audioDir = ".\public\audio"
 $scriptFile = ".\public\script.txt"
 $configFile = ".\public\config.json"
 
-$meta   = [ordered]@{ name = ""; title = ""; description = ""; platform = "Youtube" }
+$meta = [ordered]@{ name = ""; title = ""; description = ""; platform = "Youtube" }
 $inMeta = $false
 
 # ---------------------------------------------------------------------------
@@ -40,8 +40,8 @@ $voices = @{
 }
 
 $voiceArgs = @{
-    "dirtbag" = @("--rate=+15%")
-    "bryan"   = @("--rate=+15%", "--pitch=+20Hz")
+    "dirtbag" = @("--rate=+25%")
+    "bryan"   = @("--rate=+25%", "--pitch=+20Hz")
 }
 
 $charDefaults = @{
@@ -92,8 +92,8 @@ $newCache = @{}
 
 function Get-EffectiveMs($rawMs, $entry) {
     $ts = if ($null -ne $entry.trimStart) { [math]::Round($entry.trimStart * 1000) } else { 0 }
-    $te = if ($null -ne $entry.trimEnd)   { [math]::Round($entry.trimEnd   * 1000) } else { 0 }
-    $pe = if ($null -ne $entry.padEnd)    { [math]::Round($entry.padEnd    * 1000) } else { 0 }
+    $te = if ($null -ne $entry.trimEnd) { [math]::Round($entry.trimEnd * 1000) } else { 0 }
+    $pe = if ($null -ne $entry.padEnd) { [math]::Round($entry.padEnd * 1000) } else { 0 }
     return [math]::Round($rawMs - $ts - $te + $pe)
 }
 
@@ -101,32 +101,35 @@ function Parse-SceneHeader($line) {
     if ($line -notmatch '^\[(.+)\]\s*$') { return $null }
     $content = $matches[1].Trim()
     if ($content -match '^Scene\s+(\d+)(.*)$') {
-        $id   = "scene-$($matches[1])"
+        $id = "scene-$($matches[1])"
         $opts = $matches[2]
-    } elseif ($content -match '^Scene(.*)$') {
-        $id   = $null   # caller assigns auto-number
+    }
+    elseif ($content -match '^Scene(.*)$') {
+        $id = $null   # caller assigns auto-number
         $opts = $matches[1]
-    } elseif ($content -match '^(Intro|Outro)(.*)$') {
-        $id   = $matches[1].ToLower()
+    }
+    elseif ($content -match '^(Intro|Outro)(.*)$') {
+        $id = $matches[1].ToLower()
         $opts = $matches[2]
-    } else {
+    }
+    else {
         return $null
     }
     $result = @{ id = $id; durationInFrames = $null; tileSize = $null; transition = $null }
     foreach ($part in ($opts.Trim() -split '\s+' | Where-Object { $_ -ne '' })) {
-        if ($part -match '^duration=(\d+)$')      { $result.durationInFrames = [int]$matches[1] }
-        if ($part -match '^tileSize=(\d+)$')      { $result.tileSize         = [int]$matches[1] }
-        if ($part -match '^transition=([\w-]+)$') { $result.transition       = $matches[1] }
+        if ($part -match '^duration=(\d+)$') { $result.durationInFrames = [int]$matches[1] }
+        if ($part -match '^tileSize=(\d+)$') { $result.tileSize = [int]$matches[1] }
+        if ($part -match '^transition=([\w-]+)$') { $result.transition = $matches[1] }
     }
     return $result
 }
 
 function Parse-ShowTag($line) {
     if ($line -notmatch '^SHOW\s+(.+)$') { return $null }
-    $parts    = $matches[1].Trim() -split '\s+'
+    $parts = $matches[1].Trim() -split '\s+'
     $charName = $parts[0].ToLower()
-    $def      = $script:charDefaults[$charName]
-    $result   = @{
+    $def = $script:charDefaults[$charName]
+    $result = @{
         name         = $charName
         x            = if ($def) { $def.x }    else { 0.5 }
         y            = if ($def) { $def.y }    else { 0.5 }
@@ -139,15 +142,15 @@ function Parse-ShowTag($line) {
         padEnd       = $null
     }
     foreach ($part in $parts[1..($parts.Count - 1)]) {
-        if    ($part -match '^x=(.+)$')                { $result.x           = [double]$matches[1] }
-        elseif ($part -match '^y=(.+)$')                { $result.y           = [double]$matches[1] }
-        elseif ($part -match '^size=([\d.]+)$')         { $result.size        = [double]$matches[1]; $result.sizeExplicit = $true }
-        elseif ($part -match '^wave=(intro|outro)$')    { $result.wave      = $matches[1] }
-        elseif ($part -eq 'wave')                       { $result.wave      = "intro" }
-        elseif ($part -eq 'nametag')                    { $result.nametag   = $true }
+        if ($part -match '^x=(.+)$') { $result.x = [double]$matches[1] }
+        elseif ($part -match '^y=(.+)$') { $result.y = [double]$matches[1] }
+        elseif ($part -match '^size=([\d.]+)$') { $result.size = [double]$matches[1]; $result.sizeExplicit = $true }
+        elseif ($part -match '^wave=(intro|outro)$') { $result.wave = $matches[1] }
+        elseif ($part -eq 'wave') { $result.wave = "intro" }
+        elseif ($part -eq 'nametag') { $result.nametag = $true }
         elseif ($part -match '^trim-start=([\d.]+)s$') { $result.trimStart = [double]$matches[1] }
-        elseif ($part -match '^trim-end=([\d.]+)s$')   { $result.trimEnd   = [double]$matches[1] }
-        elseif ($part -match '^pad-end=([\d.]+)s$')    { $result.padEnd    = [double]$matches[1] }
+        elseif ($part -match '^trim-end=([\d.]+)s$') { $result.trimEnd = [double]$matches[1] }
+        elseif ($part -match '^pad-end=([\d.]+)s$') { $result.padEnd = [double]$matches[1] }
     }
     return $result
 }
@@ -178,10 +181,10 @@ function Invoke-AutoDirection($scenes) {
 
         if ($scene.charMap.Count -eq 1) {
             $charName = @($scene.charMap.Keys)[0]
-            $entry    = $scene.charMap[$charName]
+            $entry = $scene.charMap[$charName]
             if (-not $entry.sizeExplicit) {
                 $entry.size = 5
-                $entry.x    = 0.5
+                $entry.x = 0.5
                 Write-Host "  [$sid] closeup -> $charName" -ForegroundColor DarkCyan
                 $applied++
             }
@@ -192,11 +195,13 @@ function Invoke-AutoDirection($scenes) {
                 $scene.transition = 'zoom-out'
                 Write-Host "  [$sid] transition -> zoom-out (last scene)" -ForegroundColor DarkCyan
                 $applied++
-            } elseif ($scene.charMap.Count -le 1) {
+            }
+            elseif ($scene.charMap.Count -le 1) {
                 $scene.transition = 'zoom-in'
                 Write-Host "  [$sid] transition -> zoom-in" -ForegroundColor DarkCyan
                 $applied++
-            } elseif ($scene.charMap.Count -ge 2) {
+            }
+            elseif ($scene.charMap.Count -ge 2) {
                 $scene.transition = 'zoom-out'
                 Write-Host "  [$sid] transition -> zoom-out" -ForegroundColor DarkCyan
                 $applied++
@@ -211,8 +216,8 @@ function Invoke-AutoDirection($scenes) {
 # Parse script.txt
 # ---------------------------------------------------------------------------
 
-$scenes     = [System.Collections.Generic.List[hashtable]]::new()
-$clips      = [System.Collections.Generic.List[PSCustomObject]]::new()
+$scenes = [System.Collections.Generic.List[hashtable]]::new()
+$clips = [System.Collections.Generic.List[PSCustomObject]]::new()
 $sceneIndex = @{}
 
 $curScene = $null
@@ -221,14 +226,14 @@ function Emit-Clip($Scene, $CharInfo, $Text) {
     $ttsInput = $Text.Trim()
     if ($ttsInput -eq '') { return }
 
-    $sid    = $Scene.id
+    $sid = $Scene.id
     $charId = $CharInfo.name
 
     if (-not $script:sceneIndex.ContainsKey($sid)) { $script:sceneIndex[$sid] = 0 }
     $script:sceneIndex[$sid]++
     $idx = $script:sceneIndex[$sid]
 
-    $bleepWordIndices  = [System.Collections.Generic.List[int]]::new()
+    $bleepWordIndices = [System.Collections.Generic.List[int]]::new()
     $censoredWordsList = [System.Collections.Generic.List[string]]::new()
     $words = $ttsInput -split '\s+'
     for ($w = 0; $w -lt $words.Count; $w++) {
@@ -238,7 +243,7 @@ function Emit-Clip($Scene, $CharInfo, $Text) {
             $words[$w] = $words[$w] -replace '^\{bleep:(.+?)\}', '$1'
         }
     }
-    $ttsText   = $words -join ' '
+    $ttsText = $words -join ' '
     $wordCount = $words.Count
 
     $audioEntry = [ordered]@{
@@ -252,20 +257,20 @@ function Emit-Clip($Scene, $CharInfo, $Text) {
         $audioEntry.censoredWords = $censoredWordsList.ToArray()
     }
     if ($null -ne $CharInfo.trimStart) { $audioEntry.trimStart = $CharInfo.trimStart }
-    if ($null -ne $CharInfo.trimEnd)   { $audioEntry.trimEnd   = $CharInfo.trimEnd   }
-    if ($null -ne $CharInfo.padEnd)    { $audioEntry.padEnd    = $CharInfo.padEnd    }
+    if ($null -ne $CharInfo.trimEnd) { $audioEntry.trimEnd = $CharInfo.trimEnd }
+    if ($null -ne $CharInfo.padEnd) { $audioEntry.padEnd = $CharInfo.padEnd }
     $Scene.audioList.Add($audioEntry)
 
     $script:clips.Add([PSCustomObject]@{
-        Scene            = $sid
-        Character        = $charId
-        Index            = $idx
-        Text             = $ttsText
-        Words            = $words
-        BleepWordIndices = $bleepWordIndices
-        WordCount        = $wordCount
-        AudioEntry       = $audioEntry
-    })
+            Scene            = $sid
+            Character        = $charId
+            Index            = $idx
+            Text             = $ttsText
+            Words            = $words
+            BleepWordIndices = $bleepWordIndices
+            WordCount        = $wordCount
+            AudioEntry       = $audioEntry
+        })
 }
 
 function Flush-Scene {
@@ -381,20 +386,20 @@ foreach ($scene in $scenes) {
     $obj = [ordered]@{ id = $scene.id }
 
     if ($null -ne $scene.durationInFrames) { $obj.durationInFrames = $scene.durationInFrames }
-    if ($null -ne $scene.transition)       { $obj.transition       = $scene.transition }
-    if ($scene.audioList.Count -gt 0)      { $obj.audio            = $scene.audioList }
-    if ($scene.sfxList.Count -gt 0)        { $obj.sfx              = $scene.sfxList }
+    if ($null -ne $scene.transition) { $obj.transition = $scene.transition }
+    if ($scene.audioList.Count -gt 0) { $obj.audio = $scene.audioList }
+    if ($scene.sfxList.Count -gt 0) { $obj.sfx = $scene.sfxList }
 
     $charsArr = [System.Collections.Generic.List[object]]::new()
     foreach ($charName in $scene.charMap.Keys) {
-        $a       = $scene.charMap[$charName]
+        $a = $scene.charMap[$charName]
         $charObj = [ordered]@{ id = $charName; x = $a.x; y = $a.y; size = $a.size }
         if ($a.wave) {
             $scene.animList.Add([ordered]@{
-                characterId = $a.name
-                type        = "wave-$($a.wave)"
-                atMs        = 0
-            })
+                    characterId = $a.name
+                    type        = "wave-$($a.wave)"
+                    atMs        = 0
+                })
         }
         if ($a.nametag -and $script:charNameTags.ContainsKey($charName)) {
             $charObj.nameTag = $script:charNameTags[$charName]
@@ -402,7 +407,7 @@ foreach ($scene in $scenes) {
         $charsArr.Add($charObj)
     }
     $obj.characters = $charsArr
-    if ($scene.animList.Count -gt 0)       { $obj.animations       = $scene.animList }
+    if ($scene.animList.Count -gt 0) { $obj.animations = $scene.animList }
 
     $scenesJson.Add($obj)
 }
@@ -410,7 +415,7 @@ foreach ($scene in $scenes) {
 $music = [ordered]@{
     muted = $true
     intro = [ordered]@{ src = "assets/music/intro.wav"; volume = 0.3 }
-    loop  = [ordered]@{ src = "assets/music/loop.wav";  volume = 0.3 }
+    loop  = [ordered]@{ src = "assets/music/loop.wav"; volume = 0.3 }
     outro = [ordered]@{ src = "assets/music/outro.wav"; volume = 0.3 }
 }
 
@@ -428,11 +433,11 @@ $config = [ordered]@{
 
 foreach ($clip in $clips) {
     $base = "$($clip.Scene)-$($clip.Character)-$($clip.Index)"
-    $mp3  = Join-Path $audioDir "$base.mp3"
-    $vtt  = Join-Path $audioDir "$base.vtt"
-    $wav  = Join-Path $audioDir "$base.wav"
+    $mp3 = Join-Path $audioDir "$base.mp3"
+    $vtt = Join-Path $audioDir "$base.vtt"
+    $wav = Join-Path $audioDir "$base.wav"
     $json = Join-Path $audioDir "$base-mouth.json"
-    $tmp  = Join-Path $audioDir "$base.tmp.txt"
+    $tmp = Join-Path $audioDir "$base.tmp.txt"
 
     if (-not $voices.ContainsKey($clip.Character)) {
         Write-Warning "Unknown character '$($clip.Character)' in [$base] - skipping"
@@ -440,17 +445,17 @@ foreach ($clip in $clips) {
     }
 
     $charArgs = $voiceArgs[$clip.Character]
-    $rateVal  = "+0%"
+    $rateVal = "+0%"
     $pitchVal = "+0Hz"
     foreach ($a in $charArgs) {
-        if ($a -match '^--rate=(.+)$')  { $rateVal  = $matches[1] }
+        if ($a -match '^--rate=(.+)$') { $rateVal = $matches[1] }
         if ($a -match '^--pitch=(.+)$') { $pitchVal = $matches[1] }
     }
 
     $hashInput = "$($clip.Text)|$($clip.Character)|$($voices[$clip.Character])|$rateVal|$pitchVal|$($clip.BleepWordIndices -join ',')"
     $hashBytes = [System.Text.Encoding]::UTF8.GetBytes($hashInput)
-    $sha       = [System.Security.Cryptography.SHA256]::Create()
-    $hashStr   = [System.BitConverter]::ToString($sha.ComputeHash($hashBytes)) -replace '-', ''
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    $hashStr = [System.BitConverter]::ToString($sha.ComputeHash($hashBytes)) -replace '-', ''
 
     $cached = $cache[$base]
     if ($cached -and $cached.hash -eq $hashStr -and (Test-Path $mp3) -and (Test-Path $vtt) -and (Test-Path $json)) {
@@ -458,7 +463,8 @@ foreach ($clip in $clips) {
         if ($cached.bleeps) { $clip.AudioEntry.bleeps = $cached.bleeps }
         if ($cached.durationMs) {
             $clip.AudioEntry.durationMs = $cached.durationMs
-        } elseif (Test-Path $mp3) {
+        }
+        elseif (Test-Path $mp3) {
             $rawMs = [math]::Round([double](ffprobe -v quiet -show_entries format=duration -of csv=p=0 $mp3) * 1000)
             $clip.AudioEntry.durationMs = Get-EffectiveMs $rawMs $clip.AudioEntry
         }
@@ -485,10 +491,10 @@ foreach ($clip in $clips) {
         foreach ($wi in $clip.BleepWordIndices) {
             $startMs = 0
             if ($wi -gt 0) {
-                $probeText    = ($clip.Words[0..($wi - 1)]) -join ' '
-                $probeMp3     = Join-Path $audioDir "$base-probe-$wi.mp3"
+                $probeText = ($clip.Words[0..($wi - 1)]) -join ' '
+                $probeMp3 = Join-Path $audioDir "$base-probe-$wi.mp3"
                 $probeTrimmed = Join-Path $audioDir "$base-probe-$wi-trimmed.mp3"
-                $probeTmp     = Join-Path $audioDir "$base-probe-$wi.tmp.txt"
+                $probeTmp = Join-Path $audioDir "$base-probe-$wi.tmp.txt"
                 Set-Content -Path $probeTmp -Value $probeText -Encoding UTF8
                 edge-tts -f $probeTmp -v $voices[$clip.Character] $voiceArgs[$clip.Character] --write-media $probeMp3 2>$null
                 if (Test-Path $probeMp3) {
@@ -510,7 +516,8 @@ foreach ($clip in $clips) {
     ffmpeg -y -i $mp3 $wav 2>$null
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $wav)) {
         Write-Warning "  ffmpeg failed - skipping enhance+rhubarb for [$base]"
-    } else {
+    }
+    else {
         Write-Host "  3/5 resemble-enhance (wav -> enhanced wav)..."
         $wavAbs = (Resolve-Path $wav).Path
         $wavWsl = "/mnt/" + $wavAbs[0].ToString().ToLower() + ($wavAbs.Substring(2) -replace '\\', '/')
@@ -536,7 +543,7 @@ foreach ($clip in $clips) {
     Remove-Item $tmp -ErrorAction SilentlyContinue
 
     $cacheEntry = @{ hash = $hashStr }
-    if ($clip.AudioEntry.bleeps)    { $cacheEntry.bleeps    = $clip.AudioEntry.bleeps    }
+    if ($clip.AudioEntry.bleeps) { $cacheEntry.bleeps = $clip.AudioEntry.bleeps }
     if ($clip.AudioEntry.durationMs) { $cacheEntry.durationMs = $clip.AudioEntry.durationMs }
     $newCache[$base] = $cacheEntry
     Write-Host "  done."
@@ -553,22 +560,23 @@ Get-ChildItem $audioDir -File | Where-Object { $_.Name -ne ".audiocache.json" } 
 }
 # Compute clip-level startMs/endMs and scene-level durationMs/durationInFrames
 for ($i = 0; $i -lt $scenes.Count; $i++) {
-    $scene  = $scenes[$i]
-    $obj    = $scenesJson[$i]
+    $scene = $scenes[$i]
+    $obj = $scenesJson[$i]
     $cursor = 0
     foreach ($entry in $scene.audioList) {
-        $ms          = if ($entry.durationMs) { $entry.durationMs } else { 0 }
+        $ms = if ($entry.durationMs) { $entry.durationMs } else { 0 }
         $entry.startMs = $cursor
-        $entry.endMs   = $cursor + $ms
-        $cursor       += $ms
+        $entry.endMs = $cursor + $ms
+        $cursor += $ms
     }
     $sceneMs = if ($null -ne $scene.durationInFrames) {
         [math]::Round($scene.durationInFrames / 60.0 * 1000)
-    } else {
+    }
+    else {
         $cursor
     }
     if ($sceneMs -gt 0) {
-        $obj.durationMs       = $sceneMs
+        $obj.durationMs = $sceneMs
         $obj.durationInFrames = [math]::Round($sceneMs / 1000.0 * 60)
     }
 }
