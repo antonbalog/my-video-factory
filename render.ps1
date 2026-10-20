@@ -2,7 +2,7 @@
 #
 # Renders video compositions to out/<name>/youtube.mp4 and/or out/<name>/shorts.mp4.
 # Shorts rendering is blocked if total duration exceeds 60s (YouTube Shorts limit).
-# Instagram Reels allows up to 90s, TikTok up to 60s — 60s is the safe limit for all.
+# Instagram Reels allows up to 90s, TikTok up to 60s -- 60s is the safe limit for all.
 
 param(
     [ValidateSet("Youtube", "Shorts", "All", "")]
@@ -36,7 +36,7 @@ $totalSeconds = [math]::Round($totalFrames / 60.0, 1)
 
 function Assert-ShortsDuration {
     if ($totalSeconds -gt 60) {
-        Write-Error ("Shorts is ${totalSeconds}s — exceeds the 60s limit for YouTube Shorts / TikTok. " +
+        Write-Error ("Shorts is ${totalSeconds}s -- exceeds the 60s limit for YouTube Shorts / TikTok. " +
                      "Shorten the script and re-run generate-audio.ps1 before rendering.")
         exit 1
     }
