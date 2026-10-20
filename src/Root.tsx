@@ -104,7 +104,8 @@ const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
   }
 
   // Pad the last pre-outro scene so middle content ends on a loop boundary
-  if (config.music?.loop) {
+  // (skipped when muted -- padding would only add dead air)
+  if (config.music?.loop && !config.music.muted) {
     let loopSeconds = 4;
     try {
       const { durationInSeconds } = await parseMedia({

@@ -27,27 +27,35 @@ $platform  = if ($meta -and $meta.platform) { $meta.platform } else { "Youtube" 
 
 $resolvedComposition = if ($Composition -ne "") { $Composition } else { $platform }
 
-# Sum scene durations from config.json
-$totalFrames = 0
-foreach ($scene in $config.scenes) {
-    if ($scene.durationInFrames) { $totalFrames += $scene.durationInFrames }
+# Ask Remotion for the real durations -- calculateMetadata in Root.tsx can pad
+# scenes, so summing config.json would not match what actually renders.
+# Output rows look like: "Shorts     60      1080x1920      3840 (64.00 sec)"
+$durations = @{}
+npx remotion compositions 2>$null | ForEach-Object {
+    if ($_ -match '^(\w+)\s+(\d+)\s+\d+x\d+\s+(\d+)') {
+        $durations[$matches[1]] = [math]::Round([int]$matches[3] / [int]$matches[2], 1)
+    }
 }
-$totalSeconds = [math]::Round($totalFrames / 60.0, 1)
 
 function Assert-ShortsDuration {
-    if ($totalSeconds -gt 60) {
-        Write-Error ("Shorts is ${totalSeconds}s -- exceeds the 60s limit for YouTube Shorts / TikTok. " +
+    $seconds = $durations["Shorts"]
+    if ($null -eq $seconds) {
+        Write-Error "Could not read Shorts duration from 'npx remotion compositions'."
+        exit 1
+    }
+    if ($seconds -gt 60) {
+        Write-Error ("Shorts is ${seconds}s -- exceeds the 60s limit for YouTube Shorts / TikTok. " +
                      "Shorten the script and re-run generate-audio.ps1 before rendering.")
         exit 1
     }
-    Write-Host "Duration check passed: ${totalSeconds}s (limit 60s)"
+    Write-Host "Duration check passed: ${seconds}s (limit 60s)"
 }
 
 function Invoke-Render($id) {
     $platformDir = "$outDir\$videoName\$id"
     if (-not (Test-Path $platformDir)) { New-Item -ItemType Directory $platformDir | Out-Null }
     $outFile = "$platformDir\$($id.ToLower()).mp4"
-    Write-Host "`nRendering $id -> $outFile  (${totalSeconds}s)"
+    Write-Host "`nRendering $id -> $outFile  ($($durations[$id])s)"
     npx remotion render $id $outFile
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Render failed for $id (exit $LASTEXITCODE)"
