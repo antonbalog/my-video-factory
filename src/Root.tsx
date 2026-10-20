@@ -4,7 +4,6 @@ import { VideoFactory } from "./VideoFactory/VideoFactory";
 import { VideoConfig } from "./VideoFactory/types";
 import { parseVtt } from "./VideoFactory/utils/parseVtt";
 import { LIMB_ANIMATIONS } from "./VideoFactory/characters/limbAnimations";
-
 const FPS = 60;
 
 const loadConfig = async (abortSignal: AbortSignal, fps: number) => {
@@ -157,7 +156,7 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         durationInFrames={1}
-        defaultProps={{ scenes: [], defaultBackground: { type: "color", value: "#000000" } } as VideoConfig}
+        defaultProps={{ scenes: [], defaultBackground: { type: "chessboard", tileSize: 80, color1: "#141414", color2: "#1F1F1F" } } as VideoConfig}
         calculateMetadata={async ({ abortSignal }) => {
           const { config, totalFrames } = await loadConfig(abortSignal, FPS);
           return { durationInFrames: totalFrames, props: config };
@@ -171,12 +170,11 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         durationInFrames={1}
-        defaultProps={{ scenes: [], defaultBackground: { type: "color", value: "#000000" } } as VideoConfig}
+        defaultProps={{ scenes: [], defaultBackground: { type: "chessboard", tileSize: 80, color1: "#141414", color2: "#1F1F1F" } } as VideoConfig}
         calculateMetadata={async ({ abortSignal }) => {
           const { config, totalFrames } = await loadConfig(abortSignal, FPS);
           return { durationInFrames: totalFrames, props: config };
         }}
-      />
-    </>
+      />    </>
   );
 };
